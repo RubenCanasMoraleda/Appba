@@ -6,7 +6,7 @@ import '../colors/apba_colors.dart';
 class ApbaTypography {
   ApbaTypography._();
 
-  static TextTheme textTheme = GoogleFonts.robotoTextTheme(textTheme).copyWith(
+  static TextTheme textTheme = GoogleFonts.robotoTextTheme().copyWith(
     bodySmall: GoogleFonts.roboto(textStyle: caption),
     bodyLarge: GoogleFonts.roboto(textStyle: body1),
     bodyMedium: GoogleFonts.roboto(textStyle: body2),
