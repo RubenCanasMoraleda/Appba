@@ -1,4 +1,6 @@
+import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/custom_widgets/confirmation_dialog.dart';
+import 'package:appba/screens/clock_in/clock_in_list/clock_in_list.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigationBarExample extends StatefulWidget {
@@ -15,10 +17,8 @@ class _BottomNavigationBarExampleState
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static final List<Widget> _widgetOptions = <Widget>[
-    const Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
+    ClockInList(
+        employee: Employee(id: 1, dni: "12345678L", nombre: "Rubén Caraculo")),
     const Text(
       'Index 1: Business',
       style: optionStyle,
@@ -55,7 +55,7 @@ class _BottomNavigationBarExampleState
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Marcaje',
             backgroundColor: Colors.red,
           ),
           BottomNavigationBarItem(
