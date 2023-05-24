@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/screens/clock_in/clock_in_list/clock_in_list_controller.dart';
+import 'package:flutter/services.dart';
 
 class ClockInList extends StatefulWidget {
   final Employee employee;
@@ -33,10 +34,12 @@ class _ClockInListState extends State<ClockInList> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    const double bottomNavigationBarHeight = kBottomNavigationBarHeight + 6;
+    const double bottomNavigationBarHeight = kBottomNavigationBarHeight;
+    const double androidNavBarHeight = 32;
     final double height = size.height -
         ApbaApbarStyle.theme.toolbarHeight! -
-        bottomNavigationBarHeight;
+        bottomNavigationBarHeight -
+        androidNavBarHeight;
     return
         // Scaffold(
         //     appBar: AppBar(

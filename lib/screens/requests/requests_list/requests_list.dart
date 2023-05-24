@@ -35,9 +35,11 @@ class _RequestListState extends State<RequestList> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     const double bottomNavigationBarHeight = kBottomNavigationBarHeight + 6;
+    const double androidNavBarHeight = 32;
     final double height = size.height -
         ApbaApbarStyle.theme.toolbarHeight! -
-        bottomNavigationBarHeight;
+        bottomNavigationBarHeight -
+        androidNavBarHeight;
     return
         // Scaffold(
         //     appBar: AppBar(
