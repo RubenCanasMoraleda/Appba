@@ -1,7 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:appba/assets/apba_theme/navigation/apba_apbar.dart';
 import 'package:appba/assets/apba_theme/typography/apba_typography.dart';
 import 'package:appba/commons/Models/clock_in.dart';
-import 'package:appba/commons/custom_widgets/loadin_list.dart';
+import 'package:appba/commons/custom_widgets/loading_list.dart';
 import 'package:flutter/material.dart';
 
 import 'package:appba/commons/Models/employee.dart';
@@ -32,8 +33,9 @@ class _ClockInListState extends State<ClockInList> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     const double bottomNavigationBarHeight = kBottomNavigationBarHeight + 6;
-    final double height =
-        size.height - AppBar().preferredSize.height - bottomNavigationBarHeight;
+    final double height = size.height -
+        ApbaApbarStyle.theme.toolbarHeight! -
+        bottomNavigationBarHeight;
     return
         // Scaffold(
         //     appBar: AppBar(
