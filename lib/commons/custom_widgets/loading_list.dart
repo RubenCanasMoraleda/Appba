@@ -1,3 +1,4 @@
+import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -13,7 +14,11 @@ class LoadingList {
         itemCount: itemCount,
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
-          return item;
+          return Container(
+              decoration: const BoxDecoration(
+                  border:
+                      Border(bottom: BorderSide(color: ApbaColors.border1))),
+              child: item);
         },
       ),
     );

@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
 import 'package:appba/assets/apba_theme/navigation/apba_navigation_bar.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/custom_widgets/confirmation_dialog.dart';
 import 'package:appba/commons/custom_widgets/floating_action_button.dart';
 import 'package:appba/screens/clock_in/clock_in_list/clock_in_list.dart';
+import 'package:appba/screens/requests/requests_list/requests_list.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -23,10 +26,8 @@ class _BottomNavigationBarExampleState
   static final List<Widget> _widgetOptions = <Widget>[
     ClockInList(
         employee: Employee(id: 1, dni: "12345678L", nombre: "Rubén Caraculo")),
-    const Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
+    RequestList(
+        employee: Employee(id: 1, dni: "12345678L", nombre: "Rubén Caraculo")),
     const Text(
       'Index 2: School',
       style: optionStyle,
@@ -42,6 +43,8 @@ class _BottomNavigationBarExampleState
   ];
 
   void _onItemTapped(int index) {
+    print(_widgetOptions.length);
+    print(index);
     showAlertDialog(context, onConfirm: () {
       setState(() {
         _selectedIndex = index;
@@ -95,7 +98,7 @@ class _BottomNavigationBarExampleState
           ),
         ],
       ),
-      floatingActionButton: _buttonOptions.elementAt(_selectedIndex),
+      floatingActionButton: _buttonOptions.elementAt(0),
     );
   }
 }

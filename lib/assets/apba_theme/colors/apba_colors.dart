@@ -43,7 +43,7 @@ class ApbaColors {
 
 //Primary Orange
 
-  static const Color primaryOrange = neutralGrey50;
+  static const Color primaryOrange = primaryOrange50;
 
   static const Color primaryOrange10 = Color(0xffFFE6D4);
   static const Color primaryOrange20 = Color(0xffFECDA9);
