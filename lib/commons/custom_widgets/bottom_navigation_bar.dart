@@ -1,11 +1,10 @@
-import 'dart:math';
-
 import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
 import 'package:appba/assets/apba_theme/navigation/apba_navigation_bar.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/custom_widgets/confirmation_dialog.dart';
 import 'package:appba/commons/custom_widgets/floating_action_button.dart';
 import 'package:appba/screens/clock_in/clock_in_list/clock_in_list.dart';
+import 'package:appba/screens/payslips/payslips_list/payslips_list.dart';
 import 'package:appba/screens/requests/requests_list/requests_list.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -28,10 +27,8 @@ class _BottomNavigationBarExampleState
         employee: Employee(id: 1, dni: "12345678L", nombre: "Rubén Caraculo")),
     RequestList(
         employee: Employee(id: 1, dni: "12345678L", nombre: "Rubén Caraculo")),
-    const Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    PayslipList(
+        employee: Employee(id: 1, dni: "12345678L", nombre: "Rubén Caraculo")),
     const Text(
       'Index 3: Settings',
       style: optionStyle,
@@ -58,7 +55,11 @@ class _BottomNavigationBarExampleState
       // backgroundColor: ApbaColors.primaryBlue100withOpacity20,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Center(child: Text('APPBA')),
+        title: const Center(
+            child: Text(
+          'APPBA',
+          // style: TextStyle(color: Colors.black),
+        )),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),

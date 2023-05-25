@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 class ApbaApbarStyle {
   ApbaApbarStyle._();
 
-  static const AppBarTheme theme = AppBarTheme(
-    titleTextStyle: ApbaTypography.headingTitle1,
+  static AppBarTheme theme = AppBarTheme(
+    titleTextStyle: ApbaTypography.headingTitle1.copyWith(
+      color: ApbaColors.text1,
+    ),
     color: ApbaColors.background1,
-    iconTheme: IconThemeData(color: ApbaColors.semanticHighlight1),
-    actionsIconTheme: IconThemeData(color: ApbaColors.semanticHighlight1),
+    iconTheme: const IconThemeData(color: ApbaColors.semanticHighlight1),
+    actionsIconTheme: const IconThemeData(color: ApbaColors.semanticHighlight1),
     toolbarHeight: 64,
   );
 }
