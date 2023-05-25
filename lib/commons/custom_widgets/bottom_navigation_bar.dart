@@ -40,10 +40,8 @@ class _BottomNavigationBarExampleState
   ];
 
   void _onItemTapped(int index) {
-    showAlertDialog(context, onConfirm: () {
-      setState(() {
-        _selectedIndex = index;
-      });
+    setState(() {
+      _selectedIndex = index;
     });
   }
 
