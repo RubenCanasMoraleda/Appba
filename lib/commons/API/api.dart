@@ -50,4 +50,10 @@ class Api {
               empleado: employee));
     });
   }
+
+  static Future<Request> fakePostRequest(Request request, Employee employee) {
+    return Future.delayed(const Duration(seconds: 3), () {
+      return request;
+    });
+  }
 }

@@ -3,16 +3,16 @@ import 'package:appba/commons/API/api.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/Models/request.dart';
 
-class RequestListController {
+class CreateRequestController {
   final Employee _employee;
 
   int? horasTotales, horasRealizadas;
 
-  RequestListController(
+  CreateRequestController(
     this._employee,
   );
 
-  Future<List<Request>> getRequests() {
-    return Api.getRequestsFromEmployee(_employee);
+  Future<Request> postRequest(request) {
+    return Api.fakePostRequest(request, _employee);
   }
 }

@@ -8,15 +8,14 @@ import 'package:flutter/material.dart';
 
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/screens/clock_in/clock_in_list/clock_in_list_controller.dart';
-import 'package:flutter/services.dart';
 
 class ClockInList extends StatefulWidget {
   final Employee employee;
 
-  const ClockInList({
-    Key? key,
-    required this.employee,
-  }) : super(key: key);
+  const ClockInList(
+    this.employee, {
+    super.key,
+  });
 
   @override
   State<ClockInList> createState() => _ClockInListState();

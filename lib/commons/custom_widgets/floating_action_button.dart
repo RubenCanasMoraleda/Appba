@@ -5,8 +5,11 @@ class ApbaFloatingActionButton extends StatefulWidget {
   final String tooltip;
   final IconData icon;
 
-  ApbaFloatingActionButton(
-      {required this.onPressed, required this.tooltip, required this.icon});
+  const ApbaFloatingActionButton(
+      {super.key,
+      required this.onPressed,
+      required this.tooltip,
+      required this.icon});
   @override
   _ApbaFloatingActionButtonState createState() =>
       _ApbaFloatingActionButtonState();

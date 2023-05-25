@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
 import 'package:appba/assets/apba_theme/navigation/apba_navigation_bar.dart';
 import 'package:appba/commons/Models/employee.dart';
-import 'package:appba/commons/custom_widgets/confirmation_dialog.dart';
 import 'package:appba/commons/custom_widgets/floating_action_button.dart';
 import 'package:appba/screens/clock_in/clock_in_list/clock_in_list.dart';
 import 'package:appba/screens/requests/requests_list/requests_list.dart';
@@ -20,14 +17,14 @@ class BottomNavigationBarExample extends StatefulWidget {
 
 class _BottomNavigationBarExampleState
     extends State<BottomNavigationBarExample> {
+  static final Employee employee =
+      Employee(id: 1, dni: "12345678L", nombre: "Rubén Caraculo");
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static final List<Widget> _widgetOptions = <Widget>[
-    ClockInList(
-        employee: Employee(id: 1, dni: "12345678L", nombre: "Rubén Caraculo")),
-    RequestList(
-        employee: Employee(id: 1, dni: "12345678L", nombre: "Rubén Caraculo")),
+    ClockInList(employee),
+    RequestList(employee),
     const Text(
       'Index 2: School',
       style: optionStyle,
@@ -37,15 +34,28 @@ class _BottomNavigationBarExampleState
       style: optionStyle,
     ),
   ];
-  static final List<Widget> _buttonOptions = <Widget>[
-    ApbaFloatingActionButton(
-        onPressed: () {}, tooltip: "Marcar", icon: FontAwesomeIcons.plus)
-  ];
+  static late List<Widget?> _buttonOptions;
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _buttonOptions = <Widget?>[
+      null,
+      ApbaFloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, "/createRequest", arguments: employee);
+          },
+          tooltip: "Marcar",
+          icon: FontAwesomeIcons.plus),
+      null,
+      null
+    ];
   }
 
   @override
@@ -94,7 +104,7 @@ class _BottomNavigationBarExampleState
           ),
         ],
       ),
-      floatingActionButton: _buttonOptions.elementAt(0),
+      floatingActionButton: _buttonOptions.elementAt(_selectedIndex),
     );
   }
 }

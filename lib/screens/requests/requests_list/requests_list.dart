@@ -2,7 +2,6 @@
 import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
 import 'package:appba/assets/apba_theme/navigation/apba_apbar.dart';
 import 'package:appba/assets/apba_theme/typography/apba_typography.dart';
-import 'package:appba/commons/Models/clock_in.dart';
 import 'package:appba/commons/Models/request.dart';
 import 'package:appba/commons/custom_widgets/loading_list.dart';
 import 'package:appba/screens/requests/requests_list/request_list_controller.dart';
@@ -13,10 +12,10 @@ import 'package:appba/commons/Models/employee.dart';
 class RequestList extends StatefulWidget {
   final Employee employee;
 
-  const RequestList({
-    Key? key,
-    required this.employee,
-  }) : super(key: key);
+  const RequestList(
+    this.employee, {
+    super.key,
+  });
 
   @override
   State<RequestList> createState() => _RequestListState();
