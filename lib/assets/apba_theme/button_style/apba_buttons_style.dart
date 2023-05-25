@@ -9,6 +9,17 @@ class ApbaButtonStyle {
   static ElevatedButtonThemeData themeData =
       ElevatedButtonThemeData(style: primaryBlueButton);
 
+  static FloatingActionButtonThemeData floatingActionButtonThemeData =
+      const FloatingActionButtonThemeData(
+          iconSize: 20,
+          hoverColor: ApbaColors.semanticHighlight1Hover,
+          focusColor: ApbaColors.semanticBackgroundHighlight1,
+          smallSizeConstraints: BoxConstraints(
+              minWidth: 40, maxWidth: 40, maxHeight: 40, minHeight: 40),
+          sizeConstraints: BoxConstraints(
+              minWidth: 48, maxWidth: 48, maxHeight: 48, minHeight: 48),
+          backgroundColor: ApbaColors.semanticHighlight1);
+
   static ButtonStyle primaryBlueButton = ButtonStyle(
     minimumSize: const MaterialStatePropertyAll(Size.fromHeight(48)),
     shape: const MaterialStatePropertyAll(

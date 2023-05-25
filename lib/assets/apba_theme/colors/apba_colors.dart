@@ -39,9 +39,11 @@ class ApbaColors {
   static const Color primaryBlue90 = Color(0xff005392);
   static const Color primaryBlue100 = Color(0xff003C69);
 
+  static const Color primaryBlue100withOpacity20 = Color(0x33003C69);
+
 //Primary Orange
 
-  static const Color primaryOrange = neutralGrey50;
+  static const Color primaryOrange = primaryOrange50;
 
   static const Color primaryOrange10 = Color(0xffFFE6D4);
   static const Color primaryOrange20 = Color(0xffFECDA9);
@@ -167,7 +169,8 @@ class ApbaColors {
   static const Color backgroundOrange = primaryOrange60;
   static const Color backgroundBlue = primaryBlue90;
   static const Color backgroundEmphasis = neutralGrey60;
-  static Color backgroundOverlay = primaryBlue100.withOpacity(0.2);
+  static const Color backgroundOverlay = primaryBlue100withOpacity20;
+  // static const Color backgroundOverlay = primaryBlue100.withOpacity(0.2);
   static Color backgroundOverlayBlack20 = primaryBlack.withOpacity(0.2);
   static Color backgroundOverlayBlack40 = primaryBlack.withOpacity(0.4);
 
