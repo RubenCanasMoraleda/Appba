@@ -58,6 +58,12 @@ class Api {
     });
   }
 
+  static Future<Request> fakePostRequest(Request request, Employee employee) {
+    return Future.delayed(const Duration(seconds: 3), () {
+      return request;
+    });
+  }
+
   static Future<List<Payslip>> getFakePayslipsFromEmployee(Employee employee) {
     return Future.delayed(const Duration(seconds: 3), () {
       return List.generate(

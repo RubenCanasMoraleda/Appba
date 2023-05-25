@@ -12,10 +12,11 @@ import 'package:appba/commons/Models/employee.dart';
 class RequestList extends StatefulWidget {
   final Employee employee;
 
-  const RequestList({
+  const RequestList(
+    this.employee, {
     super.key,
-    required this.employee,
   });
+
   @override
   State<RequestList> createState() => _RequestListState();
 }

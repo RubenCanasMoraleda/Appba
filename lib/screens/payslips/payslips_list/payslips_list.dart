@@ -16,10 +16,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class PayslipList extends StatefulWidget {
   final Employee employee;
 
-  const PayslipList({
-    Key? key,
-    required this.employee,
-  }) : super(key: key);
+  const PayslipList(
+    this.employee, {
+    super.key,
+  });
 
   @override
   State<PayslipList> createState() => _PayslipListState();
