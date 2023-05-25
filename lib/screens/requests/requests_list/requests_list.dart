@@ -39,32 +39,8 @@ class _RequestListState extends State<RequestList> {
         ApbaApbarStyle.theme.toolbarHeight! -
         bottomNavigationBarHeight -
         androidNavBarHeight;
-    return
-        // Scaffold(
-        //     appBar: AppBar(
-        //       centerTitle: true,
-        //       title: const Text("Lista de Marcajes"),
-        //     ),
-        //     body: SafeArea(
-        //       child:
-        Column(
+    return Column(
       children: [
-        // SizedBox(
-        //   height: height / 5,
-        //   width: size.width,
-        //   child: Column(
-        //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //       children: [
-        //         Text(
-        //           "Bienvenido ${widget.employee.nombre}",
-        //           style: ApbaTypography.textTheme.titleLarge,
-        //         ),
-        //         Text(
-        //           "Llevas ${_controller.horasRealizadas} de ${_controller.horasTotales} este mes",
-        //           style: ApbaTypography.textTheme.titleLarge,
-        //         )
-        //       ]),
-        // ),
         Column(
           children: [
             Container(

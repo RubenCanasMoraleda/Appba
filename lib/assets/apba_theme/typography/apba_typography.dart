@@ -35,11 +35,11 @@ class ApbaTypography {
       fontWeight: FontWeight.w400,
       fontSize: 16);
   static const TextStyle body2 = TextStyle(
-      // fontFamily: "Roboto",
-      height: 24 / 14,
-      fontSize: 14,
-      fontWeight: FontWeight.w500,
-      color: ApbaColors.text1);
+    // fontFamily: "Roboto",
+    height: 24 / 14,
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
   static const TextStyle bodyHighlight = TextStyle(
       // fontFamily: "Roboto",
       height: 30 / 20,
@@ -77,6 +77,7 @@ class ApbaTypography {
   );
   static const TextStyle headingHeadline1 = TextStyle(
     // fontFamily: "Raleway",
+    color: ApbaColors.text2,
     height: 48 / 40,
     fontSize: 40,
     fontWeight: FontWeight.w500,

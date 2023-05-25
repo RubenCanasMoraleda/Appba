@@ -6,6 +6,6 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const BottomNavigationBarExample();
+    return BottomNavigationBarExample();
   }
 }

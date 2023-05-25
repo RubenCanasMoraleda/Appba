@@ -39,15 +39,7 @@ class _ClockInListState extends State<ClockInList> {
         ApbaApbarStyle.theme.toolbarHeight! -
         bottomNavigationBarHeight -
         androidNavBarHeight;
-    return
-        // Scaffold(
-        //     appBar: AppBar(
-        //       centerTitle: true,
-        //       title: const Text("Lista de Marcajes"),
-        //     ),
-        //     body: SafeArea(
-        //       child:
-        Column(
+    return Column(
       children: [
         SizedBox(
           height: height / 5,
