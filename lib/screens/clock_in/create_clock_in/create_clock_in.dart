@@ -6,14 +6,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:http/http.dart';
 
-class ClockInCreate extends StatefulWidget {
-  const ClockInCreate({super.key});
+class CreateClockIn extends StatefulWidget {
+  const CreateClockIn({super.key});
 
   @override
-  State<ClockInCreate> createState() => _ClockInCreateState();
+  State<CreateClockIn> createState() => _CreateClockInState();
 }
 
-class _ClockInCreateState extends State<ClockInCreate> {
+class _CreateClockInState extends State<CreateClockIn> {
   @override
   Widget build(BuildContext context) {
     final MapController _mapController = MapController();
