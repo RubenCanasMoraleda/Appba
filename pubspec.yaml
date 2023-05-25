@@ -39,6 +39,12 @@ dependencies:
   shimmer: ^3.0.0
   font_awesome_flutter: ^10.4.0
   drawing_animation: ^1.0.1
+  geolocator: ^9.0.2
+  http: ^0.13.5
+  flutter_map: ^4.0.0
+  latlong2: ^0.8.2
+  
+  calendar_date_picker2: ^0.5.2
 
 dev_dependencies:
   flutter_test:

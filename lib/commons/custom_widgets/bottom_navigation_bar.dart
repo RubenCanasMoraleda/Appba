@@ -44,7 +44,12 @@ class _BottomNavigationBarExampleState
   void initState() {
     super.initState();
     _buttonOptions = <Widget?>[
-      null,
+      ApbaFloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, "/createClockIn", arguments: employee);
+          },
+          tooltip: "Marcar",
+          icon: FontAwesomeIcons.plus),
       ApbaFloatingActionButton(
           onPressed: () {
             Navigator.pushNamed(context, "/createRequest", arguments: employee);
