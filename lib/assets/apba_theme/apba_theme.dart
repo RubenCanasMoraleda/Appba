@@ -18,6 +18,8 @@ class ApbaTheme {
     hoverColor: ApbaColors.backgroundHover,
     elevatedButtonTheme: ApbaButtonStyle.themeData,
     floatingActionButtonTheme: ApbaButtonStyle.floatingActionButtonThemeData,
+    iconButtonTheme:
+        IconButtonThemeData(style: ApbaButtonStyle.primaryIconBlueButtonSmall),
     // useMaterial3: true,
   );
 }

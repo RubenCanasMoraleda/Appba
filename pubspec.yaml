@@ -38,6 +38,11 @@ dependencies:
   google_fonts: ^4.0.4
   shimmer: ^3.0.0
   font_awesome_flutter: ^10.4.0
+  geolocator: ^9.0.2
+  http: ^0.13.5
+  flutter_map: ^4.0.0
+  latlong2: ^0.8.2
+  
 
 dev_dependencies:
   flutter_test:
