@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ApbaTheme.lightTheme,
         routes: {
-          '/': (context) => Login(),
+          '/': (context) => const Login(),
           '/mainScreen': (context) => const MainScreen(),
           '/notifications': (context) => const NotificationList(),
           '/createClockIn': (context) => const CreateClockIn(),

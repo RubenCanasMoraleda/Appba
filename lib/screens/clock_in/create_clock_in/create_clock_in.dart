@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:http/http.dart';
 
 class CreateClockIn extends StatefulWidget {
   const CreateClockIn({super.key});
@@ -16,7 +15,7 @@ class CreateClockIn extends StatefulWidget {
 class _CreateClockInState extends State<CreateClockIn> {
   @override
   Widget build(BuildContext context) {
-    final MapController _mapController = MapController();
+    final MapController mapController = MapController();
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -34,7 +33,7 @@ class _CreateClockInState extends State<CreateClockIn> {
             height: 300,
             margin: const EdgeInsets.symmetric(vertical: 20),
             child: FlutterMap(
-              mapController: _mapController,
+              mapController: mapController,
               options: MapOptions(
                 center: LatLng(36.157057, -5.355161),
                 zoom: 19,
@@ -84,7 +83,7 @@ class _CreateClockInState extends State<CreateClockIn> {
                   child: Row(
                     children: [
                       Switch(value: false, onChanged: (e) {}),
-                      Text("Entrada / Salida")
+                      const Text("Entrada / Salida")
                     ],
                   ),
                 )
