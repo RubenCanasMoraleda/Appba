@@ -1,79 +1,194 @@
-import 'package:appba/commons/Models/clock_in.dart';
-import 'package:appba/commons/Models/employee.dart';
-import 'package:appba/commons/Models/payslip_model.dart';
-import 'package:appba/commons/Models/request.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+// const LOCAL_URL = Platform.OS=="ios"? 'http://localhost:5000/api' : 'http://10.0.2.2:5000/api';
+const localJuanma = "192.168.0.14:8000";
+const local = "192.168.1.128";
+const dev = "dev.iturri.app";
+const prod = "eppic-iturri.com";
+
+const current = localJuanma;
+const currentS =
+    (current != local && current != localJuanma) ? "https://" : "http://";
+
+const defaultErrorMessage =
+    "Ha habido un error en nuestros servidores. Contacte con un administrador.";
+
+class Endpoints {
+  static String URL = current + "/api";
+  static String AUTH = "/api/auth";
+  static String LOCATION = "/location/";
+  static String EMPLOYEE = "/empleado/";
+  static String DEPARTMENT = "/departamento/";
+  static String CLOCK_IN = "/marcaje/";
+  static String PAYSLIP = "/nomina/";
+  static String REQUEST = "/solicitud/";
+}
 
 class Api {
   Api._();
 
-  static Future<List<ClockIn>> getClocksInFromEmployee(
-      Employee employee) async {
-    //TODO http request
+  static String URL = currentS + Endpoints.URL;
+  static String AUTH = URL + Endpoints.AUTH;
+  static String LOCATION = URL + Endpoints.LOCATION;
+  static String EMPLOYEE = URL + Endpoints.EMPLOYEE;
+  static String DEPARTMENT = URL + Endpoints.DEPARTMENT;
+  static String CLOCK_IN = Api.URL + Endpoints.CLOCK_IN;
+  static String PAYSLIP = URL + Endpoints.PAYSLIP;
+  static String REQUEST = URL + Endpoints.REQUEST;
 
-    Future<List<ClockIn>> clockIns = getFakeClocksInFromEmployee(employee);
+  static dynamic GET_REQUEST(String url, {Map<String, dynamic>? params}) async {
+    Uri uri = Uri.parse(url);
+    if (params != null) {
+      uri = uri.replace(queryParameters: params);
+    }
+    final response = await http.get(uri);
+    final code = response.statusCode;
+    final rawJsonString = response.body;
+    dynamic res = jsonDecode(rawJsonString);
+    if (code >= 400 || res["status"] != 200) {
+      String er = res["message"] ?? defaultErrorMessage;
 
-    return clockIns;
+      // throw ApiException(code: code, message: er);
+    }
+
+    return res;
   }
 
-  static Future<List<Request>> getRequestsFromEmployee(Employee employee) {
-    Future<List<Request>> requests = getFakeRequestsFromEmployee(employee);
+  static dynamic POST_REQUEST(String url, [Object? body]) async {
+    final parsedUrl = Uri.parse(url);
 
-    return requests;
+    final response = await http.post(parsedUrl, headers: {}, body: body);
+
+    final code = response.statusCode;
+
+    final rawJsonString = response.body;
+
+    dynamic res = jsonDecode(rawJsonString);
+
+    if (code >= 400 || res["status"] != 200) {
+      String er = res["error"] ?? defaultErrorMessage;
+      // throw ApiException(code: code, message: er);
+    }
+
+    return res;
   }
 
-  static Future<List<Payslip>> getPayslipsFromEmployee(Employee employee) {
-    Future<List<Payslip>> payslips = getFakePayslipsFromEmployee(employee);
+  static dynamic PUT_REQUEST(String url, [Object? body]) async {
+    final parsedUrl = Uri.parse(url);
 
-    return payslips;
+    final response = await http.put(parsedUrl, body: body);
+    final code = response.statusCode;
+
+    final rawJsonString = response.body;
+
+    dynamic res = jsonDecode(rawJsonString);
+
+    if (code >= 400) {
+      String er = res["message"] ?? defaultErrorMessage;
+
+      // throw ApiException(code: code, message: er);
+    }
+    return res;
   }
 
-  //Fake data methods
+  static dynamic DELETE_REQUEST(String url, [Object? body]) async {
+    final parsedUrl = Uri.parse(url);
+    final response = await http.delete(parsedUrl, body: body);
+    final code = response.statusCode;
+    final rawJsonString = response.body;
 
-  static Future<List<ClockIn>> getFakeClocksInFromEmployee(Employee employee) {
-    return Future.delayed(const Duration(seconds: 3), () {
-      return List.generate(
-          15,
-          (index) => ClockIn(
-              id: index,
-              fechaHora: "2023-05-16 $index:33:04",
-              tipo: index % 2 == 0 ? Tipo.entrada : Tipo.salida,
-              empleado: employee));
-    });
-  }
+    dynamic res = jsonDecode(rawJsonString);
 
-  static Future<List<Request>> getFakeRequestsFromEmployee(Employee employee) {
-    return Future.delayed(const Duration(seconds: 3), () {
-      return List.generate(
-          15,
-          (index) => Request(
-              id: index,
-              fechaHora: "2023-05-16 $index:33:04",
-              fechaHoraInicio: "2023-06-$index $index:33:04",
-              fechaHoraFin: "2023-$index-15 $index:33:04",
-              tipo: index % 2 == 0
-                  ? TipoSolicitud.vacaciones
-                  : TipoSolicitud.asuntosPropios,
-              estado: index % 2 == 0 ? Estado.aceptadaJefe : Estado.rechazada,
-              empleado: employee));
-    });
-  }
+    if (code >= 400 || res["status"] != 200) {
+      String er = res["message"] ?? defaultErrorMessage;
 
-  static Future<Request> fakePostRequest(Request request, Employee employee) {
-    return Future.delayed(const Duration(seconds: 3), () {
-      return request;
-    });
-  }
-
-  static Future<List<Payslip>> getFakePayslipsFromEmployee(Employee employee) {
-    return Future.delayed(const Duration(seconds: 3), () {
-      return List.generate(
-          15,
-          (index) => Payslip(
-              id: index,
-              fecha: "2023-05-$index",
-              path:
-                  "/empleado/${employee.id}/${employee.dni}_2023-05-$index.pdf",
-              empleado: employee));
-    });
+      // throw ApiException(code: code, message: er);
+    }
+    return res;
   }
 }
+
+// class Api {
+//   Api._();
+
+//   String _ip = "127.0.0.1:8000/";
+//   String _baseURL = _ip + "api/";
+
+//   static Future<List<ClockIn>> getClocksInFromEmployee(
+//       Employee employee) async {
+//     //TODO http request
+
+//     Future<List<ClockIn>> clockIns = getFakeClocksInFromEmployee(employee);
+
+//     return clockIns;
+//   }
+
+//   static Future<List<Request>> getRequestsFromEmployee(Employee employee) {
+//     Future<List<Request>> requests = getFakeRequestsFromEmployee(employee);
+
+//     return requests;
+//   }
+
+//   static Future<List<Payslip>> getPayslipsFromEmployee(Employee employee) {
+//     Future<List<Payslip>> payslips = getFakePayslipsFromEmployee(employee);
+
+//     return payslips;
+//   }
+
+//   static Future<List<Location>> getLocationFromCategory(Category employee) {
+//     Future<List<Location>> locations = getFakePayslipsFromEmployee(employee);
+
+//     return locations;
+//   }
+
+//   //Fake data methods
+
+//   static Future<List<ClockIn>> getFakeClocksInFromEmployee(Employee employee) {
+//     return Future.delayed(const Duration(seconds: 3), () {
+//       return List.generate(
+//           15,
+//           (index) => ClockIn(
+//               id: index,
+//               fechaHora: "2023-05-16 $index:33:04",
+//               tipo: index % 2 == 0 ? Tipo.entrada : Tipo.salida,
+//               empleado: employee));
+//     });
+//   }
+
+//   static Future<List<Request>> getFakeRequestsFromEmployee(Employee employee) {
+//     return Future.delayed(const Duration(seconds: 3), () {
+//       return List.generate(
+//           15,
+//           (index) => Request(
+//               id: index,
+//               fechaHora: "2023-05-16 $index:33:04",
+//               fechaHoraInicio: "2023-06-$index $index:33:04",
+//               fechaHoraFin: "2023-$index-15 $index:33:04",
+//               tipo: index % 2 == 0
+//                   ? TipoSolicitud.vacaciones
+//                   : TipoSolicitud.asuntosPropios,
+//               estado: index % 2 == 0 ? Estado.aceptadaJefe : Estado.rechazada,
+//               empleado: employee));
+//     });
+//   }
+
+//   static Future<Request> fakePostRequest(Request request, Employee employee) {
+//     return Future.delayed(const Duration(seconds: 3), () {
+//       return request;
+//     });
+//   }
+
+//   static Future<List<Payslip>> getFakePayslipsFromEmployee(Employee employee) {
+//     return Future.delayed(const Duration(seconds: 3), () {
+//       return List.generate(
+//           15,
+//           (index) => Payslip(
+//               id: index,
+//               fecha: "2023-05-$index",
+//               path:
+//                   "/empleado/${employee.id}/${employee.dni}_2023-05-$index.pdf",
+//               empleado: employee));
+//     });
+//   }
+// }
