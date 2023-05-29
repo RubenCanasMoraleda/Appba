@@ -3,6 +3,7 @@ import 'package:appba/assets/apba_theme/navigation/apba_navigation_bar.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/custom_widgets/floating_action_button.dart';
 import 'package:appba/screens/clock_in/clock_in_list/clock_in_list.dart';
+import 'package:appba/screens/employee_management/employee_management.dart';
 import 'package:appba/screens/payslips/payslips_list/payslips_list.dart';
 import 'package:appba/screens/requests/requests_list/requests_list.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +28,7 @@ class _BottomNavigationBarExampleState
     ClockInList(employee),
     RequestList(employee),
     PayslipList(employee),
-    const Text(
-      'Index 3: Settings',
-      style: optionStyle,
-    ),
+    EmployeeManagement()
   ];
   static late List<Widget?> _buttonOptions;
 
