@@ -22,10 +22,11 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ApbaTheme.lightTheme,
         routes: {
-          '/': (context) => Login(),
+          '/': (context) => const Login(),
           '/mainScreen': (context) => const MainScreen(),
           '/notifications': (context) => const NotificationList(),
-          '/createClockIn': (context) => const CreateClockIn(),
+          '/createClockIn': (context) => CreateClockIn(
+              ModalRoute.of(context)!.settings.arguments as Employee),
           '/createRequest': (context) => CreateRequest(
               ModalRoute.of(context)!.settings.arguments as Employee),
           //'/createNotification': (context) => const CreateNotification()
