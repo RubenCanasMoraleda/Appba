@@ -1,5 +1,3 @@
-import 'package:appba/commons/Models/employee.dart';
-
 class Location {
   int? id;
   String? name, adress;
@@ -41,7 +39,7 @@ enum Category {
   terminalTraficoPesado(
       "TERMINAL_TRAFICO_PESADO", "Terminal de Tráfico Pesado"),
   capitaniaMaritima("CAPITANIA_MARITIMA", "Capitanía Marítima"),
-  aduana("ADUANA", "aduana"),
+  aduana("ADUANA", "Aduana"),
   apmTerminals("APM_TERMINALS", "APM Terminals Algeciras");
 
   final String key, value;

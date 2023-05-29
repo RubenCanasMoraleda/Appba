@@ -1,5 +1,6 @@
 import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
 import 'package:appba/commons/Models/employee.dart';
+import 'package:appba/commons/Models/locations.dart';
 import 'package:appba/screens/clock_in/create_clock_in/create_clock_in_controller.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -22,6 +23,26 @@ class _CreateClockInState extends State<CreateClockIn> {
   late final CreateClockInController _controller;
   late StreamSubscription<Position> streamPosition;
   Position? position;
+  bool userCentered = true;
+
+  static List<Category> dropdownList = [
+    Category.autoridadPortuaria,
+    Category.aduana,
+    Category.apmTerminals,
+    Category.capitaniaMaritima,
+    Category.estacionesMaritimas,
+    Category.puestoInspeccionFronterizo,
+    Category.terminalTraficoPesado,
+    Category.totalTerminalInternational
+  ];
+
+  Category dropdownValue = dropdownList.first;
+  final _formKey = GlobalKey<FormState>();
+
+  List<Location> locations = [];
+  Location? first;
+  LatLng? center;
+
   @override
   void initState() {
     super.initState();
@@ -42,8 +63,8 @@ class _CreateClockInState extends State<CreateClockIn> {
       (event) {
         super.setState(() {
           position = event;
-          print(position);
-          print(position!.heading);
+          // print(position);
+          // print(position!.heading);
         });
       },
     );
@@ -51,7 +72,8 @@ class _CreateClockInState extends State<CreateClockIn> {
 
   @override
   Widget build(BuildContext context) {
-    final MapController mapController = MapController();
+    MapController mapController = MapController();
+    var marks = <Marker>[];
 
     return Scaffold(
       appBar: AppBar(
@@ -67,6 +89,19 @@ class _CreateClockInState extends State<CreateClockIn> {
         children: [
           Builder(builder: (context) {
             if (position != null) {
+              // center = !userCentered
+              //     ? LatLng(position!.latitude, position!.longitude)
+              //     : center;
+              print(center);
+              locations.forEach((element) {
+                marks.add(Marker(
+                    rotate: true,
+                    point: LatLng(element.lat!, element.long!),
+                    builder: (context) => const Icon(
+                          FontAwesomeIcons.locationDot,
+                          color: Colors.red,
+                        )));
+              });
               return Container(
                 width: 300,
                 height: 300,
@@ -74,7 +109,8 @@ class _CreateClockInState extends State<CreateClockIn> {
                 child: FlutterMap(
                   mapController: mapController,
                   options: MapOptions(
-                    center: LatLng(position!.latitude, position!.longitude),
+                    center: center ??
+                        LatLng(position!.latitude, position!.longitude),
                     zoom: 15,
                   ),
                   children: [
@@ -84,27 +120,42 @@ class _CreateClockInState extends State<CreateClockIn> {
                           "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                     ),
                     MarkerLayer(
-                      markers: [
-                        Marker(
-                            rotate: true,
-                            point: LatLng(36.157057, -5.355161),
-                            builder: (context) => const Icon(
-                                  FontAwesomeIcons.locationDot,
-                                  color: Colors.red,
-                                )),
-                        Marker(
-                            rotate: true,
-                            point:
-                                LatLng(position!.latitude, position!.longitude),
-                            builder: (context) => Transform.rotate(
-                                  angle: position!.heading - 0.6,
-                                  child: Icon(
-                                    FontAwesomeIcons.locationArrow,
-                                    color: Colors.red,
-                                  ),
-                                )),
-                      ],
+                      markers: marks +
+                          [
+                            Marker(
+                                rotate: true,
+                                point: LatLng(
+                                    position!.latitude, position!.longitude),
+                                builder: (context) => Transform.rotate(
+                                      angle: position!.heading - 0.6,
+                                      child: Icon(
+                                        FontAwesomeIcons.locationArrow,
+                                        color: Colors.red,
+                                      ),
+                                    )),
+                          ],
                     )
+                    // [
+                    //   Marker(
+                    //       rotate: true,
+                    //       point: LatLng(36.157057, -5.355161),
+                    //       builder: (context) => const Icon(
+                    //             FontAwesomeIcons.locationDot,
+                    //             color: Colors.red,
+                    //           )),
+                    // Marker(
+                    //     rotate: true,
+                    //     point:
+                    //         LatLng(position!.latitude, position!.longitude),
+                    //     builder: (context) => Transform.rotate(
+                    //           angle: position!.heading - 0.6,
+                    //           child: Icon(
+                    //             FontAwesomeIcons.locationArrow,
+                    //             color: Colors.red,
+                    //           ),
+                    //         )),
+                    // ],
+                    // )
                   ],
                 ),
               );
@@ -113,6 +164,73 @@ class _CreateClockInState extends State<CreateClockIn> {
             }
           }),
           const Text("Ubicacion"),
+          DropdownButton<Category>(
+            value: dropdownValue,
+            elevation: 16,
+            style: const TextStyle(color: Colors.deepPurple),
+            underline: Container(
+              height: 2,
+              color: Colors.deepPurpleAccent,
+            ),
+            onChanged: (Category? value) async {
+              dynamic loc = await _controller.findLocation(value!);
+              setState(() {
+                locations = loc;
+                print("loc ${loc.toString()}");
+                print("location ${locations.toString()}");
+                dropdownValue = value;
+                first = locations.first;
+                center = LatLng(first!.lat!, first!.long!);
+                mapController.move(
+                    center ?? LatLng(position!.latitude, position!.longitude),
+                    13);
+              });
+            },
+            items:
+                dropdownList.map<DropdownMenuItem<Category>>((Category value) {
+              return DropdownMenuItem<Category>(
+                value: value,
+                child: Text(value.value),
+              );
+            }).toList(),
+          ),
+          Builder(builder: (context) {
+            print("location build ${locations.length}");
+            print("center ${center}");
+            if (locations.isNotEmpty && locations.length > 1) {
+              return DropdownButton<Location>(
+                value: first,
+                elevation: 16,
+                style: const TextStyle(color: Colors.deepPurple),
+                underline: Container(
+                  height: 2,
+                  color: Colors.deepPurpleAccent,
+                ),
+                onChanged: (Location? value) async {
+                  // dynamic loc = await _controller.findLocation(value!);
+                  setState(() {
+                    center = LatLng(value!.lat!, value.long!);
+                    // print("loc ${loc.toString()}");
+                    print("location ${locations.toString()}");
+                    first = value;
+                    userCentered = false;
+                    mapController.move(
+                        center ??
+                            LatLng(position!.latitude, position!.longitude),
+                        13);
+                  });
+                },
+                items:
+                    locations.map<DropdownMenuItem<Location>>((Location value) {
+                  return DropdownMenuItem<Location>(
+                    value: value,
+                    child: Text(value.name ?? ""),
+                  );
+                }).toList(),
+              );
+            }
+            return Container();
+          }),
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -4,10 +4,10 @@ import 'package:http/http.dart' as http;
 // const LOCAL_URL = Platform.OS=="ios"? 'http://localhost:5000/api' : 'http://10.0.2.2:5000/api';
 const localJuanma = "192.168.0.14:8000";
 const local = "192.168.1.128";
-const dev = "dev.iturri.app";
+const dev = "appba-backend-app.fly.dev";
 const prod = "eppic-iturri.com";
 
-const current = localJuanma;
+const current = dev;
 const currentS =
     (current != local && current != localJuanma) ? "https://" : "http://";
 
@@ -17,9 +17,9 @@ const defaultErrorMessage =
 class Endpoints {
   static String URL = current + "/api";
   static String AUTH = "/api/auth";
-  static String LOCATION = "/location/";
-  static String EMPLOYEE = "/empleado/";
-  static String DEPARTMENT = "/departamento/";
+  static String LOCATION = "/locations/";
+  static String EMPLOYEE = "/empleados/";
+  static String DEPARTMENT = "/departamentos/";
   static String CLOCK_IN = "/marcaje/";
   static String PAYSLIP = "/nomina/";
   static String REQUEST = "/solicitud/";
@@ -37,12 +37,15 @@ class Api {
   static String PAYSLIP = URL + Endpoints.PAYSLIP;
   static String REQUEST = URL + Endpoints.REQUEST;
 
-  static dynamic GET_REQUEST(String url, {Map<String, dynamic>? params}) async {
+  static Map<String, String> headers = {"Accept": "application/json"};
+
+  static dynamic GET_REQUEST(String url) async {
     Uri uri = Uri.parse(url);
-    if (params != null) {
-      uri = uri.replace(queryParameters: params);
-    }
-    final response = await http.get(uri);
+    // if (params != null) {
+    //   uri = uri.replace(queryParameters: params);
+    // }
+    print(uri);
+    final response = await http.get(uri, headers: headers);
     final code = response.statusCode;
     final rawJsonString = response.body;
     dynamic res = jsonDecode(rawJsonString);
@@ -51,7 +54,7 @@ class Api {
 
       // throw ApiException(code: code, message: er);
     }
-
+    print("codigo ${code}");
     return res;
   }
 

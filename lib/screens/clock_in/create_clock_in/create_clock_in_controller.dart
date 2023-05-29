@@ -2,8 +2,10 @@
 import 'dart:async';
 
 import 'package:appba/commons/API/api.dart';
+import 'package:appba/commons/API/api_location.dart';
 import 'package:appba/commons/Models/clock_in.dart';
 import 'package:appba/commons/Models/employee.dart';
+import 'package:appba/commons/Models/locations.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -16,14 +18,33 @@ class CreateClockInController extends ChangeNotifier {
 
   bool serviceEnabled = false;
 
+  // Map<Category, List<Location>> recentCategories = {};
+
   late StreamSubscription<ServiceStatus> serviceStatus;
   Stream<Position>? streamPosition;
 
   CreateClockInController(this._employee);
 
+  Future<List<Location>?> findLocation(Category category) async {
+    List<Location>? locations;
+
+    // dynamic recentCategory;
+    // print("recent :${recentCategories}");
+    // if (recentCategories.isEmpty && recentCategories!.containsKey(category)) {
+    //   locations = recentCategories[category];
+    // } else {
+    locations = await ApiLocation.getLocationsFromCategory(category);
+    // recentCategory = <Category, List<Location>>{category: locations};
+    //   recentCategories.addEntries(recentCategory);
+    // }
+
+    return locations;
+  }
+
   Future<void> init() async {
     print("Service status ");
     serviceEnabled = await _checkGpsStatus();
+    // recentCategories = [] as Map<Category, List<Location>>?;
     notifyListeners();
   }
 
