@@ -34,30 +34,27 @@ class ApbaButtonStyle {
 
   static ButtonStyle primaryIconBlueButtonSmall =
       primaryBlueButtonSmall.copyWith(
-    padding: const MaterialStatePropertyAll(EdgeInsets.all(20)),
     shape: const MaterialStatePropertyAll(CircleBorder(side: BorderSide())),
     iconSize: const MaterialStatePropertyAll(20),
   );
   static ButtonStyle primaryIconBlueButton = primaryBlueButton.copyWith(
-    padding: const MaterialStatePropertyAll(EdgeInsets.all(20)),
     shape: const MaterialStatePropertyAll(CircleBorder(side: BorderSide())),
     iconSize: const MaterialStatePropertyAll(20),
   );
 
   static ButtonStyle secondaryIconBlueButton = secondaryButton.copyWith(
-    padding: const MaterialStatePropertyAll(EdgeInsets.all(20)),
     shape: const MaterialStatePropertyAll(CircleBorder(side: BorderSide())),
     iconSize: const MaterialStatePropertyAll(20),
   );
 
   static ButtonStyle secondaryIconBlueButtonSmall =
       secondaryButtonSmall.copyWith(
-    padding: const MaterialStatePropertyAll(EdgeInsets.all(20)),
     shape: const MaterialStatePropertyAll(CircleBorder(side: BorderSide())),
     iconSize: const MaterialStatePropertyAll(20),
   );
 
   static ButtonStyle primaryBlueButtonSmall = primaryBlueButton.copyWith(
+    padding: const MaterialStatePropertyAll(EdgeInsets.all(0)),
     minimumSize: const MaterialStatePropertyAll(Size.fromHeight(40)),
   );
 

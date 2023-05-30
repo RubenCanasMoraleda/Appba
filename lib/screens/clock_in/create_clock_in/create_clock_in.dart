@@ -106,58 +106,80 @@ class _CreateClockInState extends State<CreateClockIn> {
                 width: 300,
                 height: 300,
                 margin: const EdgeInsets.symmetric(vertical: 20),
-                child: FlutterMap(
-                  mapController: mapController,
-                  options: MapOptions(
-                    center: center ??
-                        LatLng(position!.latitude, position!.longitude),
-                    zoom: 15,
-                  ),
-                  children: [
-                    TileLayer(
-                      maxZoom: 19,
-                      urlTemplate:
-                          "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                child: Stack(children: [
+                  FlutterMap(
+                    mapController: mapController,
+                    options: MapOptions(
+                      center: center ??
+                          LatLng(position!.latitude, position!.longitude),
+                      zoom: 15,
                     ),
-                    MarkerLayer(
-                      markers: marks +
-                          [
-                            Marker(
-                                rotate: true,
-                                point: LatLng(
-                                    position!.latitude, position!.longitude),
-                                builder: (context) => Transform.rotate(
-                                      angle: position!.heading - 0.6,
-                                      child: Icon(
-                                        FontAwesomeIcons.locationArrow,
-                                        color: Colors.red,
-                                      ),
-                                    )),
-                          ],
-                    )
-                    // [
-                    //   Marker(
-                    //       rotate: true,
-                    //       point: LatLng(36.157057, -5.355161),
-                    //       builder: (context) => const Icon(
-                    //             FontAwesomeIcons.locationDot,
-                    //             color: Colors.red,
-                    //           )),
-                    // Marker(
-                    //     rotate: true,
-                    //     point:
-                    //         LatLng(position!.latitude, position!.longitude),
-                    //     builder: (context) => Transform.rotate(
-                    //           angle: position!.heading - 0.6,
-                    //           child: Icon(
-                    //             FontAwesomeIcons.locationArrow,
-                    //             color: Colors.red,
-                    //           ),
-                    //         )),
-                    // ],
-                    // )
-                  ],
-                ),
+                    children: [
+                      TileLayer(
+                        maxZoom: 19,
+                        urlTemplate:
+                            "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                      ),
+                      MarkerLayer(
+                        markers: marks +
+                            [
+                              Marker(
+                                  rotate: true,
+                                  point: LatLng(
+                                      position!.latitude, position!.longitude),
+                                  builder: (context) => Transform.rotate(
+                                        angle: position!.heading - 0.6,
+                                        child: const Icon(
+                                          FontAwesomeIcons.locationArrow,
+                                          color: Colors.red,
+                                        ),
+                                      )),
+                            ],
+                      )
+                      // [
+                      //   Marker(
+                      //       rotate: true,
+                      //       point: LatLng(36.157057, -5.355161),
+                      //       builder: (context) => const Icon(
+                      //             FontAwesomeIcons.locationDot,
+                      //             color: Colors.red,
+                      //           )),
+                      // Marker(
+                      //     rotate: true,
+                      //     point:
+                      //         LatLng(position!.latitude, position!.longitude),
+                      //     builder: (context) => Transform.rotate(
+                      //           angle: position!.heading - 0.6,
+                      //           child: Icon(
+                      //             FontAwesomeIcons.locationArrow,
+                      //             color: Colors.red,
+                      //           ),
+                      //         )),
+                      // ],
+                      // )
+                    ],
+                  ),
+                  Positioned(
+                    right: 10,
+                    bottom: 10,
+                    child: SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            mapController.move(
+                                LatLng(position!.latitude, position!.longitude),
+                                15);
+                          },
+                          style: ApbaButtonStyle.secondaryIconBlueButtonSmall
+                              .copyWith(
+                                  padding: MaterialStatePropertyAll(
+                                      EdgeInsets.all(0))),
+                          child: const FaIcon(
+                              FontAwesomeIcons.locationCrosshairs)),
+                    ),
+                  ),
+                ]),
               );
             } else {
               return Text("Loading");
