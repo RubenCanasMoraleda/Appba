@@ -23,6 +23,7 @@ class Endpoints {
   static String CLOCK_IN = "/marcaje/";
   static String PAYSLIP = "/nomina/";
   static String REQUEST = "/solicitud/";
+  static String NOTIFICATION = "/notificacion/";
 }
 
 class Api {
@@ -36,6 +37,7 @@ class Api {
   static String CLOCK_IN = Api.URL + Endpoints.CLOCK_IN;
   static String PAYSLIP = URL + Endpoints.PAYSLIP;
   static String REQUEST = URL + Endpoints.REQUEST;
+  static String NOTIFICATION = URL + Endpoints.NOTIFICATION;
 
   static Map<String, String> headers = {"Accept": "application/json"};
 
@@ -61,7 +63,7 @@ class Api {
   static dynamic POST_REQUEST(String url, [Object? body]) async {
     final parsedUrl = Uri.parse(url);
 
-    final response = await http.post(parsedUrl, headers: {}, body: body);
+    final response = await http.post(parsedUrl, headers: headers, body: body);
 
     final code = response.statusCode;
 
@@ -80,7 +82,7 @@ class Api {
   static dynamic PUT_REQUEST(String url, [Object? body]) async {
     final parsedUrl = Uri.parse(url);
 
-    final response = await http.put(parsedUrl, body: body);
+    final response = await http.put(parsedUrl, headers: headers, body: body);
     final code = response.statusCode;
 
     final rawJsonString = response.body;
@@ -97,7 +99,7 @@ class Api {
 
   static dynamic DELETE_REQUEST(String url, [Object? body]) async {
     final parsedUrl = Uri.parse(url);
-    final response = await http.delete(parsedUrl, body: body);
+    final response = await http.delete(parsedUrl, headers: headers, body: body);
     final code = response.statusCode;
     final rawJsonString = response.body;
 
