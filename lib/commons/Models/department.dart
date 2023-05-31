@@ -8,9 +8,12 @@ class Department {
   Department({this.id, this.nombre, this.jefe});
 
   Department.fromJson(Map<String, dynamic> json) {
+    print(json['jefe'].runtimeType);
     id = json['id'];
     nombre = json['nombre'];
-    jefe = Employee.fromJson(json['jefe']);
+    jefe = json['jefe'].runtimeType == int
+        ? Employee(id: json['jefe'])
+        : Employee.fromJson(json['jefe']);
   }
 
   Map<String, dynamic> toJson() {

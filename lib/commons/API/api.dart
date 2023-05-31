@@ -16,7 +16,7 @@ const defaultErrorMessage =
 
 class Endpoints {
   static String URL = current + "/api";
-  static String AUTH = "/api/auth";
+  static String AUTH = "/login";
   static String LOCATION = "/locations/";
   static String EMPLOYEE = "/empleados/";
   static String DEPARTMENT = "/departamentos/";
