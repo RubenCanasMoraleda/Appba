@@ -1,4 +1,5 @@
 import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
+import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
 import 'package:appba/commons/API/api_employee.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:flutter/material.dart';
@@ -82,8 +83,17 @@ class _LoginState extends State<Login> {
                         Container(
                           margin: const EdgeInsets.all(20),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Checkbox(
+                                side: const BorderSide(
+                                    color: ApbaColors.semanticHighlight1),
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(4))),
+                                fillColor: MaterialStateProperty.all(
+                                    ApbaColors.semanticBackgroundHighlight1),
+                                checkColor: ApbaColors.semanticHighlight1,
                                 value: isRememberAccount,
                                 onChanged: (b) {
                                   setState(() {
@@ -96,6 +106,7 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         Container(
+                            width: MediaQuery.of(context).size.width * 0.8,
                             margin: const EdgeInsets.all(20),
                             child: ElevatedButton(
                               onPressed: () {
@@ -111,8 +122,9 @@ class _LoginState extends State<Login> {
                                           });
                                 }
                               },
-                              style: ApbaButtonStyle.primaryBlueButton,
-                              child: const Text('Entrar'),
+                              child: const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 20),
+                                  child: Text('Entrar')),
                             )),
                       ],
                     ))

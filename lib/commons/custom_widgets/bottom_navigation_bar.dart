@@ -69,11 +69,11 @@ class _BottomNavigationBarExampleState
       // backgroundColor: ApbaColors.primaryBlue100withOpacity20,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Center(
-            child: Text(
+        centerTitle: true,
+        title: const Text(
           'APPBA',
           // style: TextStyle(color: Colors.black),
-        )),
+        ),
         actions: [
           IconButton(
               onPressed: () {

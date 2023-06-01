@@ -6,7 +6,11 @@ class ApbaColors {
   static ColorScheme scheme = const ColorScheme(
       brightness: Brightness.light,
       primary: primaryBlue,
+<<<<<<< HEAD
       onPrimary: primaryBlue,
+=======
+      onPrimary: primaryBlack,
+>>>>>>> master
       primaryContainer: primaryOrange,
       secondary: semanticHighlight1,
       onSecondary: primaryWhite,
