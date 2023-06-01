@@ -1,6 +1,6 @@
 import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
-import 'package:drawing_animation/drawing_animation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -10,16 +10,18 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  // Juanma si ves algo raro ntr, es copypaste de otro mio
   final _formKey = GlobalKey<FormState>();
   final TextEditingController userController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool? isRememberAccount = false;
-  bool run = true;
+  bool init = false;
   //final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   void initState() {
+    setState(() {
+      init = true;
+    });
     super.initState();
   }
 
@@ -36,13 +38,8 @@ class _LoginState extends State<Login> {
                   width: 300,
                   height: 300,
                   margin: const EdgeInsets.all(20),
-                  child: AnimatedDrawing.svg(
+                  child: SvgPicture.asset(
                     "lib/assets/svg/simbolo.svg",
-                    run: run,
-                    duration: const Duration(seconds: 3),
-                    onFinish: () => setState(() {
-                      run = false;
-                    }),
                   ),
                 ),
                 Form(
