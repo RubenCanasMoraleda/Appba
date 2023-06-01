@@ -1,14 +1,55 @@
+import 'package:appba/commons/API/api.dart';
 import 'package:appba/commons/Models/clock_in.dart';
 import 'package:appba/commons/Models/employee.dart';
 
 class ApiClockIn {
   static Future<List<ClockIn>> getClocksInFromEmployee(
       Employee employee) async {
-    //TODO http request
+    dynamic res =
+        await Api.GET_REQUEST("${Api.CLOCK_IN}fromEmpleado/${employee.id}");
 
-    Future<List<ClockIn>> clockIns = getFakeClocksInFromEmployee(employee);
+    List<ClockIn> clockIns = [];
+    // print(res["marcaje"]);
+    List<dynamic> fetched = res["marcaje"];
+    // print("marcajes" + fetched.toString());
 
+    for (var item in fetched) {
+      clockIns.add(ClockIn.fromJson(item));
+    }
     return clockIns;
+  }
+
+  static Future<ClockIn> getLastClockInTypeFromEmployee(
+      Employee employee) async {
+    dynamic res =
+        await Api.GET_REQUEST("${Api.CLOCK_IN}byEmployee/${employee.id}/last");
+
+    ClockIn clockIn = ClockIn.fromJson(res["marcaje"]);
+
+    return clockIn;
+  }
+
+  static Future<ClockIn> createClockIn(Employee employee, Tipo tipo) async {
+    DateTime now = DateTime.now();
+    dynamic body = {
+      "fecha_hora": now,
+      "tipo": tipo.value,
+      "empleado": employee.id
+    };
+    dynamic res = await Api.POST_REQUEST("${Api.CLOCK_IN}create", body);
+
+    ClockIn clockIn = ClockIn.fromJson(res["marcaje"]);
+
+    return clockIn;
+  }
+
+  static getHoursMonth(Employee employee) async {
+    dynamic res =
+        await Api.GET_REQUEST("${Api.CLOCK_IN}getHours/${employee.id}");
+
+    int hours = res["horas"];
+
+    return hours;
   }
 
   static Future<List<ClockIn>> getFakeClocksInFromEmployee(Employee employee) {

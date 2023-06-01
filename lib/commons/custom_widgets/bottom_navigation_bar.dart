@@ -10,27 +10,24 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BottomNavigationBarExample extends StatefulWidget {
-  const BottomNavigationBarExample({super.key});
+  final Employee employee;
+  const BottomNavigationBarExample(this.employee, {super.key});
 
   @override
   State<BottomNavigationBarExample> createState() =>
-      _BottomNavigationBarExampleState();
+      _BottomNavigationBarExampleState(employee);
 }
 
 class _BottomNavigationBarExampleState
     extends State<BottomNavigationBarExample> {
-  static final Employee employee =
-      Employee(id: 1, dni: "12345678L", nombre: "Rubén Caraculo");
+  final Employee employee;
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static final List<Widget> _widgetOptions = <Widget>[
-    ClockInList(employee),
-    RequestList(employee),
-    PayslipList(employee),
-    EmployeeManagement()
-  ];
+  static late List<Widget?> _widgetOptions;
   static late List<Widget?> _buttonOptions;
+
+  _BottomNavigationBarExampleState(this.employee);
 
   void _onItemTapped(int index) {
     setState(() {
@@ -56,6 +53,13 @@ class _BottomNavigationBarExampleState
           icon: FontAwesomeIcons.plus),
       null,
       null
+    ];
+
+    _widgetOptions = <Widget?>[
+      ClockInList(employee),
+      RequestList(employee),
+      PayslipList(employee),
+      EmployeeManagement()
     ];
   }
 

@@ -1,8 +1,11 @@
 import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
+import 'package:appba/commons/Models/employee.dart';
 import 'package:flutter/material.dart';
 
 class CreateNotification extends StatefulWidget {
-  const CreateNotification({super.key});
+  final Employee employee;
+
+  const CreateNotification(this.employee, {super.key});
 
   @override
   State<CreateNotification> createState() => _CreateNotificationState();

@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:appba/commons/API/api.dart';
+import 'package:appba/commons/API/api_clock_in.dart';
 import 'package:appba/commons/API/api_location.dart';
 import 'package:appba/commons/Models/clock_in.dart';
 import 'package:appba/commons/Models/employee.dart';
@@ -17,6 +18,7 @@ class CreateClockInController extends ChangeNotifier {
   Position? currentPosition;
 
   bool serviceEnabled = false;
+  Location? clockInLocation;
 
   // Map<Category, List<Location>> recentCategories = {};
 
@@ -24,6 +26,34 @@ class CreateClockInController extends ChangeNotifier {
   Stream<Position>? streamPosition;
 
   CreateClockInController(this._employee);
+
+  ClockIn? lastClockIn;
+
+  Future<ClockIn> getLasClockIn() async {
+    return lastClockIn =
+        await ApiClockIn.getLastClockInTypeFromEmployee(_employee);
+  }
+
+  Future<ClockIn?> createClockIn(
+      Position position, BuildContext context) async {
+    double distance = Geolocator.distanceBetween(clockInLocation!.lat!,
+        clockInLocation!.long!, position.latitude, position.longitude);
+
+    double fakeDistance = Geolocator.distanceBetween(clockInLocation!.lat!,
+        clockInLocation!.long!, clockInLocation!.lat!, clockInLocation!.long!);
+
+    ClockIn? clockIn;
+    if (distance > 10) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Estas demasiado lejos de ${clockInLocation?.name}"),
+      ));
+    } else {
+      Tipo tipo = clockIn?.tipo == Tipo.entrada ? Tipo.salida : Tipo.entrada;
+      clockIn = await ApiClockIn.createClockIn(_employee, tipo);
+    }
+
+    return clockIn;
+  }
 
   Future<List<Location>?> findLocation(Category category) async {
     List<Location>? locations;
@@ -44,6 +74,7 @@ class CreateClockInController extends ChangeNotifier {
   Future<void> init() async {
     print("Service status ");
     serviceEnabled = await _checkGpsStatus();
+    // await getLasClockIn();
     // recentCategories = [] as Map<Category, List<Location>>?;
     notifyListeners();
   }

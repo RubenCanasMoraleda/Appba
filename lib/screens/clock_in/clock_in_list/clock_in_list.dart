@@ -51,10 +51,22 @@ class _ClockInListState extends State<ClockInList> {
                   "Bienvenido ${widget.employee.nombre}",
                   style: ApbaTypography.textTheme.titleLarge,
                 ),
-                Text(
-                  "Llevas ${_controller.horasRealizadas} de ${_controller.horasTotales} este mes",
-                  style: ApbaTypography.textTheme.titleLarge,
-                )
+                FutureBuilder<int>(
+                    future: _controller.getHoursMonth(),
+                    builder: (context, AsyncSnapshot<int> snapshot) {
+                      print("snap " + snapshot.hasData.toString());
+                      if (snapshot.hasData) {
+                        return Text(
+                          "Llevas ${snapshot.data} de ${_controller.horasTotales} este mes",
+                          style: ApbaTypography.textTheme.titleLarge,
+                        );
+                      } else {
+                        return Text(
+                          "cargando",
+                          style: ApbaTypography.textTheme.titleLarge,
+                        );
+                      }
+                    })
               ]),
         ),
         Expanded(

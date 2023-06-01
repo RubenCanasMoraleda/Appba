@@ -1,4 +1,5 @@
 import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
+import 'package:appba/commons/Models/clock_in.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/Models/locations.dart';
 import 'package:appba/screens/clock_in/create_clock_in/create_clock_in_controller.dart';
@@ -47,6 +48,7 @@ class _CreateClockInState extends State<CreateClockIn> {
   void initState() {
     super.initState();
     _controller = CreateClockInController(widget.employee);
+
     setUpGps();
   }
 
@@ -74,14 +76,15 @@ class _CreateClockInState extends State<CreateClockIn> {
   Widget build(BuildContext context) {
     MapController mapController = MapController();
     var marks = <Marker>[];
+    Location? clockInLocation;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-            child: Text(
+        centerTitle: true,
+        title: Text(
           'Crear Marcaje',
           // style: TextStyle(color: Colors.black),
-        )),
+        ),
       ),
       body: SafeArea(
           child: Column(
@@ -135,27 +138,6 @@ class _CreateClockInState extends State<CreateClockIn> {
                                       )),
                             ],
                       )
-                      // [
-                      //   Marker(
-                      //       rotate: true,
-                      //       point: LatLng(36.157057, -5.355161),
-                      //       builder: (context) => const Icon(
-                      //             FontAwesomeIcons.locationDot,
-                      //             color: Colors.red,
-                      //           )),
-                      // Marker(
-                      //     rotate: true,
-                      //     point:
-                      //         LatLng(position!.latitude, position!.longitude),
-                      //     builder: (context) => Transform.rotate(
-                      //           angle: position!.heading - 0.6,
-                      //           child: Icon(
-                      //             FontAwesomeIcons.locationArrow,
-                      //             color: Colors.red,
-                      //           ),
-                      //         )),
-                      // ],
-                      // )
                     ],
                   ),
                   Positioned(
@@ -197,10 +179,11 @@ class _CreateClockInState extends State<CreateClockIn> {
               dynamic loc = await _controller.findLocation(value!);
               setState(() {
                 locations = loc;
-                print("loc ${loc.toString()}");
-                print("location ${locations.toString()}");
                 dropdownValue = value;
                 first = locations.first;
+                print("first" + first!.lat!.toString());
+                _controller.clockInLocation = first;
+                print(_controller.clockInLocation!.adress);
                 center = LatLng(first!.lat!, first!.long!);
                 mapController.move(
                     center ?? LatLng(position!.latitude, position!.longitude),
@@ -234,6 +217,7 @@ class _CreateClockInState extends State<CreateClockIn> {
                     // print("loc ${loc.toString()}");
                     print("location ${locations.toString()}");
                     first = value;
+                    _controller.clockInLocation = value;
                     userCentered = false;
                     mapController.move(
                         center ??
@@ -252,38 +236,17 @@ class _CreateClockInState extends State<CreateClockIn> {
             }
             return Container();
           }),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                        width: MediaQuery.of(context).size.width / 2,
-                        // height: MediaQuery.of(context).size.width / 2,
-                        child: ElevatedButton(
-                            onPressed: () {}, child: const Text("Fichar"))),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 2,
-                      child: ElevatedButton(
-                          style: ApbaButtonStyle.dangerButton,
-                          onPressed: () {},
-                          child: const Text("Cancelar")),
-                    )
-                  ],
-                ),
-                Expanded(
-                  child: Row(
-                    children: [
-                      Switch(value: false, onChanged: (e) {}),
-                      const Text("Entrada / Salida")
-                    ],
-                  ),
-                )
-              ],
-            ),
-          )
+          SizedBox(
+              width: MediaQuery.of(context).size.width / 2,
+              // height: MediaQuery.of(context).size.width / 2,
+              child: ElevatedButton(
+                  onPressed: () {
+                    print(position?.longitude);
+                    _controller.createClockIn(position!, context);
+                  },
+                  child: Text(_controller.lastClockIn?.tipo == Tipo.entrada
+                      ? "Fichar Entrada"
+                      : "Fichar salida")))
         ],
       )),
     );

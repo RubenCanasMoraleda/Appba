@@ -2,7 +2,9 @@ import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
 import 'package:appba/commons/API/api_employee.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:core';
+
+import 'package:flutter_svg/svg.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -99,10 +101,14 @@ class _LoginState extends State<Login> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   checkLogin(userController, passwordController)
-                                      .then((value) => value
-                                          ? Navigator.pushNamed(
-                                              context, "/mainScreen")
-                                          : "");
+                                      .then((value) => {
+                                            print(value.dni),
+                                            value.runtimeType != null
+                                                ? Navigator.pushNamed(
+                                                    context, "/mainScreen",
+                                                    arguments: value)
+                                                : value
+                                          });
                                 }
                               },
                               style: ApbaButtonStyle.primaryBlueButton,
@@ -117,17 +123,17 @@ class _LoginState extends State<Login> {
   }
 }
 
-Future<bool> checkLogin(TextEditingController userController,
+Future<Employee> checkLogin(TextEditingController userController,
     TextEditingController passwordController) async {
   //TODO descomentar para el login del empleado
-  // Employee employee;
+  Employee employee;
 
-  // employee =
-  //     await ApiEmployee.Login(userController.text, passwordController.text);
+  employee =
+      await ApiEmployee.Login(userController.text, passwordController.text);
 
-  // print(employee.dni);
+  print(employee.dni);
 
-  return true;
+  return employee;
 
   // try {
   //   FirebaseAuth auth = FirebaseAuth.instance;

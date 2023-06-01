@@ -11,7 +11,6 @@ class ApiEmployee {
 
     List<Employee> employee = [];
     List<dynamic> fetched = res["data"];
-    print(res["data"]);
 
     for (var item in fetched) {
       employee.add(Employee.fromJson(item));
@@ -23,8 +22,6 @@ class ApiEmployee {
   static Future<Employee> Login(String dni, String password) async {
     dynamic res =
         await Api.POST_REQUEST(Api.AUTH, {"DNI": dni, "password": password});
-    print(dni);
-    print(res);
     Employee employee;
     employee = Employee.fromJson(res["data"]["empleado"]);
 
