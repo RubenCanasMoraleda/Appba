@@ -1,4 +1,6 @@
 import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
+import 'package:appba/commons/API/api_employee.dart';
+import 'package:appba/commons/Models/employee.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -96,10 +98,11 @@ class _LoginState extends State<Login> {
                             child: ElevatedButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  checkLogin().then((value) => value
-                                      ? Navigator.pushNamed(
-                                          context, "/mainScreen")
-                                      : "");
+                                  checkLogin(userController, passwordController)
+                                      .then((value) => value
+                                          ? Navigator.pushNamed(
+                                              context, "/mainScreen")
+                                          : "");
                                 }
                               },
                               style: ApbaButtonStyle.primaryBlueButton,
@@ -114,8 +117,18 @@ class _LoginState extends State<Login> {
   }
 }
 
-Future<bool> checkLogin() async {
+Future<bool> checkLogin(TextEditingController userController,
+    TextEditingController passwordController) async {
+  //TODO descomentar para el login del empleado
+  // Employee employee;
+
+  // employee =
+  //     await ApiEmployee.Login(userController.text, passwordController.text);
+
+  // print(employee.dni);
+
   return true;
+
   // try {
   //   FirebaseAuth auth = FirebaseAuth.instance;
   //   await auth.signInWithEmailAndPassword(

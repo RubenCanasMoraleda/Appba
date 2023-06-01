@@ -8,6 +8,7 @@ class Employee {
   String? nombre;
   String? categoria;
   Department? departamento;
+  String? rol;
 
   Employee(
       {required this.id,
@@ -16,7 +17,8 @@ class Employee {
       this.fechaFin,
       this.nombre,
       this.categoria,
-      this.departamento});
+      this.departamento,
+      this.rol});
 
   Employee.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -25,7 +27,10 @@ class Employee {
     fechaFin = json['fecha_fin'];
     nombre = json['nombre'];
     categoria = json['categoria'];
-    departamento = Department.fromJson(json['departamento']);
+    rol = json['rol'];
+    departamento = json['departamento'].runtimeType == int
+        ? Department(id: json['departamento'])
+        : Department.fromJson(json['departamento']);
   }
 
   Map<String, dynamic> toJson() {

@@ -77,7 +77,6 @@ class _CreateClockInState extends State<CreateClockIn> {
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: const Center(
             child: Text(
           'Crear Marcaje',

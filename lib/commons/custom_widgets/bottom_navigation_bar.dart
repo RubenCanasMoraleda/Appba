@@ -70,6 +70,13 @@ class _BottomNavigationBarExampleState
           'APPBA',
           // style: TextStyle(color: Colors.black),
         )),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/notifications");
+              },
+              icon: const Icon(FontAwesomeIcons.circleInfo))
+        ],
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
