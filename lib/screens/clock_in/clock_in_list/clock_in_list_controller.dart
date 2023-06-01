@@ -10,11 +10,11 @@ class ClockInListController {
 
   ClockInListController(this._employee);
 
-  Future<List<ClockIn>> getClocksIn() async {
-    return await ApiClockIn.getClocksInFromEmployee(_employee);
+  Future<List<ClockIn>> getClocksIn() {
+    return ApiClockIn.getClocksInFromEmployee(_employee);
   }
 
-  Future<int> getHoursMonth() async {
-    return await ApiClockIn.getHoursMonth(_employee);
+  Future<int> getHoursMonth() {
+    return ApiClockIn.getHoursMonth(_employee);
   }
 }

@@ -43,7 +43,7 @@ class ApiClockIn {
     return clockIn;
   }
 
-  static getHoursMonth(Employee employee) async {
+  static Future<int> getHoursMonth(Employee employee) async {
     dynamic res =
         await Api.GET_REQUEST("${Api.CLOCK_IN}getHours/${employee.id}");
 

@@ -77,7 +77,8 @@ class _BottomNavigationBarExampleState
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, "/notifications");
+                Navigator.pushNamed(context, "/notifications",
+                    arguments: employee);
               },
               icon: const Icon(FontAwesomeIcons.circleInfo))
         ],
