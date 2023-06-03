@@ -59,7 +59,7 @@ class _BottomNavigationBarExampleState
       ClockInList(employee),
       RequestList(employee),
       PayslipList(employee),
-      EmployeeManagement()
+      EmployeeManagement(employee)
     ];
   }
 

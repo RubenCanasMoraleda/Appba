@@ -62,7 +62,7 @@ class _ClockInListState extends State<ClockInList> {
                         );
                       } else {
                         return Text(
-                          "cargando",
+                          "Cargando",
                           style: ApbaTypography.textTheme.titleLarge,
                         );
                       }

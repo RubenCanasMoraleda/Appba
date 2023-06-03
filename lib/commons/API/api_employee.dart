@@ -4,7 +4,7 @@ import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/Models/request.dart';
 
 class ApiEmployee {
-  static Future<List<Employee>> getEmplyeeFromDepartment(
+  static Future<List<Employee>> getEmployeeFromDepartment(
       Department department) async {
     dynamic res =
         await Api.GET_REQUEST("${Api.EMPLOYEE}byCategory/${department.id}");
@@ -17,6 +17,15 @@ class ApiEmployee {
     }
 
     return employee;
+  }
+
+  static Future<List<Employee>> getFakeEmployees() {
+    return Future.delayed(Duration(seconds: 2), () {
+      return List.generate(
+          15,
+          (index) => Employee(
+              id: index, dni: "2023-05-$index", nombre: "Juanma Maquinon"));
+    });
   }
 
   static Future<Employee> Login(String dni, String password) async {

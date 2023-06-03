@@ -1,9 +1,14 @@
+import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
+import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/screens/employee_management/accept_deny_request/accept_deny_request.dart';
 import 'package:appba/screens/employee_management/upload_payslip/upload_payslip.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class EmployeeManagement extends StatefulWidget {
-  const EmployeeManagement({super.key});
+  final Employee employee;
+
+  const EmployeeManagement(this.employee, {super.key});
 
   @override
   State<EmployeeManagement> createState() => _EmployeeManagementState();
@@ -21,31 +26,32 @@ class _EmployeeManagementState extends State<EmployeeManagement>
 
   @override
   Widget build(BuildContext context) {
-    return const DefaultTabController(
+    return DefaultTabController(
         length: 3,
         child: Scaffold(
-          appBar: TabBar(
-            labelColor: Colors.amber,
+          appBar: const TabBar(
+            indicatorColor: ApbaColors.primaryOrange60,
+            labelColor: ApbaColors.primaryBlack,
             tabs: [
               Tab(
-                icon: Icon(Icons.person),
+                icon: Icon(FontAwesomeIcons.user),
                 text: "Empleados",
               ),
               Tab(
-                icon: Icon(Icons.hourglass_empty_sharp),
+                icon: Icon(FontAwesomeIcons.hourglassEnd),
                 text: "Horas",
               ),
               Tab(
-                icon: Icon(Icons.payment),
+                icon: Icon(FontAwesomeIcons.moneyBill1),
                 text: "Nominas",
               ),
             ],
           ),
           body: TabBarView(
             children: [
-              AcceptDenyRequest(),
+              AcceptDenyRequest(widget.employee),
               Icon(Icons.directions_transit),
-              UploadPayslip()
+              UploadPayslip(widget.employee)
             ],
           ),
         ));
