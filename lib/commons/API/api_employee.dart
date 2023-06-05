@@ -2,6 +2,7 @@ import 'package:appba/commons/API/api.dart';
 import 'package:appba/commons/Models/department.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/Models/request.dart';
+import 'package:http/http.dart' as http;
 
 class ApiEmployee {
   static Future<List<Employee>> getEmployeeFromDepartment(
@@ -35,5 +36,14 @@ class ApiEmployee {
     employee = Employee.fromJson(res["data"]["empleado"]);
 
     return employee;
+  }
+
+  static Future uploadPayslip(String filename, Employee employee) async {
+    String url = "${Api.EMPLOYEE}/uploadPayslip";
+    var request = http.MultipartRequest('POST', Uri.parse(url));
+    request.fields["empleado"] = employee.id as String;
+    request.files.add(await http.MultipartFile.fromPath('file', filename));
+    var res = await request.send();
+    print(res);
   }
 }

@@ -53,7 +53,9 @@ class _UploadPayslipState extends State<UploadPayslip> {
                             Expanded(
                               child: ElevatedButton(
                                   onPressed: () {
-                                    showAlertDialog(context, onConfirm: () {});
+                                    showAlertDialog(context, onConfirm: () {
+                                      _controller.getFile(widget.employee);
+                                    });
                                   },
                                   child: Text("Emitir Nómina")),
                             ),
