@@ -34,8 +34,8 @@ class _EmployeeManagementState extends State<EmployeeManagement>
             labelColor: ApbaColors.primaryBlack,
             tabs: [
               Tab(
-                icon: Icon(FontAwesomeIcons.user),
-                text: "Empleados",
+                icon: Icon(FontAwesomeIcons.envelope),
+                text: "Solicitudes",
               ),
               Tab(
                 icon: Icon(FontAwesomeIcons.hourglassEnd),

@@ -3,6 +3,7 @@ import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
 import 'package:appba/commons/API/api_employee.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:core';
 
 import 'package:flutter_svg/svg.dart';
@@ -52,38 +53,47 @@ class _LoginState extends State<Login> {
                     child: Column(
                       children: [
                         SizedBox(
-                          width: 300,
+                          width: MediaQuery.of(context).size.width * 0.8,
                           child: TextFormField(
+                            maxLength: 9,
                             controller: userController,
-                            decoration: const InputDecoration(labelText: 'DNI'),
+                            decoration: const InputDecoration(
+                                labelText: 'DNI', border: OutlineInputBorder()),
                             validator: (value) {
-                              // if (value == null || value.isEmpty) {
-                              //   return 'Introduce un DNI';
-                              // }
+                              if (value == null || value.isEmpty) {
+                                return 'Introduce un DNI';
+                              }
                               return null;
                             },
                           ),
                         ),
-                        SizedBox(
-                          width: 300,
-                          child: TextFormField(
-                            controller: passwordController,
-                            decoration: const InputDecoration(
-                              labelText: 'Password',
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: TextFormField(
+                              controller: passwordController,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Contraseña',
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Introduce una contraseña';
+                                }
+                                return null;
+                              },
+                              obscureText: true,
                             ),
-                            validator: (value) {
-                              // if (value == null || value.isEmpty) {
-                              //   return 'Introduce una contraseña';
-                              // }
-                              return null;
-                            },
-                            obscureText: true,
                           ),
                         ),
                         Container(
-                          margin: const EdgeInsets.all(20),
+                          margin: EdgeInsets.only(
+                              top: 20,
+                              bottom: 20,
+                              left: MediaQuery.of(context).size.width * 0.10),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Checkbox(
                                 side: const BorderSide(

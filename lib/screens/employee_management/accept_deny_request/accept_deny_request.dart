@@ -1,3 +1,4 @@
+import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/Models/request.dart';
 import 'package:appba/commons/custom_widgets/confirmation_dialog.dart';
@@ -43,26 +44,41 @@ class _AcceptDenyRequestState extends State<AcceptDenyRequest> {
                         border: const Border(
                             bottom: BorderSide(color: ApbaColors.border1))),
                     child: ExpansionTile(
-                      title: Text(index.toString()),
+                      title: Text(snapshot.data![index].empleado!.nombre!),
+                      subtitle:
+                          Text(snapshot.data![index].tipo!.value.toLowerCase()),
                       children: [
                         Row(
                           children: [
-                            Expanded(child: Text("Info")),
+                            const Expanded(child: Text("Info")),
                             Expanded(
                               child: Column(
                                 children: [
                                   ElevatedButton(
                                       onPressed: () {
                                         showAlertDialog(context,
-                                            onConfirm: () {});
+                                            title: "Confirmar Solicitud",
+                                            message:
+                                                "¿Esta seguro de que desea aceptar una solicitud de ${snapshot.data![index].empleado!.nombre} de ${snapshot.data![index].tipo!.value.toLowerCase()}?",
+                                            onConfirm: () {
+                                          _controller.acceptRequest(
+                                              snapshot.data![index]);
+                                        });
                                       },
-                                      child: Text("Aceptar")),
+                                      child: const Text("Aceptar")),
                                   ElevatedButton(
+                                      style: ApbaButtonStyle.secondaryButton,
                                       onPressed: () {
                                         showAlertDialog(context,
-                                            onConfirm: () {});
+                                            title: "Rechazar Solicitud",
+                                            message:
+                                                "¿Esta seguro de que desea rechazar una solicitud de ${snapshot.data![index].empleado!.nombre} de ${snapshot.data![index].tipo!.value.toLowerCase()}?",
+                                            onConfirm: () {
+                                          _controller.denyRequest(
+                                              snapshot.data![index]);
+                                        });
                                       },
-                                      child: Text("Rechazar")),
+                                      child: const Text("Rechazar")),
                                 ],
                               ),
                             ),

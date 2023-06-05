@@ -1,6 +1,5 @@
 import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
 import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
-import 'package:appba/assets/apba_theme/styles/apba_styles.dart';
 import 'package:appba/assets/apba_theme/typography/apba_typography.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,10 +15,10 @@ class MyWidget extends StatelessWidget {
 
 showAlertDialog(BuildContext context,
     {required Function onConfirm,
-    String title = "Confirmation",
-    String cancelText = "Cancel",
-    String acceptText = "Yes",
-    String message = "Are you sure?"}) {
+    String title = "Confirmación",
+    String cancelText = "Cancelar",
+    String acceptText = "Confirmar",
+    String message = "¿Estas Seguro?"}) {
   AlertDialog alert = AlertDialog(
     icon: const Row(
       mainAxisAlignment: MainAxisAlignment.start,

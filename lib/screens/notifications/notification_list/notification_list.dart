@@ -31,7 +31,8 @@ class _NotificationListState extends State<NotificationList> {
     return Scaffold(
       floatingActionButton: ApbaFloatingActionButton(
           onPressed: () {
-            Navigator.pushNamed(context, "/createNotification");
+            Navigator.pushNamed(context, "/createNotification",
+                arguments: widget.employee);
           },
           tooltip: "Marcar",
           icon: FontAwesomeIcons.plus),

@@ -1,3 +1,4 @@
+import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
 import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
 import 'package:appba/assets/apba_theme/typography/apba_typography.dart';
 import 'package:appba/commons/Models/employee.dart';
@@ -26,12 +27,12 @@ class _CreateRequestState extends State<CreateRequest> {
     _controller = CreateRequestController(widget.employee);
   }
 
-  static List<String> dropdownList = <String>[
-    TipoSolicitud.vacaciones.value,
-    TipoSolicitud.asuntosPropios.value,
-    TipoSolicitud.horasCompensatorias.value,
+  static List<TipoSolicitud> dropdownList = <TipoSolicitud>[
+    TipoSolicitud.vacaciones,
+    TipoSolicitud.asuntosPropios,
+    TipoSolicitud.horasCompensatorias,
   ];
-  String dropdownValue = dropdownList.first;
+  TipoSolicitud dropdownValue = dropdownList.first;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController initDateController = TextEditingController();
   final TextEditingController endDateController = TextEditingController();
@@ -58,24 +59,33 @@ class _CreateRequestState extends State<CreateRequest> {
                 children: [
                   Flexible(
                     flex: 1,
-                    child: DropdownButton<String>(
-                      icon: const Icon(FontAwesomeIcons.chevronDown),
-                      style: ApbaTypography.body1,
-                      alignment: Alignment.center,
-                      value: dropdownValue,
-                      elevation: 16,
-                      onChanged: (String? value) {
-                        setState(() {
-                          dropdownValue = value!;
-                        });
-                      },
-                      items: dropdownList
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Center(child: Text(value)),
-                        );
-                      }).toList(),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<TipoSolicitud>(
+                        icon: const Padding(
+                          padding: EdgeInsets.only(left: 5),
+                          child: Icon(
+                            FontAwesomeIcons.chevronDown,
+                            color: ApbaColors.backgroundBlue,
+                          ),
+                        ),
+                        style: ApbaTypography.body1,
+                        alignment: Alignment.center,
+                        value: dropdownValue,
+                        elevation: 16,
+                        onChanged: (TipoSolicitud? value) {
+                          setState(() {
+                            dropdownValue = value!;
+                          });
+                        },
+                        items: dropdownList
+                            .map<DropdownMenuItem<TipoSolicitud>>(
+                                (TipoSolicitud value) {
+                          return DropdownMenuItem<TipoSolicitud>(
+                            value: value,
+                            child: Center(child: Text(value.value)),
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
                   Expanded(
@@ -86,14 +96,21 @@ class _CreateRequestState extends State<CreateRequest> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: dropdownValue !=
-                                    TipoSolicitud.horasCompensatorias.value
+                                    TipoSolicitud.horasCompensatorias
                                 ? [
                                     TextFormField(
                                       controller: initDateController,
                                       readOnly: true,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Los campos no pueden estar vacios';
+                                        }
+                                        return null;
+                                      },
                                       decoration: const InputDecoration(
-                                          icon: Icon(Icons.calendar_today),
-                                          labelText: "Init Date"),
+                                          border: OutlineInputBorder(),
+                                          icon: Icon(FontAwesomeIcons.calendar),
+                                          labelText: "Fecha Inicio"),
                                       onTap: () async {
                                         showDateRangePicker(
                                                 context: context,
@@ -117,10 +134,17 @@ class _CreateRequestState extends State<CreateRequest> {
                                     ),
                                     TextFormField(
                                       controller: endDateController,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Los campos no pueden estar vacios';
+                                        }
+                                        return null;
+                                      },
                                       readOnly: true,
                                       decoration: const InputDecoration(
-                                          icon: Icon(Icons.calendar_today),
-                                          labelText: "End Date"),
+                                          border: OutlineInputBorder(),
+                                          icon: Icon(FontAwesomeIcons.calendar),
+                                          labelText: "Fecha Fin"),
                                       onTap: () async {
                                         showDateRangePicker(
                                                 context: context,
@@ -132,9 +156,11 @@ class _CreateRequestState extends State<CreateRequest> {
                                           if (value != null) {
                                             setState(() {
                                               initDateController.text =
-                                                  value.start.toString();
+                                                  DateFormat("dd/MM/yyyy")
+                                                      .format(value.start);
                                               endDateController.text =
-                                                  value.end.toString();
+                                                  DateFormat("dd/MM/yyyy")
+                                                      .format(value.end);
                                             });
                                           }
                                         });
@@ -148,11 +174,10 @@ class _CreateRequestState extends State<CreateRequest> {
                                           child: Container(
                                               margin: const EdgeInsets.all(10),
                                               child: ElevatedButton(
+                                                style: ApbaButtonStyle
+                                                    .secondaryButton,
                                                 onPressed: () {
-                                                  if (_formKey.currentState!
-                                                      .validate()) {
-                                                    Navigator.pop(context);
-                                                  }
+                                                  Navigator.pop(context);
                                                 },
                                                 child: const Text('Cancelar'),
                                               )),
@@ -165,9 +190,17 @@ class _CreateRequestState extends State<CreateRequest> {
                                                   if (_formKey.currentState!
                                                       .validate()) {
                                                     showAlertDialog(context,
+                                                        title:
+                                                            "Confirmar Solicitud",
+                                                        message:
+                                                            "¿Esta seguro de que desea realizar una solicitud de ${dropdownValue.value.toLowerCase()} desde ${initDateController.text} hasta ${endDateController.text}?",
                                                         onConfirm: () {
                                                       _controller.postRequest(
-                                                          Request());
+                                                          dropdownValue,
+                                                          initDateController
+                                                              .text,
+                                                          endDateController
+                                                              .text);
                                                     });
                                                   }
                                                 },
@@ -180,10 +213,18 @@ class _CreateRequestState extends State<CreateRequest> {
                                 : [
                                     TextFormField(
                                       controller: initDateController,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Los campos no pueden estar vacios';
+                                        }
+                                        return null;
+                                      },
                                       readOnly: true,
                                       decoration: const InputDecoration(
-                                          icon: Icon(Icons.calendar_today),
-                                          labelText: "Init Date"),
+                                          border: OutlineInputBorder(),
+                                          icon: Icon(
+                                              FontAwesomeIcons.calendarDay),
+                                          labelText: "Fecha Inicio"),
                                       onTap: () async {
                                         showDatePicker(
                                                 context: context,
@@ -206,10 +247,17 @@ class _CreateRequestState extends State<CreateRequest> {
                                     ),
                                     TextFormField(
                                       controller: initTimeController,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Los campos no pueden estar vacios';
+                                        }
+                                        return null;
+                                      },
                                       readOnly: true,
                                       decoration: const InputDecoration(
-                                          icon: Icon(Icons.calendar_today),
-                                          labelText: "Start hour"),
+                                          border: OutlineInputBorder(),
+                                          icon: Icon(FontAwesomeIcons.clock),
+                                          labelText: "Hora Inicio"),
                                       onTap: () async {
                                         showTimePicker(
                                                 context: context,
@@ -225,10 +273,17 @@ class _CreateRequestState extends State<CreateRequest> {
                                     ),
                                     TextFormField(
                                       controller: endTimeController,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Los campos no pueden estar vacios';
+                                        }
+                                        return null;
+                                      },
                                       readOnly: true,
                                       decoration: const InputDecoration(
-                                          icon: Icon(Icons.calendar_today),
-                                          labelText: "End hour"),
+                                          border: OutlineInputBorder(),
+                                          icon: Icon(FontAwesomeIcons.clock),
+                                          labelText: "Hora Fin"),
                                       onTap: () async {
                                         showTimePicker(
                                                 context: context,
@@ -250,11 +305,10 @@ class _CreateRequestState extends State<CreateRequest> {
                                           child: Container(
                                               margin: const EdgeInsets.all(10),
                                               child: ElevatedButton(
+                                                style: ApbaButtonStyle
+                                                    .secondaryButton,
                                                 onPressed: () {
-                                                  if (_formKey.currentState!
-                                                      .validate()) {
-                                                    Navigator.pop(context);
-                                                  }
+                                                  Navigator.pop(context);
                                                 },
                                                 child: const Text('Cancelar'),
                                               )),
@@ -267,9 +321,20 @@ class _CreateRequestState extends State<CreateRequest> {
                                                   if (_formKey.currentState!
                                                       .validate()) {
                                                     showAlertDialog(context,
+                                                        title:
+                                                            "Confirmar Solicitud",
+                                                        message:
+                                                            "¿Esta seguro de que desea realizar una solicitud de ${dropdownValue.value.toLowerCase()} el ${initDateController.text} desde ${initTimeController.text} hasta ${endTimeController.text}?",
                                                         onConfirm: () {
-                                                      _controller.postRequest(
-                                                          Request());
+                                                      _controller
+                                                          .postRequestWithHours(
+                                                              dropdownValue,
+                                                              initDateController
+                                                                  .text,
+                                                              initTimeController
+                                                                  .text,
+                                                              endTimeController
+                                                                  .text);
                                                     });
                                                   }
                                                 },

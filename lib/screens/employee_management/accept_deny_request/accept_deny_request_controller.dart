@@ -11,4 +11,14 @@ class AcceptDenyRequestController {
   Future<List<Request>> getRequestsFromDepartment() {
     return ApiRequest.getFakeRequestsFromEmployee(_employee);
   }
+
+  Future<void> acceptRequest(Request request) {
+    // TODO cambiar estado a aceptado
+    return Future.delayed(Duration(seconds: 1));
+  }
+
+  Future<void> denyRequest(Request request) {
+    // TODO cambiar estado a aceptado
+    return Future.delayed(Duration(seconds: 1));
+  }
 }

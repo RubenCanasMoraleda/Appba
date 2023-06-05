@@ -34,7 +34,6 @@ class MyApp extends StatelessWidget {
               ModalRoute.of(context)!.settings.arguments as Employee),
           '/createRequest': (context) => CreateRequest(
               ModalRoute.of(context)!.settings.arguments as Employee),
-          //'/createNotification': (context) => const CreateNotification()
         });
   }
 }
