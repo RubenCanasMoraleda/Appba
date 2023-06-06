@@ -57,6 +57,7 @@ class Api {
       // throw ApiException(code: code, message: er);
     }
     print("codigo ${code}");
+    print(res["message"]);
     return res;
   }
 

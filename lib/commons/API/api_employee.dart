@@ -20,6 +20,19 @@ class ApiEmployee {
     return employee;
   }
 
+  static Future<List<Employee>> getAllEmployee() async {
+    dynamic res = await Api.GET_REQUEST("${Api.EMPLOYEE}");
+
+    List<Employee> employee = [];
+    List<dynamic> fetched = res["empleado"];
+
+    for (var item in fetched) {
+      employee.add(Employee.fromJson(item));
+    }
+
+    return employee;
+  }
+
   static Future<List<Employee>> getFakeEmployees() {
     return Future.delayed(Duration(seconds: 2), () {
       return List.generate(
@@ -36,14 +49,5 @@ class ApiEmployee {
     employee = Employee.fromJson(res["data"]["empleado"]);
 
     return employee;
-  }
-
-  static Future uploadPayslip(String filename, Employee employee) async {
-    String url = "${Api.EMPLOYEE}/uploadPayslip";
-    var request = http.MultipartRequest('POST', Uri.parse(url));
-    request.fields["empleado"] = employee.id as String;
-    request.files.add(await http.MultipartFile.fromPath('file', filename));
-    var res = await request.send();
-    print(res);
   }
 }

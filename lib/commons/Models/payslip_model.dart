@@ -12,7 +12,9 @@ class Payslip {
     id = json['id'];
     fecha = json['fecha'];
     path = json['path'];
-    empleado = Employee.fromJson(json['jefe']);
+    empleado = json['empleado'].runtimeType == int
+        ? Employee(id: json['empleado'])
+        : Employee.fromJson(json['empleado']);
   }
 
   Map<String, dynamic> toJson() {

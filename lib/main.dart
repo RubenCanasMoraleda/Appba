@@ -9,7 +9,11 @@ import 'package:flutter/material.dart';
 
 import 'commons/Models/employee.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Plugin must be initialized before using
+
   runApp(const MyApp());
 }
 

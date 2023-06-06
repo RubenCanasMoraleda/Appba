@@ -84,7 +84,11 @@ class _PayslipListState extends State<PayslipList> {
                                   SizedBox(
                                     width: size.width / 5,
                                     child: ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          _controller.downloadPayslip(
+                                              snapshot.data![index],
+                                              widget.employee);
+                                        },
                                         style: ApbaButtonStyle
                                             .secondaryIconBlueButton,
                                         child: const FaIcon(
