@@ -16,13 +16,17 @@ class UploadPayslipcontroller {
     return ApiEmployee.getAllEmployee();
   }
 
-  Future getFile(Employee employee) async {
+  Future<String?> getFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
-      ApiPayslip.uploadPayslip(result.files.single.path!, employee);
+      return Future.value(result.files.single.path);
     } else {
-      print("nuse");
+      return null;
     }
+  }
+
+  Future uploadFile(String filePath, Employee employee) {
+    return ApiPayslip.uploadPayslip(filePath, employee);
   }
 }
