@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:appba/commons/API/api.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/Models/payslip_model.dart';
+import 'package:http_parser/http_parser.dart';
 
 class ApiPayslip {
   static Future<List<Payslip>> getPayslipsFromEmployee(
@@ -29,7 +30,9 @@ class ApiPayslip {
     String url = "${Api.EMPLOYEE}uploadPayslip";
     var request = http.MultipartRequest('POST', Uri.parse(url));
     request.fields["empleado"] = "${employee.id}";
-    request.files.add(await http.MultipartFile.fromPath('file', filename));
+    request.files.add(await http.MultipartFile.fromPath('file', filename,
+        contentType: MediaType("application", "pdf")));
+
     var res = await request.send();
     if (res.statusCode == 415) {
       //status code 415 es que el formato del fichero no está permitido (no es un pdf)

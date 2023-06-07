@@ -27,6 +27,7 @@ class UploadPayslipcontroller {
   }
 
   Future uploadFile(String filePath, Employee employee) {
+    print(filePath);
     return ApiPayslip.uploadPayslip(filePath, employee);
   }
 }
