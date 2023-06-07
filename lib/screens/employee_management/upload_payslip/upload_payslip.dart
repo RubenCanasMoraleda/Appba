@@ -1,7 +1,9 @@
+import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/Models/payslip_model.dart';
 import 'package:appba/screens/employee_management/upload_payslip/upload_payslip_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../assets/apba_theme/colors/apba_colors.dart';
 import '../../../commons/custom_widgets/confirmation_dialog.dart';
@@ -47,21 +49,7 @@ class _UploadPayslipState extends State<UploadPayslip> {
                     child: ExpansionTile(
                       title: Text(snapshot.data![index].nombre!),
                       children: [
-                        Row(
-                          children: [
-                            // TODO boton subir archivo
-                            Expanded(
-                              child: ElevatedButton(
-                                  onPressed: () {
-                                    showAlertDialog(context, onConfirm: () {
-                                      _controller
-                                          .getFile(snapshot.data![index]);
-                                    });
-                                  },
-                                  child: Text("Emitir Nómina")),
-                            ),
-                          ],
-                        )
+                        GetUploadFileForm(_controller, snapshot, index)
                       ],
                     ),
                   );
@@ -81,5 +69,72 @@ class _UploadPayslipState extends State<UploadPayslip> {
                 ));
           }
         });
+  }
+}
+
+class GetUploadFileForm extends StatefulWidget {
+  final UploadPayslipcontroller controller;
+  final AsyncSnapshot<List<Employee>> snapshot;
+  final int index;
+  const GetUploadFileForm(this.controller, this.snapshot, this.index,
+      {super.key});
+
+  @override
+  State<GetUploadFileForm> createState() => _GetUploadFileFormState();
+}
+
+class _GetUploadFileFormState extends State<GetUploadFileForm> {
+  String? filePath;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(filePath == null
+            ? "Aun no has seleccionado ningun archivo"
+            : filePath!),
+        Row(
+          children: [
+            Expanded(
+                child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                  style: filePath == null
+                      ? ApbaButtonStyle.primaryBlueButton
+                      : ApbaButtonStyle.secondaryButton,
+                  onPressed: () {
+                    widget.controller.getFile().then((value) {
+                      setState(() {
+                        filePath = value;
+                      });
+                    });
+                  },
+                  child: const Text("Seleccionar Archivo")),
+            )),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: ElevatedButton(
+                    style: filePath == null
+                        ? ApbaButtonStyle.secondaryButton
+                        : ApbaButtonStyle.primaryBlueButton,
+                    onPressed: () {
+                      if (filePath != null) {
+                        showAlertDialog(context, onConfirm: () {
+                          widget.controller.uploadFile(
+                              filePath!, widget.snapshot.data![widget.index]);
+                        });
+                      } else {
+                        Fluttertoast.showToast(
+                            msg: "Selecciona un archivo primero");
+                      }
+                    },
+                    child: const Text("Emitir Nómina")),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }

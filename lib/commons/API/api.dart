@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 // const LOCAL_URL = Platform.OS=="ios"? 'http://localhost:5000/api' : 'http://10.0.2.2:5000/api';
@@ -73,8 +74,7 @@ class Api {
     dynamic res = jsonDecode(rawJsonString);
 
     if (code >= 400 || res["status"] != 200) {
-      String er = res["error"] ?? defaultErrorMessage;
-      // throw ApiException(code: code, message: er);
+      Fluttertoast.showToast(msg: res["message"]);
     }
 
     return res;

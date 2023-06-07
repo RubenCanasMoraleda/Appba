@@ -2,12 +2,14 @@ import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
 import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
 import 'package:appba/commons/API/api_employee.dart';
 import 'package:appba/commons/Models/employee.dart';
+import 'package:appba/screens/login/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'dart:core';
 
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -17,17 +19,21 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final LoginController _controller = LoginController();
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   final _formKey = GlobalKey<FormState>();
   final TextEditingController userController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  bool? isRememberAccount = false;
-  bool init = false;
-  //final FirebaseAuth auth = FirebaseAuth.instance;
+  late bool isRememberAccount;
 
   @override
   void initState() {
-    setState(() {
-      init = true;
+    _prefs.then((value) {
+      userController.text = value.getString("DNI") ?? "";
+      passwordController.text = value.getString("Password") ?? "";
+      setState(() {
+        isRememberAccount = value.getBool("RememberAccount") ?? false;
+      });
     });
     super.initState();
   }
@@ -109,7 +115,7 @@ class _LoginState extends State<Login> {
                                 value: isRememberAccount,
                                 onChanged: (b) {
                                   setState(() {
-                                    isRememberAccount = b;
+                                    isRememberAccount = b!;
                                   });
                                 },
                               ),
@@ -123,7 +129,12 @@ class _LoginState extends State<Login> {
                             child: ElevatedButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  checkLogin(userController, passwordController)
+                                  _controller
+                                      .checkLogin(
+                                          userController,
+                                          passwordController,
+                                          isRememberAccount,
+                                          _prefs)
                                       .then((value) => {
                                             print(value.dni),
                                             value.runtimeType != null
@@ -145,26 +156,4 @@ class _LoginState extends State<Login> {
       ),
     );
   }
-}
-
-Future<Employee> checkLogin(TextEditingController userController,
-    TextEditingController passwordController) async {
-  //TODO descomentar para el login del empleado
-  Employee employee;
-
-  employee =
-      await ApiEmployee.Login(userController.text, passwordController.text);
-
-  print(employee.dni);
-
-  return employee;
-
-  // try {
-  //   FirebaseAuth auth = FirebaseAuth.instance;
-  //   await auth.signInWithEmailAndPassword(
-  //       email: userController.text, password: passwordController.text);
-  //   return true;
-  // } on FirebaseAuthException {
-  //   return false;
-  // }
 }
