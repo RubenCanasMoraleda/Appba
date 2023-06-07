@@ -11,7 +11,7 @@ class NotificationListController {
 
   NotificationListController();
 
-  Future<List<Notificacion>> getNotifications() async {
+  Future<List<Notificacion>> getNotifications() {
     return ApiNotification.getNotifications();
   }
 }

@@ -1,6 +1,8 @@
 import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
+import 'package:appba/commons/API/api_notification.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CreateNotification extends StatefulWidget {
   final Employee employee;
@@ -13,8 +15,8 @@ class CreateNotification extends StatefulWidget {
 
 class _CreateNotificationState extends State<CreateNotification> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController userController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
   bool? isRememberAccount = false;
   bool run = true;
 
@@ -35,7 +37,7 @@ class _CreateNotificationState extends State<CreateNotification> {
                   width: 300,
                   child: Expanded(
                     child: TextFormField(
-                      controller: userController,
+                      controller: titleController,
                       decoration: InputDecoration(
                         label: const Text("Titulo"),
                         // labelText: 'Título'
@@ -53,7 +55,7 @@ class _CreateNotificationState extends State<CreateNotification> {
                   child: SizedBox(
                     width: 300,
                     child: TextFormField(
-                      controller: passwordController,
+                      controller: descriptionController,
                       maxLines: 10,
                       decoration: const InputDecoration(
                         labelText: 'Descripcion',
@@ -71,7 +73,24 @@ class _CreateNotificationState extends State<CreateNotification> {
                     margin: const EdgeInsets.all(20),
                     child: ElevatedButton(
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {}
+                        if (_formKey.currentState!.validate()) {
+                          ApiNotification.createNotification(
+                                  titleController.text,
+                                  descriptionController.text)
+                              .then((value) => {
+                                    if (value != null)
+                                      {
+                                        Fluttertoast.showToast(
+                                            msg:
+                                                "Se ha creado la notificacion con exito",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.CENTER,
+                                            timeInSecForIosWeb: 1,
+                                            fontSize: 16.0),
+                                        Navigator.pop(context)
+                                      }
+                                  });
+                        }
                       },
                       style: ApbaButtonStyle.primaryBlueButton,
                       child: const Text('Entrar'),

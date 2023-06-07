@@ -23,7 +23,7 @@ class Endpoints {
   static String CLOCK_IN = "/marcaje/";
   static String PAYSLIP = "/nomina/";
   static String REQUEST = "/solicitud/";
-  static String NOTIFICATION = "/notificacion/";
+  static String NOTIFICATION = "/notifications/";
 }
 
 class Api {

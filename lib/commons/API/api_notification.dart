@@ -1,10 +1,33 @@
+import 'package:appba/commons/API/api.dart';
 import 'package:appba/commons/Models/notification.dart';
+import 'package:appba/screens/notifications/create_notification/create_notification.dart';
 
 class ApiNotification {
-  static Future<List<Notificacion>> getNotifications() {
-    Future<List<Notificacion>> notifications = getFakeNotifications();
+  static Future<List<Notificacion>> getNotifications() async {
+    dynamic res = await Api.GET_REQUEST(Api.NOTIFICATION);
+    List<Notificacion> notification = [];
+    List<dynamic> fetched = res["data"];
 
-    return notifications;
+    for (var item in fetched) {
+      notification.add(Notificacion.fromJson(item));
+    }
+
+    return notification;
+  }
+
+  static Future<Notificacion?> createNotification(
+      String title, String description) async {
+    DateTime now = DateTime.now();
+    dynamic body = {
+      "fecha": now.toString(),
+      "titulo": title,
+      "descripcion": description
+    };
+    dynamic res = await Api.POST_REQUEST(Api.NOTIFICATION, body);
+
+    Notificacion notificacionCreated = Notificacion.fromJson(res["data"]);
+
+    return notificacionCreated;
   }
 
   static Future<List<Notificacion>> getFakeNotifications() {
