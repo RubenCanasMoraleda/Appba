@@ -23,12 +23,12 @@ class Request {
 
   Request.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    fechaHora = json['fechaHora'];
-    fechaHoraInicio = json['fechaHoraInicio'];
-    fechaHoraFin = json['fechaHoraFin'];
-    tipo = json['tipo'];
-    estado = json['estado'];
-    empleado = Employee.fromJson(json['jefe']);
+    fechaHora = json['fecha_hora'];
+    fechaHoraInicio = json['fecha_hora_inicio'];
+    fechaHoraFin = json['fecha_hora_fin'];
+    empleado = json['empleado'].runtimeType == int
+        ? Employee(id: json['empleado'])
+        : Employee.fromJson(json['empleado']);
 
     switch (json['tipo']) {
       case "ASUNTOS_PROPIOS":
@@ -47,14 +47,11 @@ class Request {
       case "EN_ESPERA_JEFE":
         estado = Estado.enEsperaJefe;
         break;
-      case "ACEPTADA_JEFE":
-        estado = Estado.aceptadaJefe;
-        break;
       case "EN_ESPERA_RRHH":
         estado = Estado.enEsperaRrhh;
         break;
-      case "ACEPTADA_RRHH":
-        estado = Estado.aceptadaRrhh;
+      case "ACEPTADA":
+        estado = Estado.aceptada;
         break;
       case "RECHAZADA":
         estado = Estado.rechazada;
@@ -67,9 +64,9 @@ class Request {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['fechaHora'] = fechaHora;
-    data['fechaHoraInicio'] = fechaHoraInicio;
-    data['fechaHoraFin'] = fechaHoraFin;
+    data['fecha_hora'] = fechaHora;
+    data['fecha_hora_inicio'] = fechaHoraInicio;
+    data['fecha_hora_fin'] = fechaHoraFin;
     data['tipo'] = tipo!.value;
     data['estado'] = estado;
     data['empleado'] = empleado?.id;
@@ -89,9 +86,8 @@ enum TipoSolicitud {
 
 enum Estado {
   enEsperaJefe("EN_ESPERA_JEFE", "EN ESPERA", ApbaColors.primaryOrange),
-  aceptadaJefe("ACEPTADA_JEFE", "EN ESPERA", ApbaColors.primaryOrange),
   enEsperaRrhh("EN_ESPERA_RRHH", "EN ESPERA", ApbaColors.primaryOrange),
-  aceptadaRrhh("ACEPTADA_RRHH", "ACEPTADA", ApbaColors.semanticSuccess),
+  aceptada("ACEPTADA", "ACEPTADA", ApbaColors.semanticSuccess),
   rechazada("RECHAZADA", "RECHAZADA", ApbaColors.semanticError);
 
   final String key, value;

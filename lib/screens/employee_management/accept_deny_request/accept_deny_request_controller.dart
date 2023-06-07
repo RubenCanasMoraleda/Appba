@@ -9,7 +9,7 @@ class AcceptDenyRequestController {
   AcceptDenyRequestController(this._employee);
 
   Future<List<Request>> getRequestsFromDepartment() {
-    return ApiRequest.getFakeRequestsFromEmployee(_employee);
+    return ApiRequest.getRequestFromDepartment(_employee.departamento!);
   }
 
   Future<void> acceptRequest(Request request) {

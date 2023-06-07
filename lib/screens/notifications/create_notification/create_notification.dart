@@ -39,6 +39,7 @@ class _CreateNotificationState extends State<CreateNotification> {
                     child: TextFormField(
                       controller: titleController,
                       decoration: InputDecoration(
+                        border: OutlineInputBorder(),
                         label: const Text("Titulo"),
                         // labelText: 'Título'
                       ),
@@ -58,6 +59,7 @@ class _CreateNotificationState extends State<CreateNotification> {
                       controller: descriptionController,
                       maxLines: 10,
                       decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
                         labelText: 'Descripcion',
                       ),
                       validator: (value) {

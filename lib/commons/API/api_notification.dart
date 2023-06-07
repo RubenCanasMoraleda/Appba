@@ -5,6 +5,7 @@ import 'package:appba/screens/notifications/create_notification/create_notificat
 class ApiNotification {
   static Future<List<Notificacion>> getNotifications() async {
     dynamic res = await Api.GET_REQUEST(Api.NOTIFICATION);
+
     List<Notificacion> notification = [];
     List<dynamic> fetched = res["data"];
 
