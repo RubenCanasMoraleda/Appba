@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
@@ -26,13 +27,19 @@ class ApiPayslip {
 
   static Future uploadPayslip(String filename, Employee employee) async {
     String url = "${Api.EMPLOYEE}uploadPayslip";
-    print(url);
-    print("filename: " + filename);
     var request = http.MultipartRequest('POST', Uri.parse(url));
     request.fields["empleado"] = "${employee.id}";
     request.files.add(await http.MultipartFile.fromPath('file', filename));
     var res = await request.send();
-    print(res.statusCode);
+    if (res.statusCode == 415) {
+      //status code 415 es que el formato del fichero no está permitido (no es un pdf)
+      Fluttertoast.showToast(
+          msg: "El archivo seleccionado no es un pdf",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          fontSize: 16.0);
+    }
   }
 
   static Future<File?> downloadPayslip(

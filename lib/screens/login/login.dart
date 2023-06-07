@@ -4,6 +4,7 @@ import 'package:appba/commons/API/api_employee.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'dart:core';
 
 import 'package:flutter_svg/svg.dart';
@@ -33,6 +34,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    FlutterNativeSplash.remove();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
