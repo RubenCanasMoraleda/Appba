@@ -45,7 +45,7 @@ class _UploadPayslipState extends State<UploadPayslip> {
                         border: const Border(
                             bottom: BorderSide(color: ApbaColors.border1))),
                     child: ExpansionTile(
-                      title: Text(index.toString()),
+                      title: Text(snapshot.data![index].nombre!),
                       children: [
                         Row(
                           children: [

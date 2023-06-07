@@ -25,7 +25,8 @@ class ApiPayslip {
   }
 
   static Future uploadPayslip(String filename, Employee employee) async {
-    String url = "${Api.EMPLOYEE}/uploadPayslip";
+    String url = "${Api.EMPLOYEE}uploadPayslip";
+    print(url);
     print("filename: " + filename);
     var request = http.MultipartRequest('POST', Uri.parse(url));
     request.fields["empleado"] = "${employee.id}";
