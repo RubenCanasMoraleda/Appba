@@ -29,13 +29,15 @@ class _NotificationListState extends State<NotificationList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: ApbaFloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, "/createNotification",
-                arguments: widget.employee);
-          },
-          tooltip: "Marcar",
-          icon: FontAwesomeIcons.plus),
+      floatingActionButton: _controller.canAddNotifications(widget.employee)
+          ? ApbaFloatingActionButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/createNotification",
+                    arguments: widget.employee);
+              },
+              tooltip: "Marcar",
+              icon: FontAwesomeIcons.plus)
+          : null,
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Notificaciones"),

@@ -30,6 +30,7 @@ class ApbaTypography {
       fontSize: 12);
 
   static const TextStyle body1 = TextStyle(
+      color: ApbaColors.primaryBlack,
       // fontFamily: "Roboto",
       height: 24 / 16,
       fontWeight: FontWeight.w400,

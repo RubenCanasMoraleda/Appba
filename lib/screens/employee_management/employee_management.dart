@@ -29,31 +29,59 @@ class _EmployeeManagementState extends State<EmployeeManagement>
     return DefaultTabController(
         length: 3,
         child: Scaffold(
-          appBar: const TabBar(
+          appBar: TabBar(
             indicatorColor: ApbaColors.primaryOrange60,
             labelColor: ApbaColors.primaryBlack,
-            tabs: [
-              Tab(
-                icon: Icon(FontAwesomeIcons.envelope),
-                text: "Solicitudes",
-              ),
-              Tab(
-                icon: Icon(FontAwesomeIcons.hourglassEnd),
-                text: "Horas",
-              ),
-              Tab(
-                icon: Icon(FontAwesomeIcons.moneyBill1),
-                text: "Nominas",
-              ),
-            ],
+            tabs: getTabs(widget.employee),
           ),
-          body: TabBarView(
-            children: [
-              AcceptDenyRequest(widget.employee),
-              Icon(Icons.directions_transit),
-              UploadPayslip(widget.employee)
-            ],
-          ),
+          body: TabBarView(children: getTabsViews(widget.employee)),
         ));
+  }
+
+  List<Widget> getTabs(Employee employee) {
+    if (employee.rol == "recursos humanos" ||
+        employee.rol == "jefe recursos humanos") {
+      return const [
+        Tab(
+          icon: Icon(FontAwesomeIcons.envelope),
+          text: "Solicitudes",
+        ),
+        Tab(
+          icon: Icon(FontAwesomeIcons.hourglassEnd),
+          text: "Horas",
+        ),
+        Tab(
+          icon: Icon(FontAwesomeIcons.moneyBill1),
+          text: "Nominas",
+        ),
+      ];
+    } else {
+      return const [
+        Tab(
+          icon: Icon(FontAwesomeIcons.envelope),
+          text: "Solicitudes",
+        ),
+        Tab(
+          icon: Icon(FontAwesomeIcons.hourglassEnd),
+          text: "Horas",
+        ),
+      ];
+    }
+  }
+
+  getTabsViews(Employee employee) {
+    if (employee.rol == "recursos humanos" ||
+        employee.rol == "jefe recursos humanos") {
+      return [
+        AcceptDenyRequest(employee),
+        const Icon(Icons.directions_transit),
+        UploadPayslip(employee)
+      ];
+    } else {
+      return [
+        AcceptDenyRequest(employee),
+        const Icon(Icons.directions_transit),
+      ];
+    }
   }
 }
