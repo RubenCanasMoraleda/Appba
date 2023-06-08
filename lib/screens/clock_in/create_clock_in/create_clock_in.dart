@@ -1,4 +1,6 @@
 import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
+import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
+import 'package:appba/assets/apba_theme/typography/apba_typography.dart';
 import 'package:appba/commons/Models/clock_in.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/Models/locations.dart';
@@ -81,174 +83,188 @@ class _CreateClockInState extends State<CreateClockIn> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Crear Marcaje',
           // style: TextStyle(color: Colors.black),
         ),
       ),
       body: SafeArea(
-          child: Column(
-        children: [
-          Builder(builder: (context) {
-            if (position != null) {
-              // center = !userCentered
-              //     ? LatLng(position!.latitude, position!.longitude)
-              //     : center;
-              print(center);
-              locations.forEach((element) {
-                marks.add(Marker(
-                    rotate: true,
-                    point: LatLng(element.lat!, element.long!),
-                    builder: (context) => const Icon(
-                          FontAwesomeIcons.locationDot,
-                          color: Colors.red,
-                        )));
-              });
-              return Container(
-                width: 300,
-                height: 300,
-                margin: const EdgeInsets.symmetric(vertical: 20),
-                child: Stack(children: [
-                  FlutterMap(
-                    mapController: mapController,
-                    options: MapOptions(
-                      center: center ??
-                          LatLng(position!.latitude, position!.longitude),
-                      zoom: 15,
-                    ),
-                    children: [
-                      TileLayer(
-                        maxZoom: 19,
-                        urlTemplate:
-                            "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-                      ),
-                      MarkerLayer(
-                        markers: marks +
-                            [
-                              Marker(
-                                  rotate: true,
-                                  point: LatLng(
-                                      position!.latitude, position!.longitude),
-                                  builder: (context) => Transform.rotate(
-                                        angle: position!.heading - 0.6,
-                                        child: const Icon(
-                                          FontAwesomeIcons.locationArrow,
-                                          color: Colors.red,
-                                        ),
-                                      )),
-                            ],
-                      )
-                    ],
-                  ),
-                  Positioned(
-                    right: 10,
-                    bottom: 10,
-                    child: SizedBox(
-                      width: 40,
-                      height: 40,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            mapController.move(
-                                LatLng(position!.latitude, position!.longitude),
-                                15);
-                          },
-                          style: ApbaButtonStyle.secondaryIconBlueButtonSmall
-                              .copyWith(
-                                  padding: MaterialStatePropertyAll(
-                                      EdgeInsets.all(0))),
-                          child: const FaIcon(
-                              FontAwesomeIcons.locationCrosshairs)),
-                    ),
-                  ),
-                ]),
-              );
-            } else {
-              return Text("Loading");
+        child: Builder(builder: (context) {
+          if (position != null) {
+            for (var element in locations) {
+              marks.add(Marker(
+                  rotate: true,
+                  point: LatLng(element.lat!, element.long!),
+                  builder: (context) => const Icon(
+                        FontAwesomeIcons.locationDot,
+                        color: Colors.red,
+                      )));
             }
-          }),
-          const Text("Ubicacion"),
-          DropdownButton<Category>(
-            value: dropdownValue,
-            elevation: 16,
-            style: const TextStyle(color: Colors.deepPurple),
-            underline: Container(
-              height: 2,
-              color: Colors.deepPurpleAccent,
-            ),
-            onChanged: (Category? value) async {
-              dynamic loc = await _controller.findLocation(value!);
-              setState(() {
-                locations = loc;
-                dropdownValue = value;
-                first = locations.first;
-                print("first" + first!.lat!.toString());
-                _controller.clockInLocation = first;
-                print(_controller.clockInLocation!.adress);
-                center = LatLng(first!.lat!, first!.long!);
-                mapController.move(
-                    center ?? LatLng(position!.latitude, position!.longitude),
-                    13);
-              });
-            },
-            items:
-                dropdownList.map<DropdownMenuItem<Category>>((Category value) {
-              return DropdownMenuItem<Category>(
-                value: value,
-                child: Text(value.value),
-              );
-            }).toList(),
-          ),
-          Builder(builder: (context) {
-            print("location build ${locations.length}");
-            print("center ${center}");
-            if (locations.isNotEmpty && locations.length > 1) {
-              return DropdownButton<Location>(
-                value: first,
-                elevation: 16,
-                style: const TextStyle(color: Colors.deepPurple),
-                underline: Container(
-                  height: 2,
-                  color: Colors.deepPurpleAccent,
-                ),
-                onChanged: (Location? value) async {
-                  // dynamic loc = await _controller.findLocation(value!);
-                  setState(() {
-                    center = LatLng(value!.lat!, value.long!);
-                    // print("loc ${loc.toString()}");
-                    print("location ${locations.toString()}");
-                    first = value;
-                    _controller.clockInLocation = value;
-                    userCentered = false;
-                    mapController.move(
-                        center ??
+            return Center(
+              child: Column(children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 2,
+                  margin: const EdgeInsets.symmetric(vertical: 20),
+                  child: Stack(children: [
+                    FlutterMap(
+                      mapController: mapController,
+                      options: MapOptions(
+                        center: center ??
                             LatLng(position!.latitude, position!.longitude),
-                        13);
-                  });
-                },
-                items:
-                    locations.map<DropdownMenuItem<Location>>((Location value) {
-                  return DropdownMenuItem<Location>(
-                    value: value,
-                    child: Text(value.name ?? ""),
-                  );
-                }).toList(),
-              );
-            }
-            return Container();
-          }),
-          SizedBox(
-              width: MediaQuery.of(context).size.width / 2,
-              // height: MediaQuery.of(context).size.width / 2,
-              child: ElevatedButton(
-                  onPressed: () {
-                    print(position?.longitude);
-                    _controller.createClockIn(position!, context);
+                        zoom: 15,
+                      ),
+                      children: [
+                        TileLayer(
+                          maxZoom: 19,
+                          urlTemplate:
+                              "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                        ),
+                        MarkerLayer(
+                          markers: marks +
+                              [
+                                Marker(
+                                    rotate: true,
+                                    point: LatLng(position!.latitude,
+                                        position!.longitude),
+                                    builder: (context) => Transform.rotate(
+                                          angle: position!.heading - 0.6,
+                                          child: const Icon(
+                                            FontAwesomeIcons.locationArrow,
+                                            color: Colors.red,
+                                          ),
+                                        )),
+                              ],
+                        )
+                      ],
+                    ),
+                    Positioned(
+                      right: 10,
+                      bottom: 10,
+                      child: SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              mapController.move(
+                                  LatLng(
+                                      position!.latitude, position!.longitude),
+                                  15);
+                            },
+                            style: ApbaButtonStyle.secondaryIconBlueButtonSmall
+                                .copyWith(
+                                    padding: MaterialStatePropertyAll(
+                                        EdgeInsets.all(0))),
+                            child: const FaIcon(
+                                FontAwesomeIcons.locationCrosshairs)),
+                      ),
+                    ),
+                  ]),
+                ),
+                const Text(
+                  "Ubicacion",
+                  style: ApbaTypography.bodyHighlight,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                DropdownButton<Category>(
+                  value: dropdownValue,
+                  elevation: 16,
+                  icon: const Padding(
+                    padding: EdgeInsets.only(left: 5),
+                    child: Icon(
+                      FontAwesomeIcons.chevronDown,
+                      color: ApbaColors.backgroundBlue,
+                    ),
+                  ),
+                  style: ApbaTypography.body1,
+                  alignment: Alignment.center,
+                  onChanged: (Category? value) async {
+                    dynamic loc = await _controller.findLocation(value!);
+                    setState(() {
+                      locations = loc;
+                      dropdownValue = value;
+                      first = locations.first;
+                      _controller.clockInLocation = first;
+                      center = LatLng(first!.lat!, first!.long!);
+                      mapController.move(
+                          center ??
+                              LatLng(position!.latitude, position!.longitude),
+                          13);
+                    });
                   },
-                  child: Text(_controller.lastClockIn?.tipo == Tipo.entrada
-                      ? "Fichar Entrada"
-                      : "Fichar salida")))
-        ],
-      )),
+                  items: dropdownList
+                      .map<DropdownMenuItem<Category>>((Category value) {
+                    return DropdownMenuItem<Category>(
+                      value: value,
+                      child: Text(value.value),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Builder(builder: (context) {
+                  if (locations.isNotEmpty && locations.length > 1) {
+                    return DropdownButton<Location>(
+                      value: first,
+                      elevation: 16,
+                      icon: const Padding(
+                        padding: EdgeInsets.only(left: 5),
+                        child: Icon(
+                          FontAwesomeIcons.chevronDown,
+                          color: ApbaColors.backgroundBlue,
+                        ),
+                      ),
+                      style: ApbaTypography.body1,
+                      alignment: Alignment.center,
+                      onChanged: (Location? value) async {
+                        setState(() {
+                          center = LatLng(value!.lat!, value.long!);
+                          first = value;
+                          _controller.clockInLocation = value;
+                          userCentered = false;
+                          mapController.move(
+                              center ??
+                                  LatLng(
+                                      position!.latitude, position!.longitude),
+                              13);
+                        });
+                      },
+                      items: locations
+                          .map<DropdownMenuItem<Location>>((Location value) {
+                        return DropdownMenuItem<Location>(
+                          value: value,
+                          child: Text(value.name ?? ""),
+                        );
+                      }).toList(),
+                    );
+                  }
+                  return Container();
+                }),
+                const SizedBox(
+                  height: 15,
+                ),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width / 2,
+                    // height: MediaQuery.of(context).size.width / 2,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          print(position?.longitude);
+                          _controller.createClockIn(position!, context);
+                        },
+                        child: Text(
+                            _controller.lastClockIn?.tipo == Tipo.entrada
+                                ? "Fichar Entrada"
+                                : "Fichar salida")))
+              ]),
+            );
+          } else {
+            return Text("Loading");
+          }
+        }),
+      ),
     );
   }
 }
