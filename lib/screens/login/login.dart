@@ -24,7 +24,7 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController userController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  late bool isRememberAccount;
+  bool isRememberAccount = false;
 
   @override
   void initState() {

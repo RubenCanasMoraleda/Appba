@@ -9,6 +9,7 @@ class Employee {
   String? categoria;
   Department? departamento;
   String? rol;
+  int? hours;
 
   Employee(
       {required this.id,
@@ -18,7 +19,8 @@ class Employee {
       this.nombre,
       this.categoria,
       this.departamento,
-      this.rol});
+      this.rol,
+      this.hours});
 
   Employee.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -31,6 +33,7 @@ class Employee {
     departamento = json['departamento'].runtimeType == int
         ? Department(id: json['departamento'])
         : Department.fromJson(json['departamento']);
+    hours = json["horas"];
   }
 
   Map<String, dynamic> toJson() {
@@ -42,6 +45,8 @@ class Employee {
     data['nombre'] = nombre;
     data['categoria'] = categoria;
     data['departamento'] = departamento?.id;
+    data['rol'] = rol;
+    data['horas'] = hours;
     return data;
   }
 }

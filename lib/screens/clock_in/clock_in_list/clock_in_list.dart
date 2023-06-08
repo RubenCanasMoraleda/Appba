@@ -54,7 +54,6 @@ class _ClockInListState extends State<ClockInList> {
                 FutureBuilder<int>(
                     future: _controller.getHoursMonth(),
                     builder: (context, AsyncSnapshot<int> snapshot) {
-                      print("snap " + snapshot.hasData.toString());
                       if (snapshot.hasData) {
                         return Text(
                           "Llevas ${snapshot.data} de ${_controller.horasTotales} este mes",

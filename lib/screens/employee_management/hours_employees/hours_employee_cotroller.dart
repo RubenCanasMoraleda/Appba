@@ -1,3 +1,4 @@
+import 'package:appba/commons/API/api_clock_in.dart';
 import 'package:appba/commons/API/api_employee.dart';
 import 'package:appba/commons/API/api_notification.dart';
 import 'package:appba/commons/API/api_payslip.dart';
@@ -8,11 +9,9 @@ import 'package:appba/commons/Models/notification.dart';
 import 'package:flutter/material.dart';
 
 class HoursEmployeeController {
-  int? horasTotales, horasRealizadas;
-
-  HoursEmployeeController();
-// TODO
-  // Future<List<Employee>> getEmployeeHours() async {
-  //   return ApiEmployee.getEmployeeHours();
-  // }
+  Employee _employee;
+  HoursEmployeeController(this._employee);
+  Future<List<Employee>> getNotifications() {
+    return ApiClockIn.getHoursMonthDepartment(_employee.departamento!);
+  }
 }
