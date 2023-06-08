@@ -9,16 +9,31 @@ class AcceptDenyRequestController {
   AcceptDenyRequestController(this._employee);
 
   Future<List<Request>> getRequestsFromDepartment() {
-    return ApiRequest.getRequestFromDepartment(_employee.departamento!);
+    late Future<List<Request>> requestsList;
+
+    switch (_employee.rol) {
+      case "recursos humanos":
+        requestsList = ApiRequest.getRequestsRRHH();
+        break;
+      case "jefe recursos humanos":
+        requestsList = ApiRequest.getRequestsRRHHBoss(_employee.departamento!);
+        break;
+      default:
+        requestsList =
+            ApiRequest.getRequestFromDepartment(_employee.departamento!);
+    }
+    return requestsList;
   }
 
-  Future<void> acceptRequest(Request request) {
-    // TODO cambiar estado a aceptado
-    return Future.delayed(Duration(seconds: 1));
+  acceptRequest(Request request) {
+    request.estado =
+        _employee.rol == "jefe" ? Estado.enEsperaRrhh : Estado.aceptada;
+
+    ApiRequest.updateRequest(request);
   }
 
-  Future<void> denyRequest(Request request) {
-    // TODO cambiar estado a aceptado
-    return Future.delayed(Duration(seconds: 1));
+  denyRequest(Request request) {
+    request.estado = Estado.rechazada;
+    ApiRequest.updateRequest(request);
   }
 }

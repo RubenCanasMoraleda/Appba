@@ -122,10 +122,10 @@ class _CreateRequestState extends State<CreateRequest> {
                                           if (value != null) {
                                             setState(() {
                                               initDateController.text =
-                                                  DateFormat("dd/MM/yyyy")
+                                                  DateFormat("yyyy-MM-dd")
                                                       .format(value.start);
                                               endDateController.text =
-                                                  DateFormat("dd/MM/yyyy")
+                                                  DateFormat("yyyy-MM-dd")
                                                       .format(value.end);
                                             });
                                           }
@@ -156,10 +156,10 @@ class _CreateRequestState extends State<CreateRequest> {
                                           if (value != null) {
                                             setState(() {
                                               initDateController.text =
-                                                  DateFormat("dd/MM/yyyy")
+                                                  DateFormat("yyyy-MM-dd")
                                                       .format(value.start);
                                               endDateController.text =
-                                                  DateFormat("dd/MM/yyyy")
+                                                  DateFormat("yyyy-MM-dd")
                                                       .format(value.end);
                                             });
                                           }
@@ -201,6 +201,7 @@ class _CreateRequestState extends State<CreateRequest> {
                                                               .text,
                                                           endDateController
                                                               .text);
+                                                      Navigator.pop(context);
                                                     });
                                                   }
                                                 },
@@ -238,7 +239,7 @@ class _CreateRequestState extends State<CreateRequest> {
                                           if (value != null) {
                                             setState(() {
                                               initDateController.text =
-                                                  DateFormat("dd/MM/yyyy")
+                                                  DateFormat("yyyy-MM-dd")
                                                       .format(value);
                                             });
                                           }
@@ -264,10 +265,16 @@ class _CreateRequestState extends State<CreateRequest> {
                                                 initialTime: const TimeOfDay(
                                                     hour: 0, minute: 0))
                                             .then((value) {
-                                          setState(() {
-                                            initTimeController.text =
-                                                value!.format(context);
-                                          });
+                                          if (value != null) {
+                                            setState(() {
+                                              initTimeController.text =
+                                                  MaterialLocalizations.of(
+                                                          context)
+                                                      .formatTimeOfDay(value,
+                                                          alwaysUse24HourFormat:
+                                                              true);
+                                            });
+                                          }
                                         });
                                       },
                                     ),
@@ -290,10 +297,16 @@ class _CreateRequestState extends State<CreateRequest> {
                                                 initialTime: const TimeOfDay(
                                                     hour: 0, minute: 0))
                                             .then((value) {
-                                          setState(() {
-                                            endTimeController.text =
-                                                value!.format(context);
-                                          });
+                                          if (value != null) {
+                                            setState(() {
+                                              endTimeController.text =
+                                                  MaterialLocalizations.of(
+                                                          context)
+                                                      .formatTimeOfDay(value,
+                                                          alwaysUse24HourFormat:
+                                                              true);
+                                            });
+                                          }
                                         });
                                       },
                                     ),
@@ -335,6 +348,7 @@ class _CreateRequestState extends State<CreateRequest> {
                                                                   .text,
                                                               endTimeController
                                                                   .text);
+                                                      Navigator.pop(context);
                                                     });
                                                   }
                                                 },

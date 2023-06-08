@@ -19,7 +19,7 @@ class ApiRequest {
     return requestConf;
   }
 
-  static Future<List<Request>> getRequestsRRHH(Employee employee) async {
+  static Future<List<Request>> getRequestsRRHH() async {
     dynamic res = await Api.GET_REQUEST("${Api.REQUEST}rrhh");
 
     List<Request> requestConf = [];
@@ -41,6 +41,15 @@ class ApiRequest {
     return requestConf;
   }
 
+  static Future<Request?> updateRequest(Request request) async {
+    dynamic body = request.toJson();
+    dynamic res = await Api.PATCH_REQUEST(Api.REQUEST, body);
+
+    Request requestConf = Request.fromJson(res["data"]);
+
+    return requestConf;
+  }
+
   static Future<List<Request>> getRequestFromDepartment(
       Department department) async {
     dynamic res = await Api.GET_REQUEST(
@@ -56,9 +65,26 @@ class ApiRequest {
     return requestConf;
   }
 
-  static Future<Request> fakePostRequest(Request request) {
-    return Future.delayed(const Duration(seconds: 3), () {
-      return request;
-    });
+  static Future<List<Request>> getRequestsRRHHBoss(
+      Department department) async {
+    dynamic res = await Api.GET_REQUEST("${Api.REQUEST}rrhh");
+
+    List<Request> requestConf = [];
+    List<dynamic> fetched = res["data"];
+
+    for (var item in fetched) {
+      requestConf.add(Request.fromJson(item));
+    }
+
+    res = await Api.GET_REQUEST(
+        "${Api.REQUEST}fromDepartamento/${department.id}");
+
+    fetched = res["data"];
+
+    for (var item in fetched) {
+      requestConf.add(Request.fromJson(item));
+    }
+
+    return requestConf;
   }
 }

@@ -25,6 +25,9 @@ class Endpoints {
   static String PAYSLIP = "/nomina/";
   static String REQUEST = "/solicitudes/";
   static String NOTIFICATION = "/notifications/";
+  static String HORASRESTANTES = "/horasRestantes/";
+  static String VACACIONESRESTANTES = "/vacacionesRestantes/";
+  static String DIASRESTANTES = "/diasRestantes/";
 }
 
 class Api {
@@ -39,6 +42,9 @@ class Api {
   static String PAYSLIP = URL + Endpoints.PAYSLIP;
   static String REQUEST = URL + Endpoints.REQUEST;
   static String NOTIFICATION = URL + Endpoints.NOTIFICATION;
+  static String HORASRESTANTES = URL + Endpoints.HORASRESTANTES;
+  static String VACACIONESRESTANTES = URL + Endpoints.VACACIONESRESTANTES;
+  static String DIASRESTANTES = URL + Endpoints.DIASRESTANTES;
 
   static Map<String, String> headers = {"Accept": "application/json"};
 
@@ -65,6 +71,7 @@ class Api {
   static dynamic POST_REQUEST(String url, [Object? body]) async {
     final parsedUrl = Uri.parse(url);
 
+    print("url: $url h: $headers b: $body");
     final response = await http.post(parsedUrl, headers: headers, body: body);
 
     final code = response.statusCode;
@@ -84,6 +91,25 @@ class Api {
     final parsedUrl = Uri.parse(url);
 
     final response = await http.put(parsedUrl, headers: headers, body: body);
+    final code = response.statusCode;
+
+    final rawJsonString = response.body;
+
+    dynamic res = jsonDecode(rawJsonString);
+
+    if (code >= 400) {
+      String er = res["message"] ?? defaultErrorMessage;
+
+      // throw ApiException(code: code, message: er);
+    }
+    return res;
+  }
+
+  static dynamic PATCH_REQUEST(String url, [Object? body]) async {
+    final parsedUrl = Uri.parse(url);
+
+    print("url: $url h: $headers b: $body");
+    final response = await http.patch(parsedUrl, headers: headers, body: body);
     final code = response.statusCode;
 
     final rawJsonString = response.body;

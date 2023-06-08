@@ -14,4 +14,12 @@ class NotificationListController {
   Future<List<Notificacion>> getNotifications() {
     return ApiNotification.getNotifications();
   }
+
+  bool canAddNotifications(Employee employee) {
+    if (employee.rol == "recursos humanos" ||
+        employee.rol == "jefe recursos humanos") {
+      return true;
+    }
+    return false;
+  }
 }

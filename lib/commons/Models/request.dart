@@ -63,12 +63,12 @@ class Request {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
+    data['id'] = id.toString();
     data['fecha_hora'] = fechaHora;
     data['fecha_hora_inicio'] = fechaHoraInicio;
     data['fecha_hora_fin'] = fechaHoraFin;
-    data['tipo'] = tipo!.value;
-    data['estado'] = estado;
+    data['tipo'] = tipo!.key;
+    data['estado'] = estado!.key;
     data['empleado'] = empleado?.id;
     return data;
   }
