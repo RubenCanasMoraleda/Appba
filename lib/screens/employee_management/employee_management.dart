@@ -1,6 +1,7 @@
 import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/screens/employee_management/accept_deny_request/accept_deny_request.dart';
+import 'package:appba/screens/employee_management/hours_employees/hours_employee.dart';
 import 'package:appba/screens/employee_management/upload_payslip/upload_payslip.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -74,7 +75,7 @@ class _EmployeeManagementState extends State<EmployeeManagement>
         employee.rol == "jefe recursos humanos") {
       return [
         AcceptDenyRequest(employee),
-        const Icon(Icons.directions_transit),
+        HoursEmployee(employee),
         UploadPayslip(employee)
       ];
     } else {

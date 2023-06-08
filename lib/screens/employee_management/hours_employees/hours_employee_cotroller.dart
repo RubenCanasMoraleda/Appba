@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 class HoursEmployeeController {
   Employee _employee;
   HoursEmployeeController(this._employee);
-  Future<List<Employee>> getNotifications() {
+  Future<List<Employee>> getHoursMonthDepartment() {
     return ApiClockIn.getHoursMonthDepartment(_employee.departamento!);
   }
 }

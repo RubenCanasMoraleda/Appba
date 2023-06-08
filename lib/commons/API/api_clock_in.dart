@@ -4,6 +4,8 @@ import 'package:appba/commons/Models/department.dart';
 import 'package:appba/commons/Models/employee.dart';
 
 class ApiClockIn {
+  int horasMes = 0;
+
   static Future<List<ClockIn>> getClocksInFromEmployee(
       Employee employee) async {
     dynamic res =
@@ -58,7 +60,13 @@ class ApiClockIn {
     dynamic res = await Api.GET_REQUEST(
         "${Api.CLOCK_IN}getHoursDepartamento/${department.id}");
 
-    List<Employee> employees = res["empleados"];
+    print(res);
+
+    List<Employee> employees = [];
+
+    for (var empleado in res["empleados"]) {
+      employees.add(Employee.fromJson(empleado));
+    }
 
     return employees;
   }

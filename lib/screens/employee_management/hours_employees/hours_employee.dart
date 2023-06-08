@@ -10,7 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HoursEmployee extends StatefulWidget {
   final Employee _employee;
-  const HoursEmployee(this.employee, {super.key});
+  const HoursEmployee(this._employee, {super.key, required});
 
   @override
   State<HoursEmployee> createState() => _HoursEmployeeState();
@@ -27,72 +27,63 @@ class _HoursEmployeeState extends State<HoursEmployee> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text("Notificaciones")),
-      ),
-      body: Column(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.all(16),
-            color: ApbaColors.semanticBackgroundHighlight1,
-            child: const Center(
-              child: Text(
-                "Notificaciones",
-                style: ApbaTypography.body2,
-              ),
+    return Column(
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.all(16),
+          color: ApbaColors.semanticBackgroundHighlight1,
+          child: const Center(
+            child: Text(
+              "Horas de los empleados",
+              style: ApbaTypography.body2,
             ),
           ),
-          Expanded(
-            child: FutureBuilder(
-                future: _controller.getEmployeeHours(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<Notificacion>> snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                        itemCount: snapshot.data!.length > 60
-                            ? 60
-                            : snapshot.data?.length,
-                        itemBuilder: (context, index) {
-                          Color background = index % 2 == 0
-                              ? ApbaColors.background1
-                              : ApbaColors.background2;
-                          return Container(
+        ),
+        Expanded(
+          child: FutureBuilder(
+              future: _controller.getHoursMonthDepartment(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<Employee>> snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                      itemCount: snapshot.data!.length > 60
+                          ? 60
+                          : snapshot.data?.length,
+                      itemBuilder: (context, index) {
+                        Color background = index % 2 == 0
+                            ? ApbaColors.background1
+                            : ApbaColors.background2;
+                        return Container(
                             decoration: BoxDecoration(
                                 color: background,
                                 border: const Border(
                                     bottom:
                                         BorderSide(color: ApbaColors.border1))),
-                            child: ExpansionTile(
-                              title: Center(
-                                  child: Text(snapshot.data![index].title!)),
-                              leading: const Icon(FontAwesomeIcons.circleInfo),
-                              subtitle: Text(snapshot.data![index].date!),
-                              children: [
-                                Text(snapshot.data![index].description!)
-                              ],
-                            ),
-                          );
-                        });
-                  } else {
-                    return LoadingList.of(
-                        60,
-                        ListTile(
-                          title: Container(
-                            height: 15,
-                            width: 20,
-                            decoration: BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
+                            child: ListTile(
+                              leading: Text(snapshot.data![index].dni!),
+                              title: Text(snapshot.data![index].nombre!),
+                              subtitle: Text(
+                                  "Lleva ${snapshot.data![index].hours!} horas trabajadas este mes"),
+                            ));
+                      });
+                } else {
+                  return LoadingList.of(
+                      60,
+                      ListTile(
+                        title: Container(
+                          height: 15,
+                          width: 20,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(4),
                           ),
-                        ));
-                  }
-                }),
-          ),
-        ],
-      ),
+                        ),
+                      ));
+                }
+              }),
+        ),
+      ],
     );
   }
 }
