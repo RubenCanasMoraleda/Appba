@@ -33,14 +33,17 @@ class _CreateNotificationState extends State<CreateNotification> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                const SizedBox(
+                  height: 25,
+                ),
                 SizedBox(
                   width: 300,
                   child: Expanded(
                     child: TextFormField(
                       controller: titleController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        label: const Text("Titulo"),
+                        label: Text("Titulo"),
                         // labelText: 'Título'
                       ),
                       validator: (value) {
