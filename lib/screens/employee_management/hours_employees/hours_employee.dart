@@ -16,7 +16,8 @@ class HoursEmployee extends StatefulWidget {
   State<HoursEmployee> createState() => _HoursEmployeeState();
 }
 
-class _HoursEmployeeState extends State<HoursEmployee> {
+class _HoursEmployeeState extends State<HoursEmployee>
+    with AutomaticKeepAliveClientMixin<HoursEmployee> {
   late HoursEmployeeController _controller;
 
   @override
@@ -27,6 +28,7 @@ class _HoursEmployeeState extends State<HoursEmployee> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(
       children: [
         Container(
@@ -86,4 +88,7 @@ class _HoursEmployeeState extends State<HoursEmployee> {
       ],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

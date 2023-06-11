@@ -18,7 +18,8 @@ class UploadPayslip extends StatefulWidget {
   State<UploadPayslip> createState() => _UploadPayslipState();
 }
 
-class _UploadPayslipState extends State<UploadPayslip> {
+class _UploadPayslipState extends State<UploadPayslip>
+    with AutomaticKeepAliveClientMixin<UploadPayslip> {
   late UploadPayslipcontroller _controller;
 
   @override
@@ -29,6 +30,7 @@ class _UploadPayslipState extends State<UploadPayslip> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return FutureBuilder(
         future: _controller.getEmployeesFromDepartment(),
         builder:
@@ -70,6 +72,9 @@ class _UploadPayslipState extends State<UploadPayslip> {
           }
         });
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class GetUploadFileForm extends StatefulWidget {

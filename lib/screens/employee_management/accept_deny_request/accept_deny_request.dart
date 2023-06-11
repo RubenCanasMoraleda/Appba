@@ -16,7 +16,8 @@ class AcceptDenyRequest extends StatefulWidget {
   State<AcceptDenyRequest> createState() => _AcceptDenyRequestState();
 }
 
-class _AcceptDenyRequestState extends State<AcceptDenyRequest> {
+class _AcceptDenyRequestState extends State<AcceptDenyRequest>
+    with AutomaticKeepAliveClientMixin<AcceptDenyRequest> {
   late AcceptDenyRequestController _controller;
 
   @override
@@ -27,6 +28,7 @@ class _AcceptDenyRequestState extends State<AcceptDenyRequest> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return FutureBuilder(
         future: _controller.getRequestsFromDepartment(),
         builder: (BuildContext context, AsyncSnapshot<List<Request>> snapshot) {
@@ -117,4 +119,7 @@ class _AcceptDenyRequestState extends State<AcceptDenyRequest> {
           }
         });
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
