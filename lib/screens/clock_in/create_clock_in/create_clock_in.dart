@@ -56,7 +56,6 @@ class _CreateClockInState extends State<CreateClockIn> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     streamPosition.cancel();
     super.dispose();
   }
@@ -77,9 +76,10 @@ class _CreateClockInState extends State<CreateClockIn> {
   @override
   Widget build(BuildContext context) {
     MapController mapController = MapController();
-    var marks = <Marker>[];
-    Location? clockInLocation;
 
+    var marks = <Marker>[];
+
+    // print(mapController.zoom);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -112,11 +112,12 @@ class _CreateClockInState extends State<CreateClockIn> {
                       options: MapOptions(
                         center: center ??
                             LatLng(position!.latitude, position!.longitude),
-                        zoom: 15,
+                        zoom: 19,
+                        maxZoom: 19,
                       ),
                       children: [
                         TileLayer(
-                          maxZoom: 19,
+                          maxZoom: 20,
                           urlTemplate:
                               "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                         ),
