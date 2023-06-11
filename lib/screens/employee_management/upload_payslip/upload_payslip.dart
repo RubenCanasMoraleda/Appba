@@ -83,7 +83,9 @@ class _UploadPayslipState extends State<UploadPayslip>
   bool get wantKeepAlive => true;
 
   Future<void> loadEmployees() async {
-    _employees = _controller.getEmployeesFromDepartment();
+    setState(() {
+      _employees = _controller.getEmployeesFromDepartment();
+    });
   }
 }
 

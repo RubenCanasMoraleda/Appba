@@ -4,6 +4,7 @@ import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/Models/notification.dart';
 import 'package:appba/commons/custom_widgets/loading_list.dart';
 import 'package:appba/screens/employee_management/hours_employees/hours_employee_cotroller.dart';
+import 'package:appba/screens/employee_management/hours_employees/serach_employee_delegate.dart';
 import 'package:appba/screens/notifications/notification_list/notification_list_cotroller.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -37,11 +38,22 @@ class _HoursEmployeeState extends State<HoursEmployee>
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.all(16),
           color: ApbaColors.semanticBackgroundHighlight1,
-          child: const Center(
-            child: Text(
-              "Horas de los empleados",
-              style: ApbaTypography.body2,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                "Horas de los empleados",
+                style: ApbaTypography.headingTitle1,
+              ),
+              IconButton(
+                icon: const Icon(FontAwesomeIcons.magnifyingGlass),
+                onPressed: () async {
+                  showSearch(
+                      context: context,
+                      delegate: SearchEmployeeDelegate(await _employees));
+                },
+              ),
+            ],
           ),
         ),
         Expanded(
