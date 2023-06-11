@@ -21,7 +21,8 @@ class ClockInList extends StatefulWidget {
   State<ClockInList> createState() => _ClockInListState();
 }
 
-class _ClockInListState extends State<ClockInList> {
+class _ClockInListState extends State<ClockInList>
+    with AutomaticKeepAliveClientMixin<ClockInList> {
   late ClockInListController _controller;
 
   @override
@@ -32,6 +33,7 @@ class _ClockInListState extends State<ClockInList> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final Size size = MediaQuery.of(context).size;
     const double bottomNavigationBarHeight = kBottomNavigationBarHeight;
     const double androidNavBarHeight = 32;
@@ -151,4 +153,7 @@ class _ClockInListState extends State<ClockInList> {
     // )
     // );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

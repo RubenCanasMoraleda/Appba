@@ -23,7 +23,8 @@ class PayslipList extends StatefulWidget {
   State<PayslipList> createState() => _PayslipListState();
 }
 
-class _PayslipListState extends State<PayslipList> {
+class _PayslipListState extends State<PayslipList>
+    with AutomaticKeepAliveClientMixin<PayslipList> {
   late PayslipListController _controller;
 
   @override
@@ -34,6 +35,7 @@ class _PayslipListState extends State<PayslipList> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final Size size = MediaQuery.of(context).size;
 
     return Column(
@@ -119,4 +121,7 @@ class _PayslipListState extends State<PayslipList> {
     // )
     // );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -26,15 +26,23 @@ class _BottomNavigationBarExampleState
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static late List<Widget?> _widgetOptions;
+  static late List<Widget> _widgetOptions;
   static late List<Widget?> _buttonOptions;
+  late PageController _pageController;
 
   _BottomNavigationBarExampleState(this.employee);
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      _pageController.jumpToPage(_selectedIndex);
     });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -85,12 +93,14 @@ class _BottomNavigationBarExampleState
       null
     ];
 
-    _widgetOptions = <Widget?>[
+    _widgetOptions = <Widget>[
       ClockInList(employee),
       RequestList(employee),
       PayslipList(employee),
       EmployeeManagement(employee)
     ];
+
+    _pageController = PageController(initialPage: _selectedIndex);
   }
 
   @override
@@ -113,9 +123,13 @@ class _BottomNavigationBarExampleState
               icon: const Icon(FontAwesomeIcons.circleInfo))
         ],
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: PageView(
+        controller: _pageController,
+        children: _widgetOptions,
       ),
+      // Center(
+      //   child: _widgetOptions.elementAt(_selectedIndex),
+      // ),
       bottomNavigationBar: BottomNavigationBar(
         useLegacyColorScheme: false,
         selectedIconTheme: ApbaNavbarStyle.selectedIconThemeLabel,

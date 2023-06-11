@@ -20,7 +20,8 @@ class RequestList extends StatefulWidget {
   State<RequestList> createState() => _RequestListState();
 }
 
-class _RequestListState extends State<RequestList> {
+class _RequestListState extends State<RequestList>
+    with AutomaticKeepAliveClientMixin<RequestList> {
   late RequestListController _controller;
 
   @override
@@ -31,6 +32,7 @@ class _RequestListState extends State<RequestList> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(
       children: [
         Container(
@@ -125,4 +127,7 @@ class _RequestListState extends State<RequestList> {
     // )
     // );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

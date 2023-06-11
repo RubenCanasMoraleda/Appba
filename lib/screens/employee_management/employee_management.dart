@@ -16,7 +16,9 @@ class EmployeeManagement extends StatefulWidget {
 }
 
 class _EmployeeManagementState extends State<EmployeeManagement>
-    with TickerProviderStateMixin {
+    with
+        TickerProviderStateMixin,
+        AutomaticKeepAliveClientMixin<EmployeeManagement> {
   late TabController tabController;
 
   @override
@@ -27,6 +29,7 @@ class _EmployeeManagementState extends State<EmployeeManagement>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -85,4 +88,7 @@ class _EmployeeManagementState extends State<EmployeeManagement>
       ];
     }
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
