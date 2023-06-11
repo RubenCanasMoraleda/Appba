@@ -1,6 +1,7 @@
 import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
 import 'package:appba/assets/apba_theme/navigation/apba_navigation_bar.dart';
 import 'package:appba/commons/Models/employee.dart';
+import 'package:appba/commons/custom_widgets/confirmation_dialog.dart';
 import 'package:appba/commons/custom_widgets/floating_action_button.dart';
 import 'package:appba/screens/clock_in/clock_in_list/clock_in_list.dart';
 import 'package:appba/screens/employee_management/employee_management.dart';
@@ -8,6 +9,7 @@ import 'package:appba/screens/payslips/payslips_list/payslips_list.dart';
 import 'package:appba/screens/requests/requests_list/requests_list.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 
 class BottomNavigationBarExample extends StatefulWidget {
   final Employee employee;
@@ -40,8 +42,36 @@ class _BottomNavigationBarExampleState
     super.initState();
     _buttonOptions = <Widget?>[
       ApbaFloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, "/createClockIn", arguments: employee);
+          onPressed: () async {
+            bool isEnable = await Geolocator.isLocationServiceEnabled();
+            if (isEnable) {
+              // ignore: use_build_context_synchronously
+              Navigator.pushNamed(context, "/createClockIn",
+                  arguments: employee);
+            } else {
+              // ignore: use_build_context_synchronously
+              showAlertDialog(context,
+                  title: "Acceso a la ubicación",
+                  message:
+                      "La ubicación del dispositivo no está activada, para poder marcar es necesario saber su unicación. \n ¿Deasea activarla?",
+                  onConfirm: () {
+                Geolocator.openLocationSettings()
+                    .then((value) async => {
+                          if (value)
+                            {
+                              isEnable =
+                                  await Geolocator.isLocationServiceEnabled(),
+                            },
+                        })
+                    .whenComplete(() => {
+                          if (isEnable)
+                            {
+                              Navigator.pushNamed(context, "/createClockIn",
+                                  arguments: employee)
+                            }
+                        });
+              });
+            }
           },
           tooltip: "Marcar",
           icon: FontAwesomeIcons.plus),

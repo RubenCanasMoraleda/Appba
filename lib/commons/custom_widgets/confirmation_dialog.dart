@@ -13,12 +13,12 @@ class MyWidget extends StatelessWidget {
   }
 }
 
-showAlertDialog(BuildContext context,
+Future showAlertDialog(BuildContext context,
     {required Function onConfirm,
     String title = "Confirmación",
     String cancelText = "Cancelar",
     String acceptText = "Confirmar",
-    String message = "¿Estas Seguro?"}) {
+    String message = "¿Estas Seguro?"}) async {
   AlertDialog alert = AlertDialog(
     icon: const Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -74,6 +74,7 @@ showAlertDialog(BuildContext context,
   );
   showDialog(
     context: context,
+    barrierDismissible: false,
     builder: (BuildContext context) {
       return alert;
     },

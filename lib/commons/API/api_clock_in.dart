@@ -24,9 +24,10 @@ class ApiClockIn {
 
   static Future<ClockIn> getLastClockInTypeFromEmployee(
       Employee employee) async {
-    dynamic res =
-        await Api.GET_REQUEST("${Api.CLOCK_IN}byEmployee/${employee.id}/last");
+    dynamic res = await Api.GET_REQUEST(
+        "${Api.CLOCK_IN}fromEmpleado/${employee.id}/last");
 
+    print(res);
     ClockIn clockIn = ClockIn.fromJson(res["marcaje"]);
 
     return clockIn;
@@ -35,12 +36,13 @@ class ApiClockIn {
   static Future<ClockIn> createClockIn(Employee employee, Tipo tipo) async {
     DateTime now = DateTime.now();
     dynamic body = {
-      "fecha_hora": now,
+      "fecha_hora": now.toString(),
       "tipo": tipo.value,
-      "empleado": employee.id
+      "empleado": employee.id.toString()
     };
-    dynamic res = await Api.POST_REQUEST("${Api.CLOCK_IN}create", body);
+    dynamic res = await Api.POST_REQUEST(Api.CLOCK_IN, body);
 
+    print(res["marcaje"].runtimeType);
     ClockIn clockIn = ClockIn.fromJson(res["marcaje"]);
 
     return clockIn;

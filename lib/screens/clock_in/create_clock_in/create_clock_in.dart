@@ -1,14 +1,17 @@
 import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
 import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
+import 'package:appba/assets/apba_theme/styles/apba_styles.dart';
 import 'package:appba/assets/apba_theme/typography/apba_typography.dart';
 import 'package:appba/commons/Models/clock_in.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/Models/locations.dart';
+import 'package:appba/commons/custom_widgets/confirmation_dialog.dart';
 import 'package:appba/screens/clock_in/create_clock_in/create_clock_in_controller.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter_map/flutter_map.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
@@ -25,6 +28,7 @@ class CreateClockIn extends StatefulWidget {
 class _CreateClockInState extends State<CreateClockIn> {
   late final CreateClockInController _controller;
   late StreamSubscription<Position> streamPosition;
+  late StreamSubscription<ServiceStatus> serviceStatus;
   Position? position;
   bool userCentered = true;
 
@@ -45,6 +49,7 @@ class _CreateClockInState extends State<CreateClockIn> {
   List<Location> locations = [];
   Location? first;
   LatLng? center;
+  ServiceStatus locationStatus = ServiceStatus.enabled;
 
   @override
   void initState() {
@@ -62,11 +67,24 @@ class _CreateClockInState extends State<CreateClockIn> {
 
   void setUpGps() async {
     await _controller.init();
+    serviceStatus = Geolocator.getServiceStatusStream().listen((event) async {
+      if (event == ServiceStatus.disabled) {
+        await showAlertDialog(context,
+            title: "Acceso a la ubicación",
+            message:
+                "La ubicación del dispositivo no está activada, para poder marcar es necesario saber su unicación. \n ¿Deasea activarla?",
+            onConfirm: () async {
+          Geolocator.openLocationSettings();
+        });
+      }
+      setState(() {
+        locationStatus = event;
+      });
+    });
     streamPosition = _controller.streamPosition!.listen(
-      (event) {
+      (event) async {
         super.setState(() {
           position = event;
-          // print(position);
           // print(position!.heading);
         });
       },
@@ -90,6 +108,64 @@ class _CreateClockInState extends State<CreateClockIn> {
       ),
       body: SafeArea(
         child: Builder(builder: (context) {
+          if (locationStatus == ServiceStatus.disabled) {
+            return Center(
+              child: SizedBox(
+                height: 244,
+                width: 300,
+                child: Column(children: [
+                  Container(
+                    height: 56,
+                    width: 56,
+                    decoration: const BoxDecoration(
+                        borderRadius: ApbaStyles.borderRadiusL,
+                        color: ApbaColors.semanticBackgroundHighlight1),
+                    child: const Icon(
+                        color: ApbaColors.semanticError,
+                        FontAwesomeIcons.circleExclamation),
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  const Text(
+                    "Ubicación del dispositivo desactivada",
+                    style: ApbaTypography.headingTitle1,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    "El servicio de ubicacíon del dispositivo se encuentra desactivada, para poder realizar un marcaje es necesario activar dicho servicio",
+                    textAlign: TextAlign.center,
+                    style:
+                        ApbaTypography.body2.copyWith(color: ApbaColors.text2),
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Geolocator.openLocationSettings();
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "Activar ubicacion",
+                            style: ApbaTypography.buttonMedium
+                                .copyWith(color: ApbaColors.semanticHighlight1),
+                          ),
+                          const Icon(
+                            FontAwesomeIcons.chevronRight,
+                            color: ApbaColors.semanticHighlight1,
+                          )
+                        ],
+                      ))
+                ]),
+              ),
+            );
+          }
           if (position != null) {
             for (var element in locations) {
               marks.add(Marker(
@@ -154,7 +230,7 @@ class _CreateClockInState extends State<CreateClockIn> {
                             },
                             style: ApbaButtonStyle.secondaryIconBlueButtonSmall
                                 .copyWith(
-                                    padding: MaterialStatePropertyAll(
+                                    padding: const MaterialStatePropertyAll(
                                         EdgeInsets.all(0))),
                             child: const FaIcon(
                                 FontAwesomeIcons.locationCrosshairs)),
@@ -252,17 +328,32 @@ class _CreateClockInState extends State<CreateClockIn> {
                     // height: MediaQuery.of(context).size.width / 2,
                     child: ElevatedButton(
                         onPressed: () {
-                          print(position?.longitude);
-                          _controller.createClockIn(position!, context);
+                          _controller
+                              .createClockIn(position!, context)
+                              .catchError((e) => {
+                                    Fluttertoast.showToast(
+                                        msg: "Error al marcar")
+                                  })
+                              .then((value) => {
+                                    setState(
+                                      () {
+                                        _controller.lastClockIn = value;
+                                      },
+                                    ),
+                                  });
                         },
                         child: Text(
                             _controller.lastClockIn?.tipo == Tipo.entrada
-                                ? "Fichar Entrada"
-                                : "Fichar salida")))
+                                ? "Fichar Salida"
+                                : "Fichar Entrada")))
               ]),
             );
           } else {
-            return Text("Loading");
+            return const Center(
+              child: CircularProgressIndicator(
+                color: ApbaColors.semanticHighlight2,
+              ),
+            );
           }
         }),
       ),
