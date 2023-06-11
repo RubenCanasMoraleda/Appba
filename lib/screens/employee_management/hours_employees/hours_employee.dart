@@ -19,11 +19,13 @@ class HoursEmployee extends StatefulWidget {
 class _HoursEmployeeState extends State<HoursEmployee>
     with AutomaticKeepAliveClientMixin<HoursEmployee> {
   late HoursEmployeeController _controller;
+  late Future<List<Employee>> _employees;
 
   @override
   void initState() {
     super.initState();
     _controller = HoursEmployeeController(widget._employee);
+    loadEmployees();
   }
 
   @override
@@ -44,31 +46,35 @@ class _HoursEmployeeState extends State<HoursEmployee>
         ),
         Expanded(
           child: FutureBuilder(
-              future: _controller.getHoursMonthDepartment(),
+              future: _employees,
               builder: (BuildContext context,
                   AsyncSnapshot<List<Employee>> snapshot) {
                 if (snapshot.hasData) {
-                  return ListView.builder(
-                      itemCount: snapshot.data!.length > 60
-                          ? 60
-                          : snapshot.data?.length,
-                      itemBuilder: (context, index) {
-                        Color background = index % 2 == 0
-                            ? ApbaColors.background1
-                            : ApbaColors.background2;
-                        return Container(
-                            decoration: BoxDecoration(
-                                color: background,
-                                border: const Border(
-                                    bottom:
-                                        BorderSide(color: ApbaColors.border1))),
-                            child: ListTile(
-                              leading: Text(snapshot.data![index].dni!),
-                              title: Text(snapshot.data![index].nombre!),
-                              subtitle: Text(
-                                  "Lleva ${snapshot.data![index].hours!} horas trabajadas este mes"),
-                            ));
-                      });
+                  return RefreshIndicator(
+                    color: ApbaColors.semanticHighlight2,
+                    onRefresh: loadEmployees,
+                    child: ListView.builder(
+                        itemCount: snapshot.data!.length > 60
+                            ? 60
+                            : snapshot.data?.length,
+                        itemBuilder: (context, index) {
+                          Color background = index % 2 == 0
+                              ? ApbaColors.background1
+                              : ApbaColors.background2;
+                          return Container(
+                              decoration: BoxDecoration(
+                                  color: background,
+                                  border: const Border(
+                                      bottom: BorderSide(
+                                          color: ApbaColors.border1))),
+                              child: ListTile(
+                                leading: Text(snapshot.data![index].dni!),
+                                title: Text(snapshot.data![index].nombre!),
+                                subtitle: Text(
+                                    "Lleva ${snapshot.data![index].hours!} horas trabajadas este mes"),
+                              ));
+                        }),
+                  );
                 } else {
                   return LoadingList.of(
                       60,
@@ -91,4 +97,8 @@ class _HoursEmployeeState extends State<HoursEmployee>
 
   @override
   bool get wantKeepAlive => true;
+
+  Future<void> loadEmployees() async {
+    _employees = _controller.getHoursMonthDepartment();
+  }
 }

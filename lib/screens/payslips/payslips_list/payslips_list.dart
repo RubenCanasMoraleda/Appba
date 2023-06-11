@@ -26,11 +26,13 @@ class PayslipList extends StatefulWidget {
 class _PayslipListState extends State<PayslipList>
     with AutomaticKeepAliveClientMixin<PayslipList> {
   late PayslipListController _controller;
+  late Future<List<Payslip>> _payslips;
 
   @override
   void initState() {
     super.initState();
     _controller = PayslipListController(widget.employee);
+    loadPayslips();
   }
 
   @override
@@ -59,47 +61,51 @@ class _PayslipListState extends State<PayslipList>
         ),
         Expanded(
           child: FutureBuilder(
-              future: _controller.getPayslips(),
+              future: _payslips,
               builder: (BuildContext context,
                   AsyncSnapshot<List<Payslip>> snapshot) {
                 if (snapshot.hasData) {
-                  return ListView.builder(
-                      itemCount: snapshot.data!.length > 60
-                          ? 60
-                          : snapshot.data?.length,
-                      itemBuilder: (context, index) {
-                        Color background = index % 2 == 0
-                            ? ApbaColors.background1
-                            : ApbaColors.background2;
-                        return Container(
-                          decoration: BoxDecoration(
-                              color: background,
-                              border: const Border(
-                                  bottom:
-                                      BorderSide(color: ApbaColors.border1))),
-                          child: ListTile(
-                            title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(snapshot.data![index].fecha!),
-                                  SizedBox(
-                                    width: size.width / 5,
-                                    child: ElevatedButton(
-                                        onPressed: () {
-                                          _controller.downloadPayslip(
-                                              snapshot.data![index],
-                                              widget.employee);
-                                        },
-                                        style: ApbaButtonStyle
-                                            .secondaryIconBlueButton,
-                                        child: const FaIcon(
-                                            FontAwesomeIcons.download)),
-                                  )
-                                ]),
-                          ),
-                        );
-                      });
+                  return RefreshIndicator(
+                    color: ApbaColors.semanticHighlight2,
+                    onRefresh: loadPayslips,
+                    child: ListView.builder(
+                        itemCount: snapshot.data!.length > 60
+                            ? 60
+                            : snapshot.data?.length,
+                        itemBuilder: (context, index) {
+                          Color background = index % 2 == 0
+                              ? ApbaColors.background1
+                              : ApbaColors.background2;
+                          return Container(
+                            decoration: BoxDecoration(
+                                color: background,
+                                border: const Border(
+                                    bottom:
+                                        BorderSide(color: ApbaColors.border1))),
+                            child: ListTile(
+                              title: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(snapshot.data![index].fecha!),
+                                    SizedBox(
+                                      width: size.width / 5,
+                                      child: ElevatedButton(
+                                          onPressed: () {
+                                            _controller.downloadPayslip(
+                                                snapshot.data![index],
+                                                widget.employee);
+                                          },
+                                          style: ApbaButtonStyle
+                                              .secondaryIconBlueButton,
+                                          child: const FaIcon(
+                                              FontAwesomeIcons.download)),
+                                    )
+                                  ]),
+                            ),
+                          );
+                        }),
+                  );
                 } else {
                   return LoadingList.of(
                       60,
@@ -124,4 +130,8 @@ class _PayslipListState extends State<PayslipList>
 
   @override
   bool get wantKeepAlive => true;
+
+  Future<void> loadPayslips() async {
+    _payslips = _controller.getPayslips();
+  }
 }

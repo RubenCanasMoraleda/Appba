@@ -21,10 +21,12 @@ class UploadPayslip extends StatefulWidget {
 class _UploadPayslipState extends State<UploadPayslip>
     with AutomaticKeepAliveClientMixin<UploadPayslip> {
   late UploadPayslipcontroller _controller;
+  late Future<List<Employee>> _employees;
 
   @override
   void initState() {
     _controller = UploadPayslipcontroller(widget.employee);
+    loadEmployees();
     super.initState();
   }
 
@@ -32,30 +34,34 @@ class _UploadPayslipState extends State<UploadPayslip>
   Widget build(BuildContext context) {
     super.build(context);
     return FutureBuilder(
-        future: _controller.getEmployeesFromDepartment(),
+        future: _employees,
         builder:
             (BuildContext context, AsyncSnapshot<List<Employee>> snapshot) {
           if (snapshot.hasData) {
-            return ListView.builder(
-                itemCount:
-                    snapshot.data!.length > 60 ? 60 : snapshot.data?.length,
-                itemBuilder: (context, index) {
-                  Color background = index % 2 == 0
-                      ? ApbaColors.background1
-                      : ApbaColors.background2;
-                  return Container(
-                    decoration: BoxDecoration(
-                        color: background,
-                        border: const Border(
-                            bottom: BorderSide(color: ApbaColors.border1))),
-                    child: ExpansionTile(
-                      title: Text(snapshot.data![index].nombre!),
-                      children: [
-                        GetUploadFileForm(_controller, snapshot, index)
-                      ],
-                    ),
-                  );
-                });
+            return RefreshIndicator(
+              color: ApbaColors.semanticHighlight2,
+              onRefresh: loadEmployees,
+              child: ListView.builder(
+                  itemCount:
+                      snapshot.data!.length > 60 ? 60 : snapshot.data?.length,
+                  itemBuilder: (context, index) {
+                    Color background = index % 2 == 0
+                        ? ApbaColors.background1
+                        : ApbaColors.background2;
+                    return Container(
+                      decoration: BoxDecoration(
+                          color: background,
+                          border: const Border(
+                              bottom: BorderSide(color: ApbaColors.border1))),
+                      child: ExpansionTile(
+                        title: Text(snapshot.data![index].nombre!),
+                        children: [
+                          GetUploadFileForm(_controller, snapshot, index)
+                        ],
+                      ),
+                    );
+                  }),
+            );
           } else {
             return LoadingList.of(
                 60,
@@ -75,6 +81,10 @@ class _UploadPayslipState extends State<UploadPayslip>
 
   @override
   bool get wantKeepAlive => true;
+
+  Future<void> loadEmployees() async {
+    _employees = _controller.getEmployeesFromDepartment();
+  }
 }
 
 class GetUploadFileForm extends StatefulWidget {

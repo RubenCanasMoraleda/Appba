@@ -23,11 +23,13 @@ class RequestList extends StatefulWidget {
 class _RequestListState extends State<RequestList>
     with AutomaticKeepAliveClientMixin<RequestList> {
   late RequestListController _controller;
+  late Future<List<Request>> _requests;
 
   @override
   void initState() {
     super.initState();
     _controller = RequestListController(widget.employee);
+    loadRequests();
   }
 
   @override
@@ -59,53 +61,60 @@ class _RequestListState extends State<RequestList>
         Expanded(
           // height: height - 56,
           child: FutureBuilder(
-              future: _controller.getRequests(),
+              future: _requests,
               builder: (BuildContext context,
                   AsyncSnapshot<List<Request>> snapshot) {
                 if (snapshot.hasData) {
-                  return ListView.builder(
-                      itemCount: snapshot.data!.length > 60
-                          ? 60
-                          : snapshot.data?.length,
-                      itemBuilder: (context, index) {
-                        Color background = index % 2 == 0
-                            ? ApbaColors.background1
-                            : ApbaColors.background2;
-                        return Container(
-                          decoration: BoxDecoration(
-                              color: background,
-                              border: const Border(
-                                  bottom:
-                                      BorderSide(color: ApbaColors.border1))),
-                          child: ListTile(
-                            title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    snapshot.data![index].fechaHora!,
-                                    style: TextStyle(
-                                      fontSize: ApbaTypography.caption.fontSize,
+                  return RefreshIndicator(
+                    color: ApbaColors.semanticHighlight2,
+                    onRefresh: loadRequests,
+                    child: ListView.builder(
+                        itemCount: snapshot.data!.length > 60
+                            ? 60
+                            : snapshot.data?.length,
+                        itemBuilder: (context, index) {
+                          Color background = index % 2 == 0
+                              ? ApbaColors.background1
+                              : ApbaColors.background2;
+                          return Container(
+                            decoration: BoxDecoration(
+                                color: background,
+                                border: const Border(
+                                    bottom:
+                                        BorderSide(color: ApbaColors.border1))),
+                            child: ListTile(
+                              title: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      snapshot.data![index].fechaHora!,
+                                      style: TextStyle(
+                                        fontSize:
+                                            ApbaTypography.caption.fontSize,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    snapshot.data![index].tipo!.value,
-                                    style: TextStyle(
-                                      fontSize: ApbaTypography.caption.fontSize,
+                                    Text(
+                                      snapshot.data![index].tipo!.value,
+                                      style: TextStyle(
+                                        fontSize:
+                                            ApbaTypography.caption.fontSize,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    snapshot.data![index].estado!.value,
-                                    style: TextStyle(
-                                      color:
-                                          snapshot.data![index].estado!.color,
-                                      fontSize: ApbaTypography.caption.fontSize,
+                                    Text(
+                                      snapshot.data![index].estado!.value,
+                                      style: TextStyle(
+                                        color:
+                                            snapshot.data![index].estado!.color,
+                                        fontSize:
+                                            ApbaTypography.caption.fontSize,
+                                      ),
                                     ),
-                                  ),
-                                ]),
-                          ),
-                        );
-                      });
+                                  ]),
+                            ),
+                          );
+                        }),
+                  );
                 } else {
                   return LoadingList.of(
                       60,
@@ -130,4 +139,8 @@ class _RequestListState extends State<RequestList>
 
   @override
   bool get wantKeepAlive => true;
+
+  Future<void> loadRequests() async {
+    _requests = _controller.getRequests();
+  }
 }

@@ -48,13 +48,14 @@ class ApiClockIn {
     return clockIn;
   }
 
-  static Future<int> getHoursMonth(Employee employee) async {
+  static Future<List<int>> getHoursMonth(Employee employee) async {
     dynamic res =
         await Api.GET_REQUEST("${Api.CLOCK_IN}getHours/${employee.id}");
 
     int hours = res["horas"];
+    int hoursMonth = res["horasMes"];
 
-    return hours;
+    return [hours, hoursMonth];
   }
 
   static Future<List<Employee>> getHoursMonthDepartment(

@@ -14,7 +14,7 @@ class ClockInListController {
     return ApiClockIn.getClocksInFromEmployee(_employee);
   }
 
-  Future<int> getHoursMonth() {
+  Future<List<int>> getHoursMonth() {
     return ApiClockIn.getHoursMonth(_employee);
   }
 }

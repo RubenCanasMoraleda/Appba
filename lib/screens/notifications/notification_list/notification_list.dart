@@ -19,11 +19,17 @@ class NotificationList extends StatefulWidget {
 
 class _NotificationListState extends State<NotificationList> {
   late NotificationListController _controller;
+  late Future<List<Notificacion>> _notifications;
 
   @override
   void initState() {
     super.initState();
     _controller = NotificationListController();
+    loadNotifications();
+  }
+
+  Future<void> loadNotifications() async {
+    _notifications = _controller.getNotifications();
   }
 
   @override
@@ -47,28 +53,32 @@ class _NotificationListState extends State<NotificationList> {
           builder: (BuildContext context,
               AsyncSnapshot<List<Notificacion>> snapshot) {
             if (snapshot.hasData) {
-              return ListView.builder(
-                  itemCount:
-                      snapshot.data!.length > 60 ? 60 : snapshot.data?.length,
-                  itemBuilder: (context, index) {
-                    Color background = index % 2 == 0
-                        ? ApbaColors.background1
-                        : ApbaColors.background2;
-                    return Container(
-                      decoration: BoxDecoration(
-                          color: background,
-                          border: const Border(
-                              bottom: BorderSide(color: ApbaColors.border1))),
-                      child: ExpansionTile(
-                        title:
-                            Center(child: Text(snapshot.data![index].title!)),
-                        trailing: Text(snapshot.data![index].date!),
-                        leading: const Icon(FontAwesomeIcons.circleInfo),
-                        // subtitle: Text(snapshot.data![index].date!),
-                        children: [Text(snapshot.data![index].description!)],
-                      ),
-                    );
-                  });
+              return RefreshIndicator(
+                color: ApbaColors.semanticHighlight2,
+                onRefresh: loadNotifications,
+                child: ListView.builder(
+                    itemCount:
+                        snapshot.data!.length > 60 ? 60 : snapshot.data?.length,
+                    itemBuilder: (context, index) {
+                      Color background = index % 2 == 0
+                          ? ApbaColors.background1
+                          : ApbaColors.background2;
+                      return Container(
+                        decoration: BoxDecoration(
+                            color: background,
+                            border: const Border(
+                                bottom: BorderSide(color: ApbaColors.border1))),
+                        child: ExpansionTile(
+                          title:
+                              Center(child: Text(snapshot.data![index].title!)),
+                          trailing: Text(snapshot.data![index].date!),
+                          leading: const Icon(FontAwesomeIcons.circleInfo),
+                          // subtitle: Text(snapshot.data![index].date!),
+                          children: [Text(snapshot.data![index].description!)],
+                        ),
+                      );
+                    }),
+              );
             } else {
               return LoadingList.of(
                   60,

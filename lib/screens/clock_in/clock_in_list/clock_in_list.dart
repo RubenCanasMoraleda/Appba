@@ -24,11 +24,19 @@ class ClockInList extends StatefulWidget {
 class _ClockInListState extends State<ClockInList>
     with AutomaticKeepAliveClientMixin<ClockInList> {
   late ClockInListController _controller;
+  late Future<List<ClockIn>> _clocks;
 
   @override
   void initState() {
     super.initState();
     _controller = ClockInListController(widget.employee);
+    loadClocks();
+  }
+
+  Future<void> loadClocks() async {
+    setState(() {
+      _clocks = _controller.getClocksIn();
+    });
   }
 
   @override
@@ -41,6 +49,7 @@ class _ClockInListState extends State<ClockInList>
         ApbaApbarStyle.theme.toolbarHeight! -
         bottomNavigationBarHeight -
         androidNavBarHeight;
+
     return Column(
       children: [
         SizedBox(
@@ -53,12 +62,12 @@ class _ClockInListState extends State<ClockInList>
                   "Bienvenido ${widget.employee.nombre}",
                   style: ApbaTypography.textTheme.titleLarge,
                 ),
-                FutureBuilder<int>(
+                FutureBuilder<List<int>>(
                     future: _controller.getHoursMonth(),
-                    builder: (context, AsyncSnapshot<int> snapshot) {
+                    builder: (context, AsyncSnapshot<List<int>> snapshot) {
                       if (snapshot.hasData) {
                         return Text(
-                          "Llevas ${snapshot.data} de ${_controller.horasTotales} este mes",
+                          "Llevas ${snapshot.data![0]} de ${snapshot.data![1]} este mes",
                           style: ApbaTypography.textTheme.titleLarge,
                         );
                       } else {
@@ -93,42 +102,47 @@ class _ClockInListState extends State<ClockInList>
               Expanded(
                 // height: (height / 5) * 4 - 56,
                 child: FutureBuilder(
-                    future: _controller.getClocksIn(),
+                    future: _clocks,
                     builder: (BuildContext context,
                         AsyncSnapshot<List<ClockIn>> snapshot) {
                       if (snapshot.hasData) {
-                        return ListView.builder(
-                            itemCount: snapshot.data!.length > 60
-                                ? 60
-                                : snapshot.data?.length,
-                            itemBuilder: (context, index) {
-                              Color background = index % 2 == 0
-                                  ? ApbaColors.background1
-                                  : ApbaColors.background2;
-                              return Container(
-                                decoration: BoxDecoration(
-                                    color: background,
-                                    border: const Border(
-                                        bottom: BorderSide(
-                                            color: ApbaColors.border1))),
-                                child: ListTile(
-                                  title: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(snapshot.data![index].fechaHora!),
-                                        Text(
-                                          snapshot.data![index].tipo!.value,
-                                          style: TextStyle(
-                                              fontSize:
-                                                  ApbaTypography.body2.fontSize,
-                                              color: snapshot
-                                                  .data![index].tipo!.color),
-                                        ),
-                                      ]),
-                                ),
-                              );
-                            });
+                        return RefreshIndicator(
+                          color: ApbaColors.semanticHighlight2,
+                          onRefresh: loadClocks,
+                          child: ListView.builder(
+                              itemCount: snapshot.data!.length > 60
+                                  ? 60
+                                  : snapshot.data?.length,
+                              itemBuilder: (context, index) {
+                                Color background = index % 2 == 0
+                                    ? ApbaColors.background1
+                                    : ApbaColors.background2;
+                                return Container(
+                                  decoration: BoxDecoration(
+                                      color: background,
+                                      border: const Border(
+                                          bottom: BorderSide(
+                                              color: ApbaColors.border1))),
+                                  child: ListTile(
+                                    title: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                              snapshot.data![index].fechaHora!),
+                                          Text(
+                                            snapshot.data![index].tipo!.value,
+                                            style: TextStyle(
+                                                fontSize: ApbaTypography
+                                                    .body2.fontSize,
+                                                color: snapshot
+                                                    .data![index].tipo!.color),
+                                          ),
+                                        ]),
+                                  ),
+                                );
+                              }),
+                        );
                       } else {
                         return LoadingList.of(
                             60,
