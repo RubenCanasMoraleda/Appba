@@ -25,6 +25,7 @@ class _ClockInListState extends State<ClockInList>
     with AutomaticKeepAliveClientMixin<ClockInList> {
   late ClockInListController _controller;
   late Future<List<ClockIn>> _clocks;
+  late Future<List<int>> _hoursMoth;
 
   @override
   void initState() {
@@ -36,6 +37,7 @@ class _ClockInListState extends State<ClockInList>
   Future<void> loadClocks() async {
     setState(() {
       _clocks = _controller.getClocksIn();
+      _hoursMoth = _controller.getHoursMonth();
     });
   }
 
@@ -63,7 +65,7 @@ class _ClockInListState extends State<ClockInList>
                   style: ApbaTypography.textTheme.titleLarge,
                 ),
                 FutureBuilder<List<int>>(
-                    future: _controller.getHoursMonth(),
+                    future: _hoursMoth,
                     builder: (context, AsyncSnapshot<List<int>> snapshot) {
                       if (snapshot.hasData) {
                         return Text(
