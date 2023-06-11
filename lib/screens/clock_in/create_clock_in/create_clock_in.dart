@@ -55,8 +55,13 @@ class _CreateClockInState extends State<CreateClockIn> {
   void initState() {
     super.initState();
     _controller = CreateClockInController(widget.employee);
-
+    loadFirstLocation();
     setUpGps();
+  }
+
+  loadFirstLocation() async {
+    locations = (await _controller.findLocation(dropdownList[0]))!;
+    _controller.clockInLocation = locations[0];
   }
 
   @override
@@ -317,35 +322,62 @@ class _CreateClockInState extends State<CreateClockIn> {
                         );
                       }).toList(),
                     );
+                  } else {
+                    return SizedBox(
+                      height: 48,
+                    );
                   }
-                  return Container();
                 }),
                 const SizedBox(
                   height: 15,
                 ),
                 SizedBox(
-                    width: MediaQuery.of(context).size.width / 2,
-                    // height: MediaQuery.of(context).size.width / 2,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          _controller
-                              .createClockIn(position!, context)
-                              .catchError((e) => {
-                                    Fluttertoast.showToast(
-                                        msg: "Error al marcar")
-                                  })
-                              .then((value) => {
-                                    setState(
-                                      () {
-                                        _controller.lastClockIn = value;
-                                      },
-                                    ),
-                                  });
-                        },
-                        child: Text(
-                            _controller.lastClockIn?.tipo == Tipo.entrada
-                                ? "Fichar Salida"
-                                : "Fichar Entrada")))
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    children: [
+                      const SizedBox(
+                        width: 12,
+                      ),
+                      Expanded(
+                        child: ElevatedButton(
+                            onPressed: () {
+                              _controller
+                                  .createClockIn(position!, context)
+                                  // ignore: invalid_return_type_for_catch_error
+                                  .catchError((e) => {
+                                        Fluttertoast.showToast(
+                                            msg: "Error al marcar")
+                                      })
+                                  .then((value) => {
+                                        setState(
+                                          () {
+                                            _controller.lastClockIn = value;
+                                          },
+                                        ),
+                                      });
+                            },
+                            child: Text(
+                                _controller.lastClockIn?.tipo == Tipo.entrada
+                                    ? "Fichar Salida"
+                                    : "Fichar Entrada")),
+                      ),
+                      const SizedBox(
+                        width: 12,
+                      ),
+                      Expanded(
+                        child: ElevatedButton(
+                            style: ApbaButtonStyle.dangerButton,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text("Cancelar marcaje")),
+                      ),
+                      const SizedBox(
+                        width: 12,
+                      ),
+                    ],
+                  ),
+                )
               ]),
             );
           } else {
