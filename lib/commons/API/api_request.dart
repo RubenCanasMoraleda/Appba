@@ -44,9 +44,10 @@ class ApiRequest {
   static Future<Request?> updateRequest(Request request) async {
     dynamic body = request.toJson();
     dynamic res = await Api.PATCH_REQUEST(Api.REQUEST, body);
-
+    print(res);
     Request requestConf = Request.fromJson(res["data"]);
 
+// Todo refresh de la lista de solicitudes
     return requestConf;
   }
 

@@ -104,12 +104,15 @@ class Api {
   static dynamic PATCH_REQUEST(String url, [Object? body]) async {
     final parsedUrl = Uri.parse(url);
 
-    print("url: $url h: $headers b: $body");
-    final response = await http.patch(parsedUrl, headers: headers, body: body);
+    // print(headers.runtimeType);
+    // print("url: $url h: $headers b: $body");
+
+    final response =
+        await http.patch(parsedUrl, headers: headers, body: jsonEncode(body));
     final code = response.statusCode;
-
+    // print(code);
     final rawJsonString = response.body;
-
+    print(rawJsonString);
     dynamic res = jsonDecode(rawJsonString);
 
     if (code >= 400) {
