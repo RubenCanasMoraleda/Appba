@@ -1,6 +1,5 @@
 import 'package:appba/commons/API/api.dart';
 import 'package:appba/commons/Models/notification.dart';
-import 'package:appba/screens/notifications/create_notification/create_notification.dart';
 
 class ApiNotification {
   static Future<List<Notificacion>> getNotifications() async {

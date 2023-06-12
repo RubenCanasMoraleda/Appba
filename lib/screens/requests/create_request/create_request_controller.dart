@@ -3,6 +3,7 @@ import 'package:appba/commons/API/api_request.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/Models/request.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 
 class CreateRequestController {
   final Employee _employee;
@@ -31,8 +32,14 @@ class CreateRequestController {
   postRequestWithHours(TipoSolicitud tipoSolicitud, String fechaInicio,
       String horaInicio, String horaFin) {
     String fechaHoraInicio = "$fechaInicio $horaInicio";
-    //TODO check hora menor
     String fechaHoraFin = "$fechaInicio $horaFin";
+
+    if (DateTime.parse(fechaHoraFin)
+            .compareTo(DateTime.parse(fechaHoraInicio)) <
+        0) {
+      fechaHoraFin = DateFormat("yyyy-MM-dd hh:mm")
+          .format(DateTime.parse(fechaHoraFin).add(const Duration(days: 1)));
+    }
 
     postRequest(tipoSolicitud, fechaHoraInicio, fechaHoraFin);
   }

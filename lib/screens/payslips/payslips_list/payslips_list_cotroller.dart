@@ -1,7 +1,6 @@
 import 'package:appba/commons/API/api_payslip.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/Models/payslip_model.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:open_file/open_file.dart';
 import 'package:permission_handler/permission_handler.dart';

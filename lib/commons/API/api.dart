@@ -16,7 +16,7 @@ const defaultErrorMessage =
     "Ha habido un error en nuestros servidores. Contacte con un administrador.";
 
 class Endpoints {
-  static String URL = current + "/api";
+  static String URL = "$current/api";
   static String AUTH = "/login";
   static String LOCATION = "/locations/";
   static String EMPLOYEE = "/empleados/";
@@ -63,7 +63,7 @@ class Api {
 
       // throw ApiException(code: code, message: er);
     }
-    print("codigo ${code}");
+    print("codigo $code");
     print(res["message"]);
     return res;
   }
