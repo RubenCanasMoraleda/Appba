@@ -44,7 +44,6 @@ class _CreateClockInState extends State<CreateClockIn> {
   ];
 
   Category dropdownValue = dropdownList.first;
-  final _formKey = GlobalKey<FormState>();
 
   List<Location> locations = [];
   Location? first;
@@ -323,7 +322,7 @@ class _CreateClockInState extends State<CreateClockIn> {
                       }).toList(),
                     );
                   } else {
-                    return SizedBox(
+                    return const SizedBox(
                       height: 48,
                     );
                   }
@@ -370,7 +369,7 @@ class _CreateClockInState extends State<CreateClockIn> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Text("Cancelar marcaje")),
+                            child: const Text("Cancelar marcaje")),
                       ),
                       const SizedBox(
                         width: 12,
