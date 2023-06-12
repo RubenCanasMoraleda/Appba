@@ -6,6 +6,7 @@ import 'package:appba/commons/Models/request.dart';
 import 'package:appba/commons/custom_widgets/confirmation_dialog.dart';
 import 'package:appba/screens/requests/create_request/create_request_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
@@ -55,36 +56,53 @@ class _CreateRequestState extends State<CreateRequest> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Flexible(
+                        flex: 1,
+                        child: SvgPicture.asset("lib/assets/svg/logo.svg")),
+                  ),
                   Flexible(
                     flex: 1,
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<TipoSolicitud>(
-                        icon: const Padding(
-                          padding: EdgeInsets.only(left: 5),
-                          child: Icon(
-                            FontAwesomeIcons.chevronDown,
-                            color: ApbaColors.backgroundBlue,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 15),
+                      child: Column(
+                        children: [
+                          const Text(
+                            "Tipo de Solicitud",
+                            style: ApbaTypography.body1,
                           ),
-                        ),
-                        style: ApbaTypography.body1,
-                        alignment: Alignment.center,
-                        value: dropdownValue,
-                        elevation: 16,
-                        onChanged: (TipoSolicitud? value) {
-                          setState(() {
-                            dropdownValue = value!;
-                          });
-                        },
-                        items: dropdownList
-                            .map<DropdownMenuItem<TipoSolicitud>>(
-                                (TipoSolicitud value) {
-                          return DropdownMenuItem<TipoSolicitud>(
-                            value: value,
-                            child: Center(child: Text(value.value)),
-                          );
-                        }).toList(),
+                          DropdownButtonHideUnderline(
+                            child: DropdownButton<TipoSolicitud>(
+                              icon: const Padding(
+                                padding: EdgeInsets.only(left: 5),
+                                child: Icon(
+                                  FontAwesomeIcons.chevronDown,
+                                  color: ApbaColors.backgroundBlue,
+                                ),
+                              ),
+                              style: ApbaTypography.body1,
+                              alignment: Alignment.center,
+                              value: dropdownValue,
+                              elevation: 16,
+                              onChanged: (TipoSolicitud? value) {
+                                setState(() {
+                                  dropdownValue = value!;
+                                });
+                              },
+                              items: dropdownList
+                                  .map<DropdownMenuItem<TipoSolicitud>>(
+                                      (TipoSolicitud value) {
+                                return DropdownMenuItem<TipoSolicitud>(
+                                  value: value,
+                                  child: Center(child: Text(value.value)),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
