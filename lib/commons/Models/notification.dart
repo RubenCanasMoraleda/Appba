@@ -1,5 +1,3 @@
-import 'package:appba/commons/Models/employee.dart';
-
 class Notificacion {
   int? id;
   String? date;

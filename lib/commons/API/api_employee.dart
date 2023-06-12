@@ -1,10 +1,6 @@
 import 'package:appba/commons/API/api.dart';
 import 'package:appba/commons/Models/department.dart';
 import 'package:appba/commons/Models/employee.dart';
-import 'package:appba/commons/Models/request.dart';
-import 'package:dio/dio.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
 
 class ApiEmployee {
   static Future<List<Employee>> getEmployeeFromDepartment(
@@ -23,7 +19,7 @@ class ApiEmployee {
   }
 
   static Future<List<Employee>> getAllEmployee() async {
-    dynamic res = await Api.GET_REQUEST("${Api.EMPLOYEE}");
+    dynamic res = await Api.GET_REQUEST(Api.EMPLOYEE);
 
     List<Employee> employee = [];
     List<dynamic> fetched = res["empleado"];

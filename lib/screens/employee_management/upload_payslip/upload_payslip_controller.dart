@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:appba/commons/API/api_employee.dart';
 import 'package:appba/commons/API/api_payslip.dart';
-import 'package:appba/commons/Models/department.dart';
 import 'package:file_picker/file_picker.dart';
 
 import '../../../commons/Models/employee.dart';
@@ -12,7 +9,7 @@ class UploadPayslipcontroller {
 
   UploadPayslipcontroller(this._employee);
 
-  Future<List<Employee>> getEmployeesFromDepartment() {
+  Future<List<Employee>> getEmployees() {
     return ApiEmployee.getAllEmployee();
   }
 
@@ -27,7 +24,6 @@ class UploadPayslipcontroller {
   }
 
   Future uploadFile(String filePath, Employee employee) {
-    // print(filePath);
     return ApiPayslip.uploadPayslip(filePath, employee);
   }
 }
