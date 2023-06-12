@@ -128,6 +128,15 @@ class _LoginState extends State<Login> {
                             margin: const EdgeInsets.all(20),
                             child: ElevatedButton(
                               onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(
+                                          color: ApbaColors.semanticHighlight2,
+                                        ),
+                                      );
+                                    });
                                 if (_formKey.currentState!.validate()) {
                                   _controller
                                       .checkLogin(
@@ -136,12 +145,10 @@ class _LoginState extends State<Login> {
                                           isRememberAccount,
                                           _prefs)
                                       .then((value) => {
-                                            print(value.dni),
-                                            value.runtimeType != null
-                                                ? Navigator.pushNamed(
-                                                    context, "/mainScreen",
-                                                    arguments: value)
-                                                : value
+                                            Navigator.pop(context),
+                                            Navigator.pushNamed(
+                                                context, "/mainScreen",
+                                                arguments: value)
                                           });
                                 }
                               },
