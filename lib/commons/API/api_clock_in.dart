@@ -27,7 +27,6 @@ class ApiClockIn {
     dynamic res = await Api.GET_REQUEST(
         "${Api.CLOCK_IN}fromEmpleado/${employee.id}/last");
 
-    print(res);
     ClockIn clockIn = ClockIn.fromJson(res["marcaje"]);
 
     return clockIn;
@@ -42,7 +41,6 @@ class ApiClockIn {
     };
     dynamic res = await Api.POST_REQUEST(Api.CLOCK_IN, body);
 
-    print(res["marcaje"].runtimeType);
     ClockIn clockIn = ClockIn.fromJson(res["marcaje"]);
 
     return clockIn;
@@ -62,8 +60,6 @@ class ApiClockIn {
       Department department) async {
     dynamic res = await Api.GET_REQUEST(
         "${Api.CLOCK_IN}getHoursDepartamento/${department.id}");
-
-    print(res);
 
     List<Employee> employees = [];
 

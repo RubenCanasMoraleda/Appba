@@ -39,6 +39,45 @@ class _MainScreenState extends State<MainScreen> {
     super.dispose();
   }
 
+  List<BottomNavigationBarItem> _listFromRol() {
+    if (widget.employee.rol == "recursos humanos" ||
+        widget.employee.rol == "jefe recursos humanos" ||
+        widget.employee.rol == "jefe") {
+      return <BottomNavigationBarItem>[
+        const BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Marcaje',
+        ),
+        const BottomNavigationBarItem(
+          icon: Icon(Icons.business),
+          label: 'Solicitudes',
+        ),
+        const BottomNavigationBarItem(
+          icon: Icon(Icons.school),
+          label: 'Nominas',
+        ),
+        const BottomNavigationBarItem(
+          icon: Icon(Icons.settings),
+          label: 'Empleados',
+        ),
+      ];
+    }
+    return <BottomNavigationBarItem>[
+      const BottomNavigationBarItem(
+        icon: Icon(Icons.home),
+        label: 'Marcaje',
+      ),
+      const BottomNavigationBarItem(
+        icon: Icon(Icons.business),
+        label: 'Solicitudes',
+      ),
+      const BottomNavigationBarItem(
+        icon: Icon(Icons.school),
+        label: 'Nominas',
+      ),
+    ];
+  }
+
   @override
   void initState() {
     super.initState();
@@ -124,38 +163,21 @@ class _MainScreenState extends State<MainScreen> {
       body: PageView(
         controller: _pageController,
         children: _widgetOptions,
+        onPageChanged: (value) => _onItemTapped(value),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        useLegacyColorScheme: false,
-        selectedIconTheme: ApbaNavbarStyle.selectedIconThemeLabel,
-        unselectedIconTheme: ApbaNavbarStyle.unSelectedIconThemeLabel,
-        currentIndex: _selectedIndex,
-        selectedItemColor: ApbaNavbarStyle.selectedItemColor,
-        selectedLabelStyle: ApbaNavbarStyle.selectedLabelStyle,
-        unselectedLabelStyle: ApbaNavbarStyle.unSelectedLabelStyle,
-        unselectedItemColor: ApbaColors.textStateDisable,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: ApbaNavbarStyle.backgroundColor,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Marcaje',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Solicitudes',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'Nominas',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Empleados',
-          ),
-        ],
-      ),
+          useLegacyColorScheme: false,
+          selectedIconTheme: ApbaNavbarStyle.selectedIconThemeLabel,
+          unselectedIconTheme: ApbaNavbarStyle.unSelectedIconThemeLabel,
+          currentIndex: _selectedIndex,
+          selectedItemColor: ApbaNavbarStyle.selectedItemColor,
+          selectedLabelStyle: ApbaNavbarStyle.selectedLabelStyle,
+          unselectedLabelStyle: ApbaNavbarStyle.unSelectedLabelStyle,
+          unselectedItemColor: ApbaColors.textStateDisable,
+          onTap: _onItemTapped,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: ApbaNavbarStyle.backgroundColor,
+          items: _listFromRol()),
       floatingActionButton: _buttonOptions.elementAt(_selectedIndex),
     );
   }
