@@ -134,18 +134,23 @@ class _LoginState extends State<Login> {
                                       );
                                     });
                                 if (_formKey.currentState!.validate()) {
-                                  _controller
-                                      .checkLogin(
-                                          userController,
-                                          passwordController,
-                                          isRememberAccount,
-                                          _prefs)
-                                      .then((value) => {
-                                            Navigator.pop(context),
-                                            Navigator.pushNamed(
-                                                context, "/mainScreen",
-                                                arguments: value)
-                                          });
+                                  setState(() {
+                                    _controller
+                                        .checkLogin(
+                                            userController,
+                                            passwordController,
+                                            isRememberAccount,
+                                            _prefs)
+                                        .then((value) => {
+                                              print(value.dni),
+                                              print(isRememberAccount),
+                                              print(userController.value),
+                                              Navigator.pop(context),
+                                              Navigator.pushNamed(
+                                                  context, "/mainScreen",
+                                                  arguments: value)
+                                            });
+                                  });
                                 }
                               },
                               child: const Padding(

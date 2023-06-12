@@ -12,7 +12,6 @@ class ClockIn {
   ClockIn({this.id, this.fechaHora, this.tipo, this.empleado});
 
   ClockIn.fromJson(Map<String, dynamic> json) {
-    print("inside fromjson: " + json.toString());
     id = json['id'];
     fechaHora = json['fecha_hora'];
     if (json['tipo'] != null) {
@@ -27,7 +26,6 @@ class ClockIn {
       id = int.parse(json["empleado"]);
       empleado = Employee(id: id);
     } else {
-      print("No es string");
       empleado = Employee.fromJson(json['empleado']);
     }
   }

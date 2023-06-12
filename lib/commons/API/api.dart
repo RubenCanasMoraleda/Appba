@@ -53,7 +53,6 @@ class Api {
     // if (params != null) {
     //   uri = uri.replace(queryParameters: params);
     // }
-    print(uri);
     final response = await http.get(uri, headers: headers);
     final code = response.statusCode;
     final rawJsonString = response.body;
@@ -63,15 +62,12 @@ class Api {
 
       // throw ApiException(code: code, message: er);
     }
-    print("codigo $code");
-    print(res["message"]);
     return res;
   }
 
   static dynamic POST_REQUEST(String url, [Object? body]) async {
     final parsedUrl = Uri.parse(url);
 
-    print("url: $url h: $headers b: $body");
     final response = await http.post(parsedUrl, headers: headers, body: body);
 
     final code = response.statusCode;

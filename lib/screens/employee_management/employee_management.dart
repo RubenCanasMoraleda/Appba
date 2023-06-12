@@ -84,7 +84,7 @@ class _EmployeeManagementState extends State<EmployeeManagement>
     } else {
       return [
         AcceptDenyRequest(employee),
-        const Icon(Icons.directions_transit),
+        HoursEmployee(employee),
       ];
     }
   }
