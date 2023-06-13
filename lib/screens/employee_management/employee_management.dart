@@ -31,7 +31,7 @@ class _EmployeeManagementState extends State<EmployeeManagement>
   Widget build(BuildContext context) {
     super.build(context);
     return DefaultTabController(
-        length: 3,
+        length: getTabs(widget.employee).length,
         child: Scaffold(
           appBar: TabBar(
             indicatorColor: ApbaColors.primaryOrange60,
