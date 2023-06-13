@@ -142,9 +142,6 @@ class _LoginState extends State<Login> {
                                             isRememberAccount,
                                             _prefs)
                                         .then((value) => {
-                                              print(value.dni),
-                                              print(isRememberAccount),
-                                              print(userController.value),
                                               Navigator.pop(context),
                                               Navigator.pushNamed(
                                                   context, "/mainScreen",

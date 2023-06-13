@@ -140,8 +140,9 @@ class _MainScreenState extends State<MainScreen> {
           },
         ),
         centerTitle: true,
-        title: const Text(
-          'APPBA',
+        title: Image.asset(
+          "lib/assets/png/Algeciras_Port.png",
+          width: 100,
         ),
         actions: [
           IconButton(
