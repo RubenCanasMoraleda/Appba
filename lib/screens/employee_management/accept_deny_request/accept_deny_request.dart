@@ -140,8 +140,8 @@ class RequestTile extends StatelessWidget {
             Expanded(
                 child: Column(
               children: [
-                Text("Fecha Inicio: ${_request.fechaHoraInicio!}"),
-                Text("Fecha Fin: ${_request.fechaHoraFin!}"),
+                Text("Desde: ${_request.fechaHoraInicio!}"),
+                Text("Hasta: ${_request.fechaHoraFin!}"),
               ],
             )),
             Expanded(
