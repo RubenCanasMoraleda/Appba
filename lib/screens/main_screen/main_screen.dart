@@ -44,34 +44,34 @@ class _MainScreenState extends State<MainScreen> {
         widget.employee.rol == "jefe") {
       return <BottomNavigationBarItem>[
         const BottomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Icon(FontAwesomeIcons.solidCalendarCheck),
           label: 'Marcaje',
         ),
         const BottomNavigationBarItem(
-          icon: Icon(Icons.business),
+          icon: Icon(FontAwesomeIcons.solidPenToSquare),
           label: 'Solicitudes',
         ),
         const BottomNavigationBarItem(
-          icon: Icon(Icons.school),
+          icon: Icon(FontAwesomeIcons.solidEnvelope),
           label: 'Nominas',
         ),
         const BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
+          icon: Icon(FontAwesomeIcons.solidUser),
           label: 'Empleados',
         ),
       ];
     }
     return <BottomNavigationBarItem>[
       const BottomNavigationBarItem(
-        icon: Icon(Icons.home),
+        icon: Icon(FontAwesomeIcons.solidCalendarCheck),
         label: 'Marcaje',
       ),
       const BottomNavigationBarItem(
-        icon: Icon(Icons.business),
+        icon: Icon(FontAwesomeIcons.penToSquare),
         label: 'Solicitudes',
       ),
       const BottomNavigationBarItem(
-        icon: Icon(Icons.school),
+        icon: Icon(FontAwesomeIcons.solidEnvelope),
         label: 'Nominas',
       ),
     ];
@@ -150,7 +150,7 @@ class _MainScreenState extends State<MainScreen> {
                 Navigator.pushNamed(context, "/notifications",
                     arguments: widget.employee);
               },
-              icon: const Icon(FontAwesomeIcons.circleInfo))
+              icon: const Icon(FontAwesomeIcons.newspaper))
         ],
       ),
       body: PageView(
