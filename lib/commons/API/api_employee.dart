@@ -31,16 +31,7 @@ class ApiEmployee {
     return employee;
   }
 
-  static Future<List<Employee>> getFakeEmployees() {
-    return Future.delayed(Duration(seconds: 2), () {
-      return List.generate(
-          15,
-          (index) => Employee(
-              id: index, dni: "2023-05-$index", nombre: "Juanma Maquinon"));
-    });
-  }
-
-  static Future<Employee> Login(String dni, String password) async {
+  static Future<Employee> login(String dni, String password) async {
     dynamic res =
         await Api.POST_REQUEST(Api.AUTH, {"DNI": dni, "password": password});
     Employee employee;

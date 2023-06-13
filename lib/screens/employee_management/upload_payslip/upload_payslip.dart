@@ -27,7 +27,7 @@ class _UploadPayslipState extends State<UploadPayslip>
 
   @override
   void initState() {
-    _controller = UploadPayslipcontroller(widget.employee);
+    _controller = UploadPayslipcontroller();
     loadEmployees();
     super.initState();
   }
@@ -44,7 +44,7 @@ class _UploadPayslipState extends State<UploadPayslip>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
+              const Text(
                 "Nóminas de los empleados",
                 style: ApbaTypography.headingTitle1,
               ),

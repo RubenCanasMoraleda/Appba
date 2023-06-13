@@ -105,7 +105,7 @@ class _ClockInListState extends State<ClockInListEmployee>
                         style: ApbaTypography.body2,
                       ),
                       IconButton(
-                        icon: Icon(FontAwesomeIcons.magnifyingGlass),
+                        icon: const Icon(FontAwesomeIcons.magnifyingGlass),
                         onPressed: () async {
                           showSearch(
                               context: context,

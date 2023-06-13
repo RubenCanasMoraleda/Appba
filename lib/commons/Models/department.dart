@@ -8,7 +8,6 @@ class Department {
   Department({this.id, this.nombre, this.jefe});
 
   Department.fromJson(Map<String, dynamic> json) {
-    print(json['jefe'].runtimeType);
     id = json['id'];
     nombre = json['nombre'];
     jefe = json['jefe'].runtimeType == int

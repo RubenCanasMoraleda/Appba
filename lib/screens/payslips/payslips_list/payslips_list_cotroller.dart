@@ -28,12 +28,7 @@ class PayslipListController {
       final file = await ApiPayslip.downloadPayslip(payslip, employee);
       if (file == null) return;
 
-      print("Path ${file.path}");
-      // print("Path ${file.}");
-
-      final result = await OpenFile.open(file.path);
-
-      print(result.message);
+      await OpenFile.open(file.path);
     } else {
       Fluttertoast.showToast(
           msg: "No se puede acceder al almacenamiento del dispositivo",
@@ -41,7 +36,6 @@ class PayslipListController {
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
           fontSize: 16.0);
-      print("putos permisos de mierda");
     }
   }
 }

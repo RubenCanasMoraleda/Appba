@@ -1,5 +1,4 @@
 import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
-import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/Models/request.dart';
 import 'package:appba/screens/employee_management/accept_deny_request/accept_deny_request.dart';
 import 'package:appba/screens/employee_management/accept_deny_request/accept_deny_request_controller.dart';

@@ -1,5 +1,4 @@
 import 'package:appba/assets/apba_theme/apba_theme.dart';
-import 'package:appba/screens/clock_in/clock_in_list/clock_in_list.dart';
 import 'package:appba/screens/clock_in/create_clock_in/create_clock_in.dart';
 import 'package:appba/screens/employee_management/hours_employees/clock_in_list/clock_in_list_employee.dart';
 import 'package:appba/screens/login/login.dart';
@@ -15,7 +14,6 @@ import 'commons/Models/employee.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  // Plugin must be initialized before using
 
   runApp(const MyApp());
 }
