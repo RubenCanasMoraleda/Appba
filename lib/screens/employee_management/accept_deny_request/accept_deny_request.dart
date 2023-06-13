@@ -155,6 +155,8 @@ class _AcceptDenyRequestState extends State<AcceptDenyRequest>
   bool get wantKeepAlive => true;
 
   Future<void> loadRequests() async {
-    _requests = _controller.getRequestsFromDepartment();
+    setState(() {
+      _requests = _controller.getRequestsFromDepartment();
+    });
   }
 }

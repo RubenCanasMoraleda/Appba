@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
@@ -103,19 +104,19 @@ class Api {
 
   static dynamic PATCH_REQUEST(String url, [Object? body]) async {
     final parsedUrl = Uri.parse(url);
-
+    var dio = Dio();
     // print(headers.runtimeType);
     // print("url: $url h: $headers b: $body");
 
-    final response =
-        await http.patch(parsedUrl, headers: headers, body: jsonEncode(body));
+    final response = await dio.patch(url, data: body);
     final code = response.statusCode;
     // print(code);
-    final rawJsonString = response.body;
-    print(rawJsonString);
-    dynamic res = jsonDecode(rawJsonString);
+    final rawJsonString = response.data;
+    print("raw: " + rawJsonString["data"].toString());
+    dynamic res = rawJsonString;
 
-    if (code >= 400) {
+    print("res: " + res.toString());
+    if (code! >= 400) {
       String er = res["message"] ?? defaultErrorMessage;
 
       // throw ApiException(code: code, message: er);

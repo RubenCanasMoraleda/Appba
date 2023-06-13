@@ -63,13 +63,6 @@ class Request {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    print(id.runtimeType);
-    print(fechaHora.runtimeType);
-    print(fechaHoraInicio.runtimeType);
-    print(fechaHoraFin.runtimeType);
-    print(tipo!.key.runtimeType);
-    print(estado!.key.runtimeType);
-    print(empleado!.id.runtimeType);
 
     data['id'] = id;
     print(data["id"]);
