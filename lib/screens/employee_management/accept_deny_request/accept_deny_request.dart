@@ -3,7 +3,9 @@ import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/Models/request.dart';
 import 'package:appba/commons/custom_widgets/confirmation_dialog.dart';
 import 'package:appba/screens/employee_management/accept_deny_request/accept_deny_request_controller.dart';
+import 'package:appba/screens/employee_management/accept_deny_request/serach_employee_delegate.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../assets/apba_theme/colors/apba_colors.dart';
 import '../../../assets/apba_theme/typography/apba_typography.dart';
@@ -38,11 +40,23 @@ class _AcceptDenyRequestState extends State<AcceptDenyRequest>
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.all(16),
           color: ApbaColors.semanticBackgroundHighlight1,
-          child: const Center(
-            child: Text(
-              "Solicitudes pendientes",
-              style: ApbaTypography.headingTitle1,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const Text(
+                "Solicitudes pendientes",
+                style: ApbaTypography.headingTitle1,
+              ),
+              IconButton(
+                icon: const Icon(FontAwesomeIcons.magnifyingGlass),
+                onPressed: () async {
+                  showSearch(
+                      context: context,
+                      delegate:
+                          SearchEmployeeDelegate(await _requests, _controller));
+                },
+              ),
+            ],
           ),
         ),
         Expanded(
@@ -68,66 +82,9 @@ class _AcceptDenyRequestState extends State<AcceptDenyRequest>
                                 border: const Border(
                                     bottom:
                                         BorderSide(color: ApbaColors.border1))),
-                            child: ExpansionTile(
-                              title: Text(snapshot.data![index].tipo!.value),
-                              subtitle:
-                                  Text(snapshot.data![index].empleado!.nombre!),
-                              children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                        child: Column(
-                                      children: [
-                                        Text(
-                                            "Fecha Inicio: ${snapshot.data![index].fechaHoraInicio!}"),
-                                        Text(
-                                            "Fecha Fin: ${snapshot.data![index].fechaHoraFin!}"),
-                                      ],
-                                    )),
-                                    Expanded(
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(5),
-                                            child: ElevatedButton(
-                                                onPressed: () {
-                                                  showAlertDialog(context,
-                                                      title:
-                                                          "Confirmar Solicitud",
-                                                      message:
-                                                          "¿Esta seguro de que desea aceptar una solicitud de ${snapshot.data![index].empleado!.nombre} de ${snapshot.data![index].tipo!.value.toLowerCase()}?",
-                                                      onConfirm: () {
-                                                    _controller.acceptRequest(
-                                                        snapshot.data![index]);
-                                                  });
-                                                },
-                                                child: const Text("Aceptar")),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(5),
-                                            child: ElevatedButton(
-                                                style: ApbaButtonStyle
-                                                    .secondaryButton,
-                                                onPressed: () {
-                                                  showAlertDialog(context,
-                                                      title:
-                                                          "Rechazar Solicitud",
-                                                      message:
-                                                          "¿Esta seguro de que desea rechazar una solicitud de ${snapshot.data![index].empleado!.nombre} de ${snapshot.data![index].tipo!.value.toLowerCase()}?",
-                                                      onConfirm: () {
-                                                    _controller.denyRequest(
-                                                        snapshot.data![index]);
-                                                  });
-                                                },
-                                                child: const Text("Rechazar")),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
+                            child: RequestTile(
+                                controller: _controller,
+                                request: snapshot.data![index]),
                           );
                         }),
                   );
@@ -158,5 +115,73 @@ class _AcceptDenyRequestState extends State<AcceptDenyRequest>
     setState(() {
       _requests = _controller.getRequestsFromDepartment();
     });
+  }
+}
+
+class RequestTile extends StatelessWidget {
+  const RequestTile({
+    super.key,
+    required AcceptDenyRequestController controller,
+    required Request request,
+  })  : _controller = controller,
+        _request = request;
+
+  final AcceptDenyRequestController _controller;
+  final Request _request;
+
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionTile(
+      title: Text(_request.tipo!.value),
+      subtitle: Text(_request.empleado!.nombre!),
+      children: [
+        Row(
+          children: [
+            Expanded(
+                child: Column(
+              children: [
+                Text("Fecha Inicio: ${_request.fechaHoraInicio!}"),
+                Text("Fecha Fin: ${_request.fechaHoraFin!}"),
+              ],
+            )),
+            Expanded(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          showAlertDialog(context,
+                              title: "Confirmar Solicitud",
+                              message:
+                                  "¿Esta seguro de que desea aceptar una solicitud de ${_request.empleado!.nombre} de ${_request.tipo!.value.toLowerCase()}?",
+                              onConfirm: () {
+                            _controller.acceptRequest(_request);
+                          });
+                        },
+                        child: const Text("Aceptar")),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: ElevatedButton(
+                        style: ApbaButtonStyle.secondaryButton,
+                        onPressed: () {
+                          showAlertDialog(context,
+                              title: "Rechazar Solicitud",
+                              message:
+                                  "¿Esta seguro de que desea rechazar una solicitud de ${_request.empleado!.nombre} de ${_request.tipo!.value.toLowerCase()}?",
+                              onConfirm: () {
+                            _controller.denyRequest(_request);
+                          });
+                        },
+                        child: const Text("Rechazar")),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        )
+      ],
+    );
   }
 }

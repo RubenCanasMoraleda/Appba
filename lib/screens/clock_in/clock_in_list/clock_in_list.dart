@@ -4,10 +4,12 @@ import 'package:appba/assets/apba_theme/navigation/apba_apbar.dart';
 import 'package:appba/assets/apba_theme/typography/apba_typography.dart';
 import 'package:appba/commons/Models/clock_in.dart';
 import 'package:appba/commons/custom_widgets/loading_list.dart';
+import 'package:appba/screens/clock_in/clock_in_list/serach_clock_in_delegate.dart';
 import 'package:flutter/material.dart';
 
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/screens/clock_in/clock_in_list/clock_in_list_controller.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ClockInList extends StatefulWidget {
   final Employee employee;
@@ -87,12 +89,20 @@ class _ClockInListState extends State<ClockInList>
               Container(
                 padding: const EdgeInsets.all(16),
                 color: ApbaColors.semanticBackgroundHighlight1,
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       "Fecha y hora",
                       style: ApbaTypography.body2,
+                    ),
+                    IconButton(
+                      icon: Icon(FontAwesomeIcons.magnifyingGlass),
+                      onPressed: () async {
+                        showSearch(
+                            context: context,
+                            delegate: SearchClockInDelegate(await _clocks));
+                      },
                     ),
                     Text(
                       "Entrada/Salida",
@@ -103,15 +113,15 @@ class _ClockInListState extends State<ClockInList>
               ),
               Expanded(
                 // height: (height / 5) * 4 - 56,
-                child: FutureBuilder(
-                    future: _clocks,
-                    builder: (BuildContext context,
-                        AsyncSnapshot<List<ClockIn>> snapshot) {
-                      if (snapshot.hasData) {
-                        return RefreshIndicator(
-                          color: ApbaColors.semanticHighlight2,
-                          onRefresh: loadClocks,
-                          child: ListView.builder(
+                child: RefreshIndicator(
+                  color: ApbaColors.semanticHighlight2,
+                  onRefresh: loadClocks,
+                  child: FutureBuilder(
+                      future: _clocks,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<ClockIn>> snapshot) {
+                        if (snapshot.hasData) {
+                          return ListView.builder(
                               itemCount: snapshot.data!.length > 60
                                   ? 60
                                   : snapshot.data?.length,
@@ -143,23 +153,23 @@ class _ClockInListState extends State<ClockInList>
                                         ]),
                                   ),
                                 );
-                              }),
-                        );
-                      } else {
-                        return LoadingList.of(
-                            60,
-                            ListTile(
-                              title: Container(
-                                height: 15,
-                                width: 20,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.circular(4),
+                              });
+                        } else {
+                          return LoadingList.of(
+                              60,
+                              ListTile(
+                                title: Container(
+                                  height: 15,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
                                 ),
-                              ),
-                            ));
-                      }
-                    }),
+                              ));
+                        }
+                      }),
+                ),
               ),
             ],
           ),

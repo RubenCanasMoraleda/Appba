@@ -16,7 +16,8 @@ class NotificationList extends StatefulWidget {
   State<NotificationList> createState() => _NotificationListState();
 }
 
-class _NotificationListState extends State<NotificationList> {
+class _NotificationListState extends State<NotificationList>
+    with AutomaticKeepAliveClientMixin<NotificationList> {
   late NotificationListController _controller;
   late Future<List<Notificacion>> _notifications;
 
@@ -28,11 +29,14 @@ class _NotificationListState extends State<NotificationList> {
   }
 
   Future<void> loadNotifications() async {
-    _notifications = _controller.getNotifications();
+    setState(() {
+      _notifications = _controller.getNotifications();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       floatingActionButton: _controller.canAddNotifications(widget.employee)
           ? ApbaFloatingActionButton(
@@ -47,15 +51,15 @@ class _NotificationListState extends State<NotificationList> {
         centerTitle: true,
         title: const Text("Notificaciones"),
       ),
-      body: FutureBuilder(
-          future: _controller.getNotifications(),
-          builder: (BuildContext context,
-              AsyncSnapshot<List<Notificacion>> snapshot) {
-            if (snapshot.hasData) {
-              return RefreshIndicator(
-                color: ApbaColors.semanticHighlight2,
-                onRefresh: loadNotifications,
-                child: ListView.builder(
+      body: RefreshIndicator(
+        color: ApbaColors.semanticHighlight2,
+        onRefresh: loadNotifications,
+        child: FutureBuilder(
+            future: _controller.getNotifications(),
+            builder: (BuildContext context,
+                AsyncSnapshot<List<Notificacion>> snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
                     itemCount:
                         snapshot.data!.length > 60 ? 60 : snapshot.data?.length,
                     itemBuilder: (context, index) {
@@ -76,23 +80,26 @@ class _NotificationListState extends State<NotificationList> {
                           children: [Text(snapshot.data![index].description!)],
                         ),
                       );
-                    }),
-              );
-            } else {
-              return LoadingList.of(
-                  60,
-                  ListTile(
-                    title: Container(
-                      height: 15,
-                      width: 20,
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(4),
+                    });
+              } else {
+                return LoadingList.of(
+                    60,
+                    ListTile(
+                      title: Container(
+                        height: 15,
+                        width: 20,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
                       ),
-                    ),
-                  ));
-            }
-          }),
+                    ));
+              }
+            }),
+      ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

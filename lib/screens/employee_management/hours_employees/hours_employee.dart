@@ -39,7 +39,7 @@ class _HoursEmployeeState extends State<HoursEmployee>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
+              const Text(
                 "Horas de los empleados",
                 style: ApbaTypography.headingTitle1,
               ),
@@ -78,6 +78,9 @@ class _HoursEmployeeState extends State<HoursEmployee>
                                       bottom: BorderSide(
                                           color: ApbaColors.border1))),
                               child: ListTile(
+                                onTap: () => Navigator.pushNamed(
+                                    context, '/employeeClockIn',
+                                    arguments: snapshot.data![index]),
                                 leading: Text(snapshot.data![index].dni!),
                                 title: Text(snapshot.data![index].nombre!),
                                 subtitle: Text(

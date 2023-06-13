@@ -1,13 +1,17 @@
 import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
 import 'package:appba/commons/Models/employee.dart';
+import 'package:appba/commons/Models/request.dart';
+import 'package:appba/screens/employee_management/accept_deny_request/accept_deny_request.dart';
+import 'package:appba/screens/employee_management/accept_deny_request/accept_deny_request_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SearchEmployeeDelegate extends SearchDelegate<Employee> {
-  final List<Employee> employees;
-  List<Employee> _filter = [];
+class SearchEmployeeDelegate extends SearchDelegate<Request> {
+  final List<Request> requests;
+  final AcceptDenyRequestController _controller;
+  List<Request> _filter = [];
 
-  SearchEmployeeDelegate(this.employees);
+  SearchEmployeeDelegate(this.requests, this._controller);
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -24,7 +28,7 @@ class SearchEmployeeDelegate extends SearchDelegate<Employee> {
   Widget? buildLeading(BuildContext context) {
     return IconButton(
         onPressed: () {
-          close(context, Employee(id: 1));
+          close(context, Request(id: 1));
         },
         icon: const Icon(Icons.arrow_back));
   }
@@ -36,14 +40,14 @@ class SearchEmployeeDelegate extends SearchDelegate<Employee> {
       n = int.tryParse(query.characters.first);
     }
 
-    _filter = employees.where(
-      (employee) {
+    _filter = requests.where(
+      (request) {
         if (n == null) {
-          return (employee.nombre
+          return (request.empleado?.nombre
               ?.toLowerCase()
               .contains(query.trim().toLowerCase()))!;
         }
-        return (employee.dni?.contains(query.trim()))!;
+        return (request.empleado?.dni?.contains(query.trim()))!;
       },
     ).toList();
     return ListView.builder(
@@ -56,12 +60,8 @@ class SearchEmployeeDelegate extends SearchDelegate<Employee> {
                   color: background,
                   border: const Border(
                       bottom: BorderSide(color: ApbaColors.border1))),
-              child: ListTile(
-                leading: Text(_filter[index].dni!),
-                title: Text(_filter[index].nombre!),
-                subtitle: Text(
-                    "Lleva ${_filter[index].hours!} horas trabajadas este mes"),
-              ));
+              child: RequestTile(
+                  controller: _controller, request: _filter[index]));
         });
   }
 
@@ -72,14 +72,14 @@ class SearchEmployeeDelegate extends SearchDelegate<Employee> {
       n = int.tryParse(query.characters.first);
     }
 
-    _filter = employees.where(
-      (employee) {
+    _filter = requests.where(
+      (request) {
         if (n == null) {
-          return (employee.nombre
+          return (request.empleado?.nombre
               ?.toLowerCase()
               .contains(query.trim().toLowerCase()))!;
         }
-        return (employee.dni?.contains(query.trim()))!;
+        return (request.empleado?.dni?.contains(query.trim()))!;
       },
     ).toList();
     return ListView.builder(
@@ -92,12 +92,8 @@ class SearchEmployeeDelegate extends SearchDelegate<Employee> {
                   color: background,
                   border: const Border(
                       bottom: BorderSide(color: ApbaColors.border1))),
-              child: ListTile(
-                leading: Text(_filter[index].dni!),
-                title: Text(_filter[index].nombre!),
-                subtitle: Text(
-                    "Lleva ${_filter[index].hours!} horas trabajadas este mes"),
-              ));
+              child: RequestTile(
+                  controller: _controller, request: _filter[index]));
         });
   }
 }

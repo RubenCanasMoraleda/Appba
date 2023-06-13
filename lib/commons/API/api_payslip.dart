@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:mime/mime.dart';
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -27,14 +27,30 @@ class ApiPayslip {
   }
 
   static Future uploadPayslip(String filename, Employee employee) async {
+    var dio = Dio();
+    var mime = lookupMimeType(filename);
+    print(mime);
     String url = "${Api.EMPLOYEE}uploadPayslip";
-    var request = http.MultipartRequest('POST', Uri.parse(url));
-    request.fields["empleado"] = "${employee.id}";
-    request.files.add(await http.MultipartFile.fromPath('file', filename,
-        contentType: MediaType("application", "pdf")));
+    FormData formData = FormData.fromMap({
+      "empleado": employee.id,
+      "file": await MultipartFile.fromFile(filename,
+          contentType: MediaType.parse(mime!))
+    });
 
-    var res = await request.send();
-    if (res.statusCode == 415) {
+    var request = await dio.post(url,
+        data: formData,
+        options: Options(
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! > 0;
+          },
+        ));
+    // request.fields["empleado"] = "${employee.id}";
+    // request.files.add(await http.MultipartFile.fromPath('file', filename,
+    //     contentType: MediaType("application", "pdf")));
+
+    // var res = await request.send();
+    if (request.statusCode == 415) {
       //status code 415 es que el formato del fichero no está permitido (no es un pdf)
       Fluttertoast.showToast(
           msg: "El archivo seleccionado no es un pdf",
@@ -42,7 +58,7 @@ class ApiPayslip {
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
           fontSize: 16.0);
-    } else if (res.statusCode == 200) {
+    } else if (request.statusCode == 200) {
       Fluttertoast.showToast(
           msg: "Nómina subida correctamente",
           toastLength: Toast.LENGTH_SHORT,
