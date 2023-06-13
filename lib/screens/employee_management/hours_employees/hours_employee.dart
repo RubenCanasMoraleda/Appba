@@ -39,7 +39,7 @@ class _HoursEmployeeState extends State<HoursEmployee>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
+              const Text(
                 "Horas de los empleados",
                 style: ApbaTypography.headingTitle1,
               ),

@@ -141,6 +141,8 @@ class _RequestListState extends State<RequestList>
   bool get wantKeepAlive => true;
 
   Future<void> loadRequests() async {
-    _requests = _controller.getRequests();
+    setState(() {
+      _requests = _controller.getRequests();
+    });
   }
 }

@@ -12,7 +12,7 @@ class RequestListController {
     this._employee,
   );
 
-  Future<List<Request>> getRequests() {
+  Future<List<Request>> getRequests() async {
     return ApiRequest.getRequestsFromEmployee(_employee);
   }
 }
