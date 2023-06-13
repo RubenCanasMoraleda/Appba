@@ -65,15 +65,13 @@ class Request {
     final Map<String, dynamic> data = <String, dynamic>{};
 
     data['id'] = id;
-    print(data["id"]);
     data['fecha_hora'] = fechaHora;
-    print(data["fecha_hora"]);
     data['fecha_hora_inicio'] = fechaHoraInicio;
     data['fecha_hora_fin'] = fechaHoraFin;
     data['tipo'] = tipo!.key;
     data['estado'] = estado!.key;
     data['empleado'] = empleado?.id;
-    print(data.runtimeType);
+
     return data;
   }
 }

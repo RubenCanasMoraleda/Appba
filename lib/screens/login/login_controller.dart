@@ -13,7 +13,7 @@ class LoginController {
     Employee employee;
 
     employee =
-        await ApiEmployee.Login(userController.text, passwordController.text);
+        await ApiEmployee.login(userController.text, passwordController.text);
 
     if (isRememberAccount == true) {
       prefs.then((value) {

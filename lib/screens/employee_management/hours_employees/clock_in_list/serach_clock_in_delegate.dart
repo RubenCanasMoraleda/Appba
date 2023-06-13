@@ -1,7 +1,6 @@
 import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
 import 'package:appba/assets/apba_theme/typography/apba_typography.dart';
 import 'package:appba/commons/Models/clock_in.dart';
-import 'package:appba/commons/Models/employee.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

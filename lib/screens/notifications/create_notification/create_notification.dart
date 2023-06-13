@@ -25,7 +25,8 @@ class _CreateNotificationState extends State<CreateNotification> {
     // Build a Form widget using the _formKey created above.
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text("Crear notificacion")),
+        centerTitle: true,
+        title: const Text("Crear notificacion"),
       ),
       body: SafeArea(
         child: Form(
@@ -36,24 +37,34 @@ class _CreateNotificationState extends State<CreateNotification> {
                 const SizedBox(
                   height: 25,
                 ),
+                Expanded(
+                  child: Image.asset(
+                    "lib/assets/png/Algeciras_Port.png",
+                    width: 300,
+                  ),
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
                 SizedBox(
                   width: 300,
-                  child: Expanded(
-                    child: TextFormField(
-                      controller: titleController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        label: Text("Titulo"),
-                        // labelText: 'Título'
-                      ),
-                      validator: (value) {
-                        // if (value == null || value.isEmpty) {
-                        //   return 'Introduce un DNI';
-                        // }
-                        return null;
-                      },
+                  child: TextFormField(
+                    controller: titleController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      label: Text("Título"),
+                      // labelText: 'Título'
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Introduce un título';
+                      }
+                      return null;
+                    },
                   ),
+                ),
+                const SizedBox(
+                  height: 25,
                 ),
                 Expanded(
                   child: SizedBox(
@@ -63,12 +74,12 @@ class _CreateNotificationState extends State<CreateNotification> {
                       maxLines: 10,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Descripcion',
+                        labelText: 'Descripción',
                       ),
                       validator: (value) {
-                        // if (value == null || value.isEmpty) {
-                        //   return 'Introduce una contraseña';
-                        // }
+                        if (value == null || value.isEmpty) {
+                          return 'Introduce una descripción';
+                        }
                         return null;
                       },
                     ),
@@ -98,7 +109,7 @@ class _CreateNotificationState extends State<CreateNotification> {
                         }
                       },
                       style: ApbaButtonStyle.primaryBlueButton,
-                      child: const Text('Entrar'),
+                      child: const Text('Publicar'),
                     )),
               ],
             )),

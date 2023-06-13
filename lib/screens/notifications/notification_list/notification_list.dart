@@ -55,7 +55,7 @@ class _NotificationListState extends State<NotificationList>
         color: ApbaColors.semanticHighlight2,
         onRefresh: loadNotifications,
         child: FutureBuilder(
-            future: _controller.getNotifications(),
+            future: _notifications,
             builder: (BuildContext context,
                 AsyncSnapshot<List<Notificacion>> snapshot) {
               if (snapshot.hasData) {

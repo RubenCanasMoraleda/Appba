@@ -9,7 +9,6 @@ class ApiLocation {
 
     List<Location> locations = [];
     List<dynamic> fetched = res["data"];
-    print(res["data"]);
 
     for (var item in fetched) {
       locations.add(Location.fromJson(item));

@@ -5,9 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import '../../../commons/Models/employee.dart';
 
 class UploadPayslipcontroller {
-  final Employee _employee;
-
-  UploadPayslipcontroller(this._employee);
+  UploadPayslipcontroller();
 
   Future<List<Employee>> getEmployees() {
     return ApiEmployee.getAllEmployee();

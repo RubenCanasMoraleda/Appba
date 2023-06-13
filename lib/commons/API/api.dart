@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -58,11 +60,7 @@ class Api {
     final code = response.statusCode;
     final rawJsonString = response.body;
     dynamic res = jsonDecode(rawJsonString);
-    if (code >= 400 || res["status"] != 200) {
-      String er = res["message"] ?? defaultErrorMessage;
-
-      // throw ApiException(code: code, message: er);
-    }
+    if (code >= 400 || res["status"] != 200) {}
     return res;
   }
 
@@ -94,31 +92,20 @@ class Api {
 
     dynamic res = jsonDecode(rawJsonString);
 
-    if (code >= 400) {
-      String er = res["message"] ?? defaultErrorMessage;
-
-      // throw ApiException(code: code, message: er);
-    }
+    if (code >= 400) {}
     return res;
   }
 
   static dynamic PATCH_REQUEST(String url, [Object? body]) async {
-    final parsedUrl = Uri.parse(url);
     var dio = Dio();
-    // print(headers.runtimeType);
-    // print("url: $url h: $headers b: $body");
 
     final response = await dio.patch(url, data: body);
     final code = response.statusCode;
     // print(code);
     final rawJsonString = response.data;
-    print("raw: " + rawJsonString["data"].toString());
     dynamic res = rawJsonString;
 
-    print("res: " + res.toString());
     if (code! >= 400) {
-      String er = res["message"] ?? defaultErrorMessage;
-
       // throw ApiException(code: code, message: er);
     }
     return res;
@@ -132,11 +119,7 @@ class Api {
 
     dynamic res = jsonDecode(rawJsonString);
 
-    if (code >= 400 || res["status"] != 200) {
-      String er = res["message"] ?? defaultErrorMessage;
-
-      // throw ApiException(code: code, message: er);
-    }
+    if (code >= 400 || res["status"] != 200) {}
     return res;
   }
 }

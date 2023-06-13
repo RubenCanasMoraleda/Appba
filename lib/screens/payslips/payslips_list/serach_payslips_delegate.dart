@@ -1,7 +1,5 @@
 import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
 import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
-import 'package:appba/assets/apba_theme/typography/apba_typography.dart';
-import 'package:appba/commons/Models/clock_in.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/Models/payslip_model.dart';
 import 'package:appba/screens/payslips/payslips_list/payslips_list_cotroller.dart';
@@ -13,7 +11,7 @@ class SearchPayslipDelegate extends SearchDelegate<Payslip> {
   List<Payslip> _filter = [];
   final PayslipListController _controller;
 
-  Employee _employee;
+  final Employee _employee;
 
   SearchPayslipDelegate(this.payslips, this._controller, this._employee);
 

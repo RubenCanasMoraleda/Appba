@@ -92,19 +92,19 @@ class _ClockInListState extends State<ClockInList>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "Fecha y hora",
                       style: ApbaTypography.body2,
                     ),
                     IconButton(
-                      icon: Icon(FontAwesomeIcons.magnifyingGlass),
+                      icon: const Icon(FontAwesomeIcons.magnifyingGlass),
                       onPressed: () async {
                         showSearch(
                             context: context,
                             delegate: SearchClockInDelegate(await _clocks));
                       },
                     ),
-                    Text(
+                    const Text(
                       "Entrada/Salida",
                       style: ApbaTypography.body2,
                     ),
