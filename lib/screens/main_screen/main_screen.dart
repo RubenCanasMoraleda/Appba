@@ -22,7 +22,6 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
-  static late List<Widget> _widgetOptions;
   static late List<Widget?> _buttonOptions;
   late PageController _pageController;
 
@@ -127,13 +126,6 @@ class _MainScreenState extends State<MainScreen> {
       null
     ];
 
-    _widgetOptions = <Widget>[
-      ClockInList(widget.employee),
-      RequestList(widget.employee),
-      PayslipList(widget.employee),
-      EmployeeManagement(widget.employee)
-    ];
-
     _pageController = PageController(initialPage: _selectedIndex);
   }
 
@@ -162,7 +154,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: PageView(
         controller: _pageController,
-        children: _widgetOptions,
+        children: getWidgetOptions(),
         onPageChanged: (value) => _onItemTapped(value),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -180,5 +172,24 @@ class _MainScreenState extends State<MainScreen> {
           items: _listFromRol()),
       floatingActionButton: _buttonOptions.elementAt(_selectedIndex),
     );
+  }
+
+  getWidgetOptions() {
+    if (widget.employee.rol == "recursos humanos" ||
+        widget.employee.rol == "jefe recursos humanos" ||
+        widget.employee.rol == "jefe") {
+      return <Widget>[
+        ClockInList(widget.employee),
+        RequestList(widget.employee),
+        PayslipList(widget.employee),
+        EmployeeManagement(widget.employee)
+      ];
+    } else {
+      return <Widget>[
+        ClockInList(widget.employee),
+        RequestList(widget.employee),
+        PayslipList(widget.employee),
+      ];
+    }
   }
 }
