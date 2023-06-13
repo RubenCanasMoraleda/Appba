@@ -79,9 +79,9 @@ class _AcceptDenyRequestState extends State<AcceptDenyRequest>
                                         child: Column(
                                       children: [
                                         Text(
-                                            "Desde: ${snapshot.data![index].fechaHoraInicio!}"),
+                                            "Fecha Inicio: ${snapshot.data![index].fechaHoraInicio!}"),
                                         Text(
-                                            "Hasta: ${snapshot.data![index].fechaHoraFin!}"),
+                                            "Fecha Fin: ${snapshot.data![index].fechaHoraFin!}"),
                                       ],
                                     )),
                                     Expanded(

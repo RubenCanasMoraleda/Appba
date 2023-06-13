@@ -40,7 +40,6 @@ class ApiEmployee {
     });
   }
 
-  // ignore: non_constant_identifier_names
   static Future<Employee> Login(String dni, String password) async {
     dynamic res =
         await Api.POST_REQUEST(Api.AUTH, {"DNI": dni, "password": password});
