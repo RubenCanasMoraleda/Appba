@@ -60,15 +60,15 @@ class _RequestListState extends State<RequestList>
         ),
         Expanded(
           // height: height - 56,
-          child: FutureBuilder(
-              future: _requests,
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<Request>> snapshot) {
-                if (snapshot.hasData) {
-                  return RefreshIndicator(
-                    color: ApbaColors.semanticHighlight2,
-                    onRefresh: loadRequests,
-                    child: ListView.builder(
+          child: RefreshIndicator(
+            color: ApbaColors.semanticHighlight2,
+            onRefresh: loadRequests,
+            child: FutureBuilder(
+                future: _requests,
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Request>> snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
                         itemCount: snapshot.data!.length > 60
                             ? 60
                             : snapshot.data?.length,
@@ -113,23 +113,23 @@ class _RequestListState extends State<RequestList>
                                   ]),
                             ),
                           );
-                        }),
-                  );
-                } else {
-                  return LoadingList.of(
-                      60,
-                      ListTile(
-                        title: Container(
-                          height: 15,
-                          width: 20,
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(4),
+                        });
+                  } else {
+                    return LoadingList.of(
+                        60,
+                        ListTile(
+                          title: Container(
+                            height: 15,
+                            width: 20,
+                            decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
                           ),
-                        ),
-                      ));
-                }
-              }),
+                        ));
+                  }
+                }),
+          ),
         ),
       ],
     );

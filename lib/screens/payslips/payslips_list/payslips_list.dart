@@ -6,6 +6,7 @@ import 'package:appba/assets/apba_theme/typography/apba_typography.dart';
 import 'package:appba/commons/Models/payslip_model.dart';
 import 'package:appba/commons/custom_widgets/loading_list.dart';
 import 'package:appba/screens/payslips/payslips_list/payslips_list_cotroller.dart';
+import 'package:appba/screens/payslips/payslips_list/serach_payslips_delegate.dart';
 import 'package:flutter/material.dart';
 
 import 'package:appba/commons/Models/employee.dart';
@@ -45,14 +46,23 @@ class _PayslipListState extends State<PayslipList>
         Container(
           padding: const EdgeInsets.all(16),
           color: ApbaColors.semanticBackgroundHighlight1,
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 "Mes nomina",
                 style: ApbaTypography.body2,
               ),
-              Text(
+              IconButton(
+                icon: const Icon(FontAwesomeIcons.magnifyingGlass),
+                onPressed: () async {
+                  showSearch(
+                      context: context,
+                      delegate: SearchPayslipDelegate(
+                          await _payslips, _controller, widget.employee));
+                },
+              ),
+              const Text(
                 "Descargar",
                 style: ApbaTypography.body2,
               ),
@@ -60,15 +70,15 @@ class _PayslipListState extends State<PayslipList>
           ),
         ),
         Expanded(
-          child: FutureBuilder(
-              future: _payslips,
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<Payslip>> snapshot) {
-                if (snapshot.hasData) {
-                  return RefreshIndicator(
-                    color: ApbaColors.semanticHighlight2,
-                    onRefresh: loadPayslips,
-                    child: ListView.builder(
+          child: RefreshIndicator(
+            color: ApbaColors.semanticHighlight2,
+            onRefresh: loadPayslips,
+            child: FutureBuilder(
+                future: _payslips,
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Payslip>> snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
                         itemCount: snapshot.data!.length > 60
                             ? 60
                             : snapshot.data?.length,
@@ -104,23 +114,23 @@ class _PayslipListState extends State<PayslipList>
                                   ]),
                             ),
                           );
-                        }),
-                  );
-                } else {
-                  return LoadingList.of(
-                      60,
-                      ListTile(
-                        title: Container(
-                          height: 15,
-                          width: 20,
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(4),
+                        });
+                  } else {
+                    return LoadingList.of(
+                        60,
+                        ListTile(
+                          title: Container(
+                            height: 15,
+                            width: 20,
+                            decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
                           ),
-                        ),
-                      ));
-                }
-              }),
+                        ));
+                  }
+                }),
+          ),
         ),
       ],
     );
@@ -132,6 +142,8 @@ class _PayslipListState extends State<PayslipList>
   bool get wantKeepAlive => true;
 
   Future<void> loadPayslips() async {
-    _payslips = _controller.getPayslips();
+    setState(() {
+      _payslips = _controller.getPayslips();
+    });
   }
 }

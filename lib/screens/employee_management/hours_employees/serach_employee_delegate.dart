@@ -57,6 +57,8 @@ class SearchEmployeeDelegate extends SearchDelegate<Employee> {
                   border: const Border(
                       bottom: BorderSide(color: ApbaColors.border1))),
               child: ListTile(
+                onTap: () => Navigator.pushNamed(context, '/employeeClockIn',
+                    arguments: _filter[index]),
                 leading: Text(_filter[index].dni!),
                 title: Text(_filter[index].nombre!),
                 subtitle: Text(
@@ -93,6 +95,8 @@ class SearchEmployeeDelegate extends SearchDelegate<Employee> {
                   border: const Border(
                       bottom: BorderSide(color: ApbaColors.border1))),
               child: ListTile(
+                onTap: () => Navigator.pushNamed(context, '/employeeClockIn',
+                    arguments: _filter[index]),
                 leading: Text(_filter[index].dni!),
                 title: Text(_filter[index].nombre!),
                 subtitle: Text(
