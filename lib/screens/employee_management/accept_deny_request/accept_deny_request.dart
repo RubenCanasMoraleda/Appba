@@ -94,8 +94,7 @@ class _AcceptDenyRequestState extends State<AcceptDenyRequest>
                         child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                            "No has recibido ninguna notificación todavía"),
+                        const Text("No quedan solicitudes por gestionar"),
                         const SizedBox(
                           height: 10,
                         ),
@@ -104,7 +103,7 @@ class _AcceptDenyRequestState extends State<AcceptDenyRequest>
                           child: ElevatedButton(
                               style: ApbaButtonStyle.secondaryButton,
                               onPressed: loadRequests,
-                              child: const Icon(FontAwesomeIcons.searchengin)),
+                              child: const Icon(FontAwesomeIcons.arrowsRotate)),
                         )
                       ],
                     ));

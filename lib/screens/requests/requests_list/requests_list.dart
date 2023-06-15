@@ -145,7 +145,7 @@ class _RequestListState extends State<RequestList>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                              "No has recibido ninguna notificación todavía"),
+                              "No has realizado ninguna solicitud todavía"),
                           const SizedBox(
                             height: 10,
                           ),
@@ -155,7 +155,7 @@ class _RequestListState extends State<RequestList>
                                 style: ApbaButtonStyle.secondaryButton,
                                 onPressed: loadRequests,
                                 child:
-                                    const Icon(FontAwesomeIcons.searchengin)),
+                                    const Icon(FontAwesomeIcons.arrowsRotate)),
                           )
                         ],
                       ));
