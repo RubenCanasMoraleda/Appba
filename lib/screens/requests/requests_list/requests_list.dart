@@ -155,7 +155,7 @@ class _RequestListState extends State<RequestList>
                                 style: ApbaButtonStyle.secondaryButton,
                                 onPressed: loadRequests,
                                 child:
-                                    const Icon(FontAwesomeIcons.searchengin)),
+                                    const Icon(FontAwesomeIcons.arrowsRotate)),
                           )
                         ],
                       ));

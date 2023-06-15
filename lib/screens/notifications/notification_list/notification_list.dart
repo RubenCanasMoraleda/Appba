@@ -101,7 +101,7 @@ class _NotificationListState extends State<NotificationList>
                         child: ElevatedButton(
                             style: ApbaButtonStyle.secondaryButton,
                             onPressed: loadNotifications,
-                            child: const Icon(FontAwesomeIcons.searchengin)),
+                            child: const Icon(FontAwesomeIcons.arrowsRotate)),
                       )
                     ],
                   ));

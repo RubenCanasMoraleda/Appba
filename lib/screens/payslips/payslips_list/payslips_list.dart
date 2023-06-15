@@ -131,7 +131,7 @@ class _PayslipListState extends State<PayslipList>
                                 style: ApbaButtonStyle.secondaryButton,
                                 onPressed: loadPayslips,
                                 child:
-                                    const Icon(FontAwesomeIcons.searchengin)),
+                                    const Icon(FontAwesomeIcons.arrowsRotate)),
                           )
                         ],
                       ));

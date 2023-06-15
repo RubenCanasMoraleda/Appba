@@ -172,7 +172,7 @@ class _ClockInListState extends State<ClockInList>
                                       style: ApbaButtonStyle.secondaryButton,
                                       onPressed: loadClocks,
                                       child: const Icon(
-                                          FontAwesomeIcons.searchengin)),
+                                          FontAwesomeIcons.arrowsRotate)),
                                 )
                               ],
                             ));

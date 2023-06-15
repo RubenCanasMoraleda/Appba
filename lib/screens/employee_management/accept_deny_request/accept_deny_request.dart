@@ -103,7 +103,7 @@ class _AcceptDenyRequestState extends State<AcceptDenyRequest>
                           child: ElevatedButton(
                               style: ApbaButtonStyle.secondaryButton,
                               onPressed: loadRequests,
-                              child: const Icon(FontAwesomeIcons.searchengin)),
+                              child: const Icon(FontAwesomeIcons.arrowsRotate)),
                         )
                       ],
                     ));
