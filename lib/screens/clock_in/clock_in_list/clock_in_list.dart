@@ -4,12 +4,13 @@ import 'package:appba/assets/apba_theme/navigation/apba_apbar.dart';
 import 'package:appba/assets/apba_theme/typography/apba_typography.dart';
 import 'package:appba/commons/Models/clock_in.dart';
 import 'package:appba/commons/custom_widgets/loading_list.dart';
-import 'package:appba/screens/clock_in/clock_in_list/serach_clock_in_delegate.dart';
 import 'package:flutter/material.dart';
 
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/screens/clock_in/clock_in_list/clock_in_list_controller.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../employee_management/hours_employees/clock_in_list/serach_clock_in_delegate.dart';
 
 class ClockInList extends StatefulWidget {
   final Employee employee;
@@ -112,7 +113,6 @@ class _ClockInListState extends State<ClockInList>
                 ),
               ),
               Expanded(
-                // height: (height / 5) * 4 - 56,
                 child: RefreshIndicator(
                   color: ApbaColors.semanticHighlight2,
                   onRefresh: loadClocks,
@@ -176,8 +176,6 @@ class _ClockInListState extends State<ClockInList>
         ),
       ],
     );
-    // )
-    // );
   }
 
   @override

@@ -53,9 +53,6 @@ class Api {
 
   static dynamic GET_REQUEST(String url) async {
     Uri uri = Uri.parse(url);
-    // if (params != null) {
-    //   uri = uri.replace(queryParameters: params);
-    // }
     final response = await http.get(uri, headers: headers);
     final code = response.statusCode;
     final rawJsonString = response.body;
@@ -100,14 +97,9 @@ class Api {
     var dio = Dio();
 
     final response = await dio.patch(url, data: body);
-    final code = response.statusCode;
-    // print(code);
     final rawJsonString = response.data;
     dynamic res = rawJsonString;
 
-    if (code! >= 400) {
-      // throw ApiException(code: code, message: er);
-    }
     return res;
   }
 

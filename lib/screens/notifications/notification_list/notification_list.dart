@@ -76,7 +76,6 @@ class _NotificationListState extends State<NotificationList>
                               Center(child: Text(snapshot.data![index].title!)),
                           trailing: Text(snapshot.data![index].date!),
                           leading: const Icon(FontAwesomeIcons.circleInfo),
-                          // subtitle: Text(snapshot.data![index].date!),
                           children: [Text(snapshot.data![index].description!)],
                         ),
                       );

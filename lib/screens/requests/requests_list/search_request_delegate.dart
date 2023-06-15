@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
 import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
 import 'package:appba/assets/apba_theme/typography/apba_typography.dart';
@@ -10,11 +12,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class SearchRequestDelegate extends SearchDelegate<Request> {
   final List<Request> requests;
   List<Request> _filter = [];
-  final RequestListController _controller;
 
-  final Employee _employee;
-
-  SearchRequestDelegate(this.requests, this._controller, this._employee);
+  SearchRequestDelegate(this.requests);
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -38,7 +37,6 @@ class SearchRequestDelegate extends SearchDelegate<Request> {
 
   @override
   Widget buildResults(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     _filter = requests.where(
       (request) {
         return (request.fechaHoraInicio
@@ -87,7 +85,6 @@ class SearchRequestDelegate extends SearchDelegate<Request> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     _filter = requests.where(
       (request) {
         return (request.fechaHoraInicio

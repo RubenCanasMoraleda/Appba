@@ -3,7 +3,7 @@ import 'package:appba/assets/apba_theme/typography/apba_typography.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/custom_widgets/loading_list.dart';
 import 'package:appba/screens/employee_management/hours_employees/hours_employee_cotroller.dart';
-import 'package:appba/screens/employee_management/hours_employees/serach_employee_delegate.dart';
+import 'package:appba/screens/employee_management/hours_employees/search_employee_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

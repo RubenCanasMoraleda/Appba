@@ -90,7 +90,6 @@ class _CreateClockInState extends State<CreateClockIn> {
       (event) async {
         super.setState(() {
           position = event;
-          // print(position!.heading);
         });
       },
     );
@@ -102,13 +101,11 @@ class _CreateClockInState extends State<CreateClockIn> {
 
     var marks = <Marker>[];
 
-    // print(mapController.zoom);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
           'Crear Marcaje',
-          // style: TextStyle(color: Colors.black),
         ),
       ),
       body: SafeArea(

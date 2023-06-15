@@ -21,16 +21,7 @@ class _ApbaFloatingActionButtonState extends State<ApbaFloatingActionButton>
     with SingleTickerProviderStateMixin {
   Widget toggle() {
     return FloatingActionButton(
-        // backgroundColor: _animateColor.value,
-        onPressed: widget.onPressed,
-        // tooltip: 'Toggle',
-        child: Icon(widget.icon)
-        //  AnimatedIcon(
-        //   color: Colors.white,
-        //   icon: AnimatedIcons.menu_close,
-        //   progress: _animateIcon,
-        // ),
-        );
+        onPressed: widget.onPressed, child: Icon(widget.icon));
   }
 
   @override

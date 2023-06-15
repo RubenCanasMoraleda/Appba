@@ -5,7 +5,7 @@ import 'package:appba/assets/apba_theme/typography/apba_typography.dart';
 import 'package:appba/commons/Models/request.dart';
 import 'package:appba/commons/custom_widgets/loading_list.dart';
 import 'package:appba/screens/requests/requests_list/request_list_controller.dart';
-import 'package:appba/screens/requests/requests_list/serach_request_delegate.dart';
+import 'package:appba/screens/requests/requests_list/search_request_delegate.dart';
 import 'package:flutter/material.dart';
 
 import 'package:appba/commons/Models/employee.dart';
@@ -59,8 +59,7 @@ class _RequestListState extends State<RequestList>
               onPressed: () async {
                 showSearch(
                     context: context,
-                    delegate: SearchRequestDelegate(
-                        await _requests, _controller, widget.employee));
+                    delegate: SearchRequestDelegate(await _requests));
               },
             )),
         Container(
@@ -85,7 +84,6 @@ class _RequestListState extends State<RequestList>
           ),
         ),
         Expanded(
-          // height: height - 56,
           child: RefreshIndicator(
             color: ApbaColors.semanticHighlight2,
             onRefresh: loadRequests,
@@ -159,8 +157,6 @@ class _RequestListState extends State<RequestList>
         ),
       ],
     );
-    // )
-    // );
   }
 
   @override
