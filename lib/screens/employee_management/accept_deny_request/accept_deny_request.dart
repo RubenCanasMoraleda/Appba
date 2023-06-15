@@ -3,7 +3,7 @@ import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/Models/request.dart';
 import 'package:appba/commons/custom_widgets/confirmation_dialog.dart';
 import 'package:appba/screens/employee_management/accept_deny_request/accept_deny_request_controller.dart';
-import 'package:appba/screens/employee_management/accept_deny_request/serach_employee_delegate.dart';
+import 'package:appba/screens/employee_management/accept_deny_request/search_employee_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

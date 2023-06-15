@@ -198,6 +198,7 @@ class _CreateClockInState extends State<CreateClockIn> {
                       ),
                       children: [
                         TileLayer(
+                          minZoom: 0,
                           maxZoom: 20,
                           urlTemplate:
                               "https://tile.openstreetmap.org/{z}/{x}/{y}.png",

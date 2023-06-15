@@ -6,7 +6,7 @@ import 'package:appba/assets/apba_theme/typography/apba_typography.dart';
 import 'package:appba/commons/Models/payslip_model.dart';
 import 'package:appba/commons/custom_widgets/loading_list.dart';
 import 'package:appba/screens/payslips/payslips_list/payslips_list_cotroller.dart';
-import 'package:appba/screens/payslips/payslips_list/serach_payslips_delegate.dart';
+import 'package:appba/screens/payslips/payslips_list/search_payslips_delegate.dart';
 import 'package:flutter/material.dart';
 
 import 'package:appba/commons/Models/employee.dart';
