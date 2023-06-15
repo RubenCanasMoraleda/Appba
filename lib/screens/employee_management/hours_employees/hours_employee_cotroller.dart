@@ -5,6 +5,8 @@ class HoursEmployeeController {
   final Employee _employee;
   HoursEmployeeController(this._employee);
   Future<List<Employee>> getHoursMonthDepartment() {
-    return ApiClockIn.getHoursMonthDepartment(_employee.departamento!);
+    return _employee.rol == "jefe"
+        ? ApiClockIn.getHoursMonthDepartment(_employee)
+        : ApiClockIn.getHoursMonthAll(_employee);
   }
 }

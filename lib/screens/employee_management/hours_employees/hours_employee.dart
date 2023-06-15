@@ -112,6 +112,8 @@ class _HoursEmployeeState extends State<HoursEmployee>
   bool get wantKeepAlive => true;
 
   Future<void> loadEmployees() async {
-    _employees = _controller.getHoursMonthDepartment();
+    setState(() {
+      _employees = _controller.getHoursMonthDepartment();
+    });
   }
 }

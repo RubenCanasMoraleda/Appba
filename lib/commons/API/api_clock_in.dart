@@ -62,9 +62,22 @@ class ApiClockIn {
   }
 
   static Future<List<Employee>> getHoursMonthDepartment(
-      Department department) async {
+      Employee employee) async {
     dynamic res = await Api.GET_REQUEST(
-        "${Api.CLOCK_IN}getHoursDepartamento/${department.id}");
+        "${Api.CLOCK_IN}getHoursDepartamento/${employee.departamento!.id}/${employee.id}");
+
+    List<Employee> employees = [];
+
+    for (var empleado in res["empleados"]) {
+      employees.add(Employee.fromJson(empleado));
+    }
+
+    return employees;
+  }
+
+  static Future<List<Employee>> getHoursMonthAll(Employee employee) async {
+    dynamic res =
+        await Api.GET_REQUEST("${Api.CLOCK_IN}getAllHours/${employee.id}");
 
     List<Employee> employees = [];
 
