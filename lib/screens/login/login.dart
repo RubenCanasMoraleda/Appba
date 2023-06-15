@@ -124,16 +124,17 @@ class _LoginState extends State<Login> {
                             margin: const EdgeInsets.all(20),
                             child: ElevatedButton(
                               onPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return const Center(
-                                        child: CircularProgressIndicator(
-                                          color: ApbaColors.semanticHighlight2,
-                                        ),
-                                      );
-                                    });
                                 if (_formKey.currentState!.validate()) {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return const Center(
+                                          child: CircularProgressIndicator(
+                                            color:
+                                                ApbaColors.semanticHighlight2,
+                                          ),
+                                        );
+                                      });
                                   setState(() {
                                     _controller
                                         .checkLogin(
@@ -142,10 +143,15 @@ class _LoginState extends State<Login> {
                                             isRememberAccount,
                                             _prefs)
                                         .then((value) => {
-                                              Navigator.pop(context),
-                                              Navigator.pushNamed(
-                                                  context, "/mainScreen",
-                                                  arguments: value)
+                                              if (value != null)
+                                                {
+                                                  Navigator.pop(context),
+                                                  Navigator.pushNamed(
+                                                      context, "/mainScreen",
+                                                      arguments: value)
+                                                }
+                                              else
+                                                {Navigator.pop(context)}
                                             });
                                   });
                                 }

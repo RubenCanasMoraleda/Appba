@@ -31,11 +31,14 @@ class ApiEmployee {
     return employee;
   }
 
-  static Future<Employee> login(String dni, String password) async {
+  static Future<Employee?> login(String dni, String password) async {
     dynamic res =
         await Api.POST_REQUEST(Api.AUTH, {"DNI": dni, "password": password});
-    Employee employee;
-    employee = Employee.fromJson(res["data"]["empleado"]);
+    Employee? employee;
+
+    if (res["data"] != null) {
+      employee = Employee.fromJson(res["data"]);
+    }
 
     return employee;
   }
