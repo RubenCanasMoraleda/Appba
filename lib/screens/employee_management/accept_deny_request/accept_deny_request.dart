@@ -65,29 +65,34 @@ class _AcceptDenyRequestState extends State<AcceptDenyRequest>
               builder: (BuildContext context,
                   AsyncSnapshot<List<Request>> snapshot) {
                 if (snapshot.hasData) {
-                  return RefreshIndicator(
-                    onRefresh: loadRequests,
-                    color: ApbaColors.semanticHighlight2,
-                    child: ListView.builder(
-                        itemCount: snapshot.data!.length > 60
-                            ? 60
-                            : snapshot.data?.length,
-                        itemBuilder: (context, index) {
-                          Color background = index % 2 == 0
-                              ? ApbaColors.background1
-                              : ApbaColors.background2;
-                          return Container(
-                            decoration: BoxDecoration(
-                                color: background,
-                                border: const Border(
-                                    bottom:
-                                        BorderSide(color: ApbaColors.border1))),
-                            child: RequestTile(
-                                controller: _controller,
-                                request: snapshot.data![index]),
-                          );
-                        }),
-                  );
+                  if (snapshot.hasData) {
+                    return RefreshIndicator(
+                      onRefresh: loadRequests,
+                      color: ApbaColors.semanticHighlight2,
+                      child: ListView.builder(
+                          itemCount: snapshot.data!.length > 60
+                              ? 60
+                              : snapshot.data?.length,
+                          itemBuilder: (context, index) {
+                            Color background = index % 2 == 0
+                                ? ApbaColors.background1
+                                : ApbaColors.background2;
+                            return Container(
+                              decoration: BoxDecoration(
+                                  color: background,
+                                  border: const Border(
+                                      bottom: BorderSide(
+                                          color: ApbaColors.border1))),
+                              child: RequestTile(
+                                  controller: _controller,
+                                  request: snapshot.data![index]),
+                            );
+                          }),
+                    );
+                  } else {
+                    return const Center(
+                        child: Text("No quedan solicitudes por gestionar"));
+                  }
                 } else {
                   return LoadingList.of(
                       60,

@@ -121,39 +121,45 @@ class _ClockInListState extends State<ClockInList>
                       builder: (BuildContext context,
                           AsyncSnapshot<List<ClockIn>> snapshot) {
                         if (snapshot.hasData) {
-                          return ListView.builder(
-                              itemCount: snapshot.data!.length > 60
-                                  ? 60
-                                  : snapshot.data?.length,
-                              itemBuilder: (context, index) {
-                                Color background = index % 2 == 0
-                                    ? ApbaColors.background1
-                                    : ApbaColors.background2;
-                                return Container(
-                                  decoration: BoxDecoration(
-                                      color: background,
-                                      border: const Border(
-                                          bottom: BorderSide(
-                                              color: ApbaColors.border1))),
-                                  child: ListTile(
-                                    title: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                              snapshot.data![index].fechaHora!),
-                                          Text(
-                                            snapshot.data![index].tipo!.value,
-                                            style: TextStyle(
-                                                fontSize: ApbaTypography
-                                                    .body2.fontSize,
-                                                color: snapshot
-                                                    .data![index].tipo!.color),
-                                          ),
-                                        ]),
-                                  ),
-                                );
-                              });
+                          if (snapshot.data!.isNotEmpty) {
+                            return ListView.builder(
+                                itemCount: snapshot.data!.length > 60
+                                    ? 60
+                                    : snapshot.data?.length,
+                                itemBuilder: (context, index) {
+                                  Color background = index % 2 == 0
+                                      ? ApbaColors.background1
+                                      : ApbaColors.background2;
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                        color: background,
+                                        border: const Border(
+                                            bottom: BorderSide(
+                                                color: ApbaColors.border1))),
+                                    child: ListTile(
+                                      title: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(snapshot
+                                                .data![index].fechaHora!),
+                                            Text(
+                                              snapshot.data![index].tipo!.value,
+                                              style: TextStyle(
+                                                  fontSize: ApbaTypography
+                                                      .body2.fontSize,
+                                                  color: snapshot.data![index]
+                                                      .tipo!.color),
+                                            ),
+                                          ]),
+                                    ),
+                                  );
+                                });
+                          } else {
+                            return const Center(
+                                child: Text(
+                                    "No se ha realizado ningún marcaje todavía"));
+                          }
                         } else {
                           return LoadingList.of(
                               60,
