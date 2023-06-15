@@ -45,7 +45,6 @@ class CreateRequestController {
   }
 
   Estado getEstadoSolicitud() {
-    print(_employee.rol);
     switch (_employee.rol) {
       case "jefe recursos humanos":
         return Estado.aceptada;

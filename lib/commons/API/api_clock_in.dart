@@ -1,6 +1,5 @@
 import 'package:appba/commons/API/api.dart';
 import 'package:appba/commons/Models/clock_in.dart';
-import 'package:appba/commons/Models/department.dart';
 import 'package:appba/commons/Models/employee.dart';
 
 class ApiClockIn {
@@ -12,9 +11,7 @@ class ApiClockIn {
         await Api.GET_REQUEST("${Api.CLOCK_IN}fromEmpleado/${employee.id}");
 
     List<ClockIn> clockIns = [];
-    // print(res["marcaje"]);
     List<dynamic> fetched = res["marcaje"];
-    // print("marcajes" + fetched.toString());
 
     for (var item in fetched) {
       clockIns.add(ClockIn.fromJson(item));

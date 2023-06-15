@@ -120,7 +120,6 @@ class _ClockInListState extends State<ClockInListEmployee>
                   ),
                 ),
                 Expanded(
-                  // height: (height / 5) * 4 - 56,
                   child: RefreshIndicator(
                     color: ApbaColors.semanticHighlight2,
                     onRefresh: loadClocks,
@@ -185,8 +184,6 @@ class _ClockInListState extends State<ClockInListEmployee>
         ],
       ),
     );
-    // )
-    // );
   }
 
   @override

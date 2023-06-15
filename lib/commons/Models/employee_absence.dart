@@ -19,7 +19,6 @@ class EmployeeAbsence {
   });
 
   EmployeeAbsence.fromJson(Map<String, dynamic> json) {
-    // id = json['id'];
     vacacionesTotales = json['vacacionesTotales'];
     vacacionesCogidas = json['vacacionesCogidas'];
     asuntosPropiosTotales = json['asuntosPropiosTotales'];
@@ -31,7 +30,6 @@ class EmployeeAbsence {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    // data['id'] = id;
     data['vacacionesTotales'] = vacacionesTotales;
     data['vacacionesCogidas'] = vacacionesCogidas;
     data['asuntosPropiosTotales'] = asuntosPropiosTotales;

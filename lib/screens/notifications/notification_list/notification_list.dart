@@ -59,28 +59,37 @@ class _NotificationListState extends State<NotificationList>
             builder: (BuildContext context,
                 AsyncSnapshot<List<Notificacion>> snapshot) {
               if (snapshot.hasData) {
-                return ListView.builder(
-                    itemCount:
-                        snapshot.data!.length > 60 ? 60 : snapshot.data?.length,
-                    itemBuilder: (context, index) {
-                      Color background = index % 2 == 0
-                          ? ApbaColors.background1
-                          : ApbaColors.background2;
-                      return Container(
-                        decoration: BoxDecoration(
-                            color: background,
-                            border: const Border(
-                                bottom: BorderSide(color: ApbaColors.border1))),
-                        child: ExpansionTile(
-                          title:
-                              Center(child: Text(snapshot.data![index].title!)),
-                          trailing: Text(snapshot.data![index].date!),
-                          leading: const Icon(FontAwesomeIcons.circleInfo),
-                          // subtitle: Text(snapshot.data![index].date!),
-                          children: [Text(snapshot.data![index].description!)],
-                        ),
-                      );
-                    });
+                if (snapshot.data!.isNotEmpty) {
+                  return ListView.builder(
+                      itemCount: snapshot.data!.length > 60
+                          ? 60
+                          : snapshot.data?.length,
+                      itemBuilder: (context, index) {
+                        Color background = index % 2 == 0
+                            ? ApbaColors.background1
+                            : ApbaColors.background2;
+                        return Container(
+                          decoration: BoxDecoration(
+                              color: background,
+                              border: const Border(
+                                  bottom:
+                                      BorderSide(color: ApbaColors.border1))),
+                          child: ExpansionTile(
+                            title: Center(
+                                child: Text(snapshot.data![index].title!)),
+                            trailing: Text(snapshot.data![index].date!),
+                            leading: const Icon(FontAwesomeIcons.circleInfo),
+                            children: [
+                              Text(snapshot.data![index].description!)
+                            ],
+                          ),
+                        );
+                      });
+                } else {
+                  return const Center(
+                      child:
+                          Text("No has recibido ninguna notificación todavía"));
+                }
               } else {
                 return LoadingList.of(
                     60,

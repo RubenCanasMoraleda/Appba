@@ -3,7 +3,6 @@ import 'package:appba/commons/API/api_notification.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/custom_widgets/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class CreateNotification extends StatefulWidget {
   final Employee employee;
@@ -18,12 +17,9 @@ class _CreateNotificationState extends State<CreateNotification> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  bool? isRememberAccount = false;
-  bool run = true;
 
   @override
   Widget build(BuildContext context) {
-    // Build a Form widget using the _formKey created above.
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -54,7 +50,6 @@ class _CreateNotificationState extends State<CreateNotification> {
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       label: Text("Título"),
-                      // labelText: 'Título'
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
