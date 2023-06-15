@@ -162,7 +162,7 @@ class _ClockInListState extends State<ClockInList>
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 const Text(
-                                    "No has recibido ninguna notificación todavía"),
+                                    "No has realizado ningún marcaje todavía"),
                                 const SizedBox(
                                   height: 10,
                                 ),

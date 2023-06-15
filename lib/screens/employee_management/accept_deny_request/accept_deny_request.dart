@@ -94,8 +94,7 @@ class _AcceptDenyRequestState extends State<AcceptDenyRequest>
                         child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                            "No has recibido ninguna notificación todavía"),
+                        const Text("No quedan solicitudes por gestionar"),
                         const SizedBox(
                           height: 10,
                         ),

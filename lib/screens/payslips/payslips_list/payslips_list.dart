@@ -121,8 +121,7 @@ class _PayslipListState extends State<PayslipList>
                           child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                              "No has recibido ninguna notificación todavía"),
+                          const Text("No se ha emitido ninguna nómina todavía"),
                           const SizedBox(
                             height: 10,
                           ),
