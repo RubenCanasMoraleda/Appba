@@ -354,6 +354,8 @@ class _CreateClockInState extends State<CreateClockIn> {
                                             _controller.lastClockIn = value;
                                           },
                                         ),
+                                        if (value != null)
+                                          {Navigator.pop(context)}
                                       });
                             },
                             child: Text(

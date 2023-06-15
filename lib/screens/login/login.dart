@@ -142,8 +142,6 @@ class _LoginState extends State<Login> {
                                             passwordController,
                                             isRememberAccount,
                                             _prefs)
-                                        .catchError((error, stackTrace) =>
-                                            Navigator.pop(context))
                                         .then((value) => {
                                               if (value != null)
                                                 {

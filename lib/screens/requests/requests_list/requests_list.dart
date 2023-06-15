@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
 import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
 import 'package:appba/assets/apba_theme/typography/apba_typography.dart';
 import 'package:appba/commons/Models/request.dart';
@@ -40,10 +41,21 @@ class _RequestListState extends State<RequestList>
     return Column(
       children: [
         Container(
+            width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.all(16),
             color: ApbaColors.semanticBackgroundHighlight1,
-            child: IconButton(
-              icon: const Icon(FontAwesomeIcons.magnifyingGlass),
+            child: ElevatedButton(
+              style: ApbaButtonStyle.primaryWhiteButtonSmall,
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(FontAwesomeIcons.magnifyingGlass),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text("Buscar"),
+                ],
+              ),
               onPressed: () async {
                 showSearch(
                     context: context,
