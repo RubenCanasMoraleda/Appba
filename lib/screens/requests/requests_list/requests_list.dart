@@ -92,7 +92,7 @@ class _RequestListState extends State<RequestList>
                 builder: (BuildContext context,
                     AsyncSnapshot<List<Request>> snapshot) {
                   if (snapshot.hasData) {
-                    if (snapshot.hasData) {
+                    if (snapshot.data!.isNotEmpty) {
                       return ListView.builder(
                           itemCount: snapshot.data!.length > 60
                               ? 60

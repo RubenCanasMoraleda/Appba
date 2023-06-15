@@ -65,7 +65,7 @@ class _AcceptDenyRequestState extends State<AcceptDenyRequest>
               builder: (BuildContext context,
                   AsyncSnapshot<List<Request>> snapshot) {
                 if (snapshot.hasData) {
-                  if (snapshot.hasData) {
+                  if (snapshot.data!.isNotEmpty) {
                     return RefreshIndicator(
                       onRefresh: loadRequests,
                       color: ApbaColors.semanticHighlight2,

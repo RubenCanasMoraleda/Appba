@@ -78,7 +78,7 @@ class _PayslipListState extends State<PayslipList>
                 builder: (BuildContext context,
                     AsyncSnapshot<List<Payslip>> snapshot) {
                   if (snapshot.hasData) {
-                    if (snapshot.hasData) {
+                    if (snapshot.data!.isNotEmpty) {
                       return ListView.builder(
                           itemCount: snapshot.data!.length > 60
                               ? 60

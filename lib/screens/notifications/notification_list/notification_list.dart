@@ -59,7 +59,7 @@ class _NotificationListState extends State<NotificationList>
             builder: (BuildContext context,
                 AsyncSnapshot<List<Notificacion>> snapshot) {
               if (snapshot.hasData) {
-                if (snapshot.hasData) {
+                if (snapshot.data!.isNotEmpty) {
                   return ListView.builder(
                       itemCount: snapshot.data!.length > 60
                           ? 60
