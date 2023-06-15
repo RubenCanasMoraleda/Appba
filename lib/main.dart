@@ -7,6 +7,7 @@ import 'package:appba/screens/notifications/create_notification/create_notificat
 import 'package:appba/screens/notifications/notification_list/notification_list.dart';
 import 'package:appba/screens/requests/create_request/create_request.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'commons/Models/employee.dart';
@@ -14,6 +15,7 @@ import 'commons/Models/employee.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(const MyApp());
 }
