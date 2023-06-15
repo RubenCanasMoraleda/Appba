@@ -174,7 +174,7 @@ class _GetUploadFileFormState extends State<GetUploadFileForm> {
                         showAlertDialog(context,
                             title: "Emitir Nómina",
                             message:
-                                "Esta seguro de que desea publicar una nómina para ${widget.snapshot[widget.index]}",
+                                "Esta seguro de que desea publicar una nómina para ${widget.snapshot[widget.index].nombre}",
                             onConfirm: () {
                           widget.controller.uploadFile(
                               filePath!, widget.snapshot[widget.index]);
