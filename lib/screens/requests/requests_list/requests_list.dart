@@ -4,9 +4,11 @@ import 'package:appba/assets/apba_theme/typography/apba_typography.dart';
 import 'package:appba/commons/Models/request.dart';
 import 'package:appba/commons/custom_widgets/loading_list.dart';
 import 'package:appba/screens/requests/requests_list/request_list_controller.dart';
+import 'package:appba/screens/requests/requests_list/serach_request_delegate.dart';
 import 'package:flutter/material.dart';
 
 import 'package:appba/commons/Models/employee.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RequestList extends StatefulWidget {
   final Employee employee;
@@ -37,6 +39,18 @@ class _RequestListState extends State<RequestList>
     super.build(context);
     return Column(
       children: [
+        Container(
+            padding: const EdgeInsets.all(16),
+            color: ApbaColors.semanticBackgroundHighlight1,
+            child: IconButton(
+              icon: const Icon(FontAwesomeIcons.magnifyingGlass),
+              onPressed: () async {
+                showSearch(
+                    context: context,
+                    delegate: SearchRequestDelegate(
+                        await _requests, _controller, widget.employee));
+              },
+            )),
         Container(
           padding: const EdgeInsets.all(16),
           color: ApbaColors.semanticBackgroundHighlight1,

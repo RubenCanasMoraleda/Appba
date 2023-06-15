@@ -1,6 +1,7 @@
 import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
 import 'package:appba/commons/API/api_notification.dart';
 import 'package:appba/commons/Models/employee.dart';
+import 'package:appba/commons/custom_widgets/confirmation_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -90,12 +91,19 @@ class _CreateNotificationState extends State<CreateNotification> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          ApiNotification.createNotification(
-                                  titleController.text,
-                                  descriptionController.text)
-                              .then((value) => {
-                                    if (value != null) {Navigator.pop(context)}
-                                  });
+                          showAlertDialog(context,
+                              title: "Confirmar Notificación",
+                              message:
+                                  "¿Esta seguro de que desea publicar la notificacion \"${titleController.text}\"?",
+                              onConfirm: () {
+                            ApiNotification.createNotification(
+                                    titleController.text,
+                                    descriptionController.text)
+                                .then((value) => {
+                                      if (value != null)
+                                        {Navigator.pop(context)}
+                                    });
+                          });
                         }
                       },
                       style: ApbaButtonStyle.primaryBlueButton,
