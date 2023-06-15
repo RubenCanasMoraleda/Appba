@@ -117,9 +117,25 @@ class _PayslipListState extends State<PayslipList>
                             );
                           });
                     } else {
-                      return const Center(
-                          child:
-                              Text("No se ha emitido ninguna nómina todavía"));
+                      return Center(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                              "No has recibido ninguna notificación todavía"),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(
+                            width: 48,
+                            child: ElevatedButton(
+                                style: ApbaButtonStyle.secondaryButton,
+                                onPressed: loadPayslips,
+                                child:
+                                    const Icon(FontAwesomeIcons.searchengin)),
+                          )
+                        ],
+                      ));
                     }
                   } else {
                     return LoadingList.of(

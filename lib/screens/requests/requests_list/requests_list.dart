@@ -140,9 +140,25 @@ class _RequestListState extends State<RequestList>
                             );
                           });
                     } else {
-                      return const Center(
-                          child: Text(
-                              "No se ha realizado ninguna solicitud todavía"));
+                      return Center(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                              "No has recibido ninguna notificación todavía"),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(
+                            width: 48,
+                            child: ElevatedButton(
+                                style: ApbaButtonStyle.secondaryButton,
+                                onPressed: loadRequests,
+                                child:
+                                    const Icon(FontAwesomeIcons.searchengin)),
+                          )
+                        ],
+                      ));
                     }
                   } else {
                     return LoadingList.of(

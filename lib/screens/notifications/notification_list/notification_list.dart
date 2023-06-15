@@ -1,3 +1,4 @@
+import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
 import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/Models/notification.dart';
@@ -86,9 +87,24 @@ class _NotificationListState extends State<NotificationList>
                         );
                       });
                 } else {
-                  return const Center(
-                      child:
-                          Text("No has recibido ninguna notificación todavía"));
+                  return Center(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                          "No has recibido ninguna notificación todavía"),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        width: 48,
+                        child: ElevatedButton(
+                            style: ApbaButtonStyle.secondaryButton,
+                            onPressed: loadNotifications,
+                            child: const Icon(FontAwesomeIcons.searchengin)),
+                      )
+                    ],
+                  ));
                 }
               } else {
                 return LoadingList.of(

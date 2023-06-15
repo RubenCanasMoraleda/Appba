@@ -90,8 +90,24 @@ class _AcceptDenyRequestState extends State<AcceptDenyRequest>
                           }),
                     );
                   } else {
-                    return const Center(
-                        child: Text("No quedan solicitudes por gestionar"));
+                    return Center(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                            "No has recibido ninguna notificación todavía"),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          width: 48,
+                          child: ElevatedButton(
+                              style: ApbaButtonStyle.secondaryButton,
+                              onPressed: loadRequests,
+                              child: const Icon(FontAwesomeIcons.searchengin)),
+                        )
+                      ],
+                    ));
                   }
                 } else {
                   return LoadingList.of(

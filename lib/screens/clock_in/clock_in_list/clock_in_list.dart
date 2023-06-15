@@ -1,13 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:appba/assets/apba_theme/button_style/apba_buttons_style.dart';
 import 'package:appba/assets/apba_theme/colors/apba_colors.dart';
 import 'package:appba/assets/apba_theme/navigation/apba_apbar.dart';
 import 'package:appba/assets/apba_theme/typography/apba_typography.dart';
 import 'package:appba/commons/Models/clock_in.dart';
 import 'package:appba/commons/custom_widgets/loading_list.dart';
-<<<<<<< HEAD
-import 'package:appba/screens/clock_in/clock_in_list/search_clock_in_delegate.dart';
-=======
->>>>>>> 23c4da6d03439d3793e7ef81324aed1cfa90839b
 import 'package:flutter/material.dart';
 
 import 'package:appba/commons/Models/employee.dart';
@@ -160,9 +157,25 @@ class _ClockInListState extends State<ClockInList>
                                   );
                                 });
                           } else {
-                            return const Center(
-                                child: Text(
-                                    "No se ha realizado ningún marcaje todavía"));
+                            return Center(
+                                child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                    "No has recibido ninguna notificación todavía"),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                SizedBox(
+                                  width: 48,
+                                  child: ElevatedButton(
+                                      style: ApbaButtonStyle.secondaryButton,
+                                      onPressed: loadClocks,
+                                      child: const Icon(
+                                          FontAwesomeIcons.searchengin)),
+                                )
+                              ],
+                            ));
                           }
                         } else {
                           return LoadingList.of(
