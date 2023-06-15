@@ -12,14 +12,13 @@ class ApiAusenciaEmployee {
 
   static Future<int> getDiasRestantes(Employee employee) async {
     dynamic res =
-        await Api.GET_REQUEST(Api.VACACIONESRESTANTES + employee.id.toString());
+        await Api.GET_REQUEST(Api.DIASRESTANTES + employee.id.toString());
 
     return ((res["data"]));
   }
 
   static Future<int> getHorasRestantes(Employee employee) async {
-    dynamic res =
-        await Api.GET_REQUEST("${Api.VACACIONESRESTANTES}${employee.id}");
+    dynamic res = await Api.GET_REQUEST("${Api.HORASRESTANTES}${employee.id}");
     return ((res["data"]));
   }
 }
