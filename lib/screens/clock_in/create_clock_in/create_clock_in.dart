@@ -40,7 +40,8 @@ class _CreateClockInState extends State<CreateClockIn> {
     Category.estacionesMaritimas,
     Category.puestoInspeccionFronterizo,
     Category.terminalTraficoPesado,
-    Category.totalTerminalInternational
+    Category.totalTerminalInternational,
+    Category.centrosEducativos
   ];
 
   Category dropdownValue = dropdownList.first;

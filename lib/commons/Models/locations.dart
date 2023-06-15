@@ -40,7 +40,8 @@ enum Category {
       "TERMINAL_TRAFICO_PESADO", "Terminal de Tráfico Pesado"),
   capitaniaMaritima("CAPITANIA_MARITIMA", "Capitanía Marítima"),
   aduana("ADUANA", "Aduana"),
-  apmTerminals("APM_TERMINALS", "APM Terminals Algeciras");
+  apmTerminals("APM_TERMINALS", "APM Terminals Algeciras"),
+  centrosEducativos("CENTROS_EDUCATIVOS", "IES Saladillo");
 
   final String key, value;
 
@@ -70,6 +71,10 @@ enum Category {
 
       case "APM_TERMINALS":
         return Category.apmTerminals;
+
+      case "CENTROS_EDUCATIVOS":
+        return Category.centrosEducativos;
+
       default:
         return null;
     }

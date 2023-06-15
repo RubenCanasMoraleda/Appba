@@ -15,7 +15,7 @@ class CreateRequestController {
   );
 
   postRequest(TipoSolicitud tipoSolicitud, String fechaHoraInicio,
-      String fechaHoraFin) {
+      String fechaHoraFin) async {
     Request request = Request(
         empleado: _employee,
         fechaHora: DateTime.now().toString(),
@@ -23,7 +23,7 @@ class CreateRequestController {
         fechaHoraInicio: fechaHoraFin,
         estado: getEstadoSolicitud(),
         tipo: tipoSolicitud);
-    if (canMakeRequest(tipoSolicitud, fechaHoraInicio, fechaHoraFin)) {
+    if (await canMakeRequest(tipoSolicitud, fechaHoraInicio, fechaHoraFin)) {
       ApiRequest.createRequest(request).then((value) =>
           Fluttertoast.showToast(msg: "Solicitud de ${value!.tipo} enviada"));
     }
@@ -45,6 +45,7 @@ class CreateRequestController {
   }
 
   Estado getEstadoSolicitud() {
+    print(_employee.rol);
     switch (_employee.rol) {
       case "jefe recursos humanos":
         return Estado.aceptada;
@@ -55,8 +56,8 @@ class CreateRequestController {
     }
   }
 
-  bool canMakeRequest(TipoSolicitud tipoSolicitud, String fechaHoraInicio,
-      String fechaHoraFin) {
+  Future<bool> canMakeRequest(TipoSolicitud tipoSolicitud,
+      String fechaHoraInicio, String fechaHoraFin) async {
     int numLeft = 0;
     Duration durationToTake = DateTime.parse(fechaHoraFin)
         .difference(DateTime.parse(fechaHoraInicio));
@@ -65,20 +66,21 @@ class CreateRequestController {
 
     switch (tipoSolicitud) {
       case TipoSolicitud.vacaciones:
-        ApiAusenciaEmployee.getVacacionesRestantes(_employee).then((value) {
+        await ApiAusenciaEmployee.getVacacionesRestantes(_employee)
+            .then((value) {
           numLeft = value;
         });
         willingToTake = durationToTake.inDays;
         break;
       case TipoSolicitud.asuntosPropios:
-        ApiAusenciaEmployee.getDiasRestantes(_employee).then((value) {
+        await ApiAusenciaEmployee.getDiasRestantes(_employee).then((value) {
           numLeft = value;
         });
         willingToTake = durationToTake.inDays;
 
         break;
       case TipoSolicitud.horasCompensatorias:
-        ApiAusenciaEmployee.getHorasRestantes(_employee).then((value) {
+        await ApiAusenciaEmployee.getHorasRestantes(_employee).then((value) {
           numLeft = value;
         });
         willingToTake = durationToTake.inHours;

@@ -2,6 +2,7 @@ import 'package:appba/commons/API/api.dart';
 import 'package:appba/commons/Models/department.dart';
 import 'package:appba/commons/Models/employee.dart';
 import 'package:appba/commons/Models/request.dart';
+import 'package:dio/dio.dart';
 
 class ApiRequest {
   static Future<List<Request>> getRequestsFromEmployee(
@@ -34,9 +35,11 @@ class ApiRequest {
 
   static Future<Request?> createRequest(Request request) async {
     dynamic body = request.toJson();
-    dynamic res = await Api.POST_REQUEST(Api.REQUEST, body);
+    Dio dio = Dio();
 
-    Request requestConf = Request.fromJson(res["data"]);
+    var res = await dio.post(Api.REQUEST, data: body);
+
+    Request requestConf = Request.fromJson(res.data["solicitud"]);
 
     return requestConf;
   }

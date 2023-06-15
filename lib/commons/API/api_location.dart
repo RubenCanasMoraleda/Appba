@@ -8,6 +8,7 @@ class ApiLocation {
         await Api.GET_REQUEST("${Api.LOCATION}byCategory/${category.key}");
 
     List<Location> locations = [];
+
     List<dynamic> fetched = res["data"];
 
     for (var item in fetched) {

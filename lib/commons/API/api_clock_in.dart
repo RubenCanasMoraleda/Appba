@@ -26,8 +26,13 @@ class ApiClockIn {
       Employee employee) async {
     dynamic res = await Api.GET_REQUEST(
         "${Api.CLOCK_IN}fromEmpleado/${employee.id}/last");
+    ClockIn clockIn;
 
-    ClockIn clockIn = ClockIn.fromJson(res["marcaje"]);
+    if (res["marcaje"] != null) {
+      clockIn = ClockIn.fromJson(res["marcaje"]);
+    } else {
+      clockIn = ClockIn(tipo: Tipo.entrada, empleado: employee);
+    }
 
     return clockIn;
   }

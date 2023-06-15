@@ -94,17 +94,7 @@ class _CreateNotificationState extends State<CreateNotification> {
                                   titleController.text,
                                   descriptionController.text)
                               .then((value) => {
-                                    if (value != null)
-                                      {
-                                        Fluttertoast.showToast(
-                                            msg:
-                                                "Se ha creado la notificacion con exito",
-                                            toastLength: Toast.LENGTH_SHORT,
-                                            gravity: ToastGravity.CENTER,
-                                            timeInSecForIosWeb: 1,
-                                            fontSize: 16.0),
-                                        Navigator.pop(context)
-                                      }
+                                    if (value != null) {Navigator.pop(context)}
                                   });
                         }
                       },
