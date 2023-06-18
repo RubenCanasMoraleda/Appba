@@ -40,7 +40,7 @@ class CreateClockInController extends ChangeNotifier {
         clockInLocation!.long!, position.latitude, position.longitude);
 
     ClockIn? clockIn;
-    if (distance < 50) {
+    if (distance > 50) {
       Fluttertoast.showToast(
           msg: "Estas demasiado lejos de ${clockInLocation?.name}");
     } else {
