@@ -1,6 +1,6 @@
 <a name="br1"></a> 
 
-2º CFGS
+<h2>2º CFGS
 
 Desarrollo de Aplicaciones Multiplataforma
 
@@ -8,7 +8,7 @@ Desarrollo de Aplicaciones Multiplataforma
 
 Rubén Canas Moraleda
 
-Juan Manuel González Morcillo
+Juan Manuel González Morcillo</h2>
 
 
 
