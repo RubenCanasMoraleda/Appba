@@ -140,7 +140,7 @@ pero con algún tipo de fallo.
 
 las festividades locales y fines de semana.
 
-● Comprobaciones de seguridad para las peticiones del backend.
+● Comprobaciones de seguridad para las peticiones del <a href="https://github.com/jgonmor/backend_appba.git">backend</a>.
 
 ● Permitir a los empleados de RRHH gestionar los parámetros por defecto
 
