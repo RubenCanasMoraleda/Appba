@@ -62,7 +62,6 @@ aplicaciones Android, iOS y Web. Con respecto al Back End pretendemos usar
 
 MariaDB para la gestión de la Base de Datos y Laravel para crear la API.
 
-2
 
 
 
@@ -103,7 +102,6 @@ razonable, pero no de una manera que sugiera que tiene el apoyo del licenciador 
 
 recibe por el uso que hace.
 
-7
 
 
 
