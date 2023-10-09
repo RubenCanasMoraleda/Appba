@@ -15,10 +15,10 @@ Juan Manuel González Morcillo</h2>
 
 <a name="br3"></a> 
 
-<h3>**Definición del proyecto**</h3>
+<h3>Definición del proyecto</h3>
 </br>
 
-<h4>**Ámbito**</h4>
+<h4>Ámbito</h4>
 </br>
 
 <p>La Autoridad Portuaria necesita una solución efectiva para gestionar las
@@ -44,7 +44,7 @@ imprescindible para optimizar la gestión de los recursos humanos en la Autorida
 Portuaria y garantizar el buen funcionamiento de la organización en su conjunto.</p>
 </br>
 
-<h4>**Alcance del proyecto**</h4>
+<h4>Alcance del proyecto</h4>
 </br>
 
 <p>Teniendo en cuenta la envergadura del proyecto y el plazo disponible, hemos
@@ -69,10 +69,10 @@ MariaDB para la gestión de la Base de Datos y Laravel para crear la API.</p>
 </br>
 
 
-<h3>**Especificación funcional del sistema**</h3>
+<h3>Especificación funcional del sistema</h3>
 </br>
 
-<h4>**Manual Técnico**</h4>
+<h4>Manual Técnico</h4>
 </br>
 
 <p>La instalación de la aplicación es tan sencilla como abrir el archivo apk de
@@ -90,7 +90,7 @@ cuanto a la compatibilidad con dispositivos móviles, la aplicación está pensa
 ejecutarse en dispositivos con una versión mínima 19 para Android y 11 para iOS</p>
 </br>
 
-<h3>**Licencia de uso y desarrollo**</h3>
+<h3>Licencia de uso y desarrollo</h3>
 </br>
 
 <p>Hemos optado por usar una licencia Creative Commons, en concreto la licencia
@@ -122,7 +122,7 @@ medidas tecnológicas que legalmente restrinjan realizar aquello que la licencia
 
 </br>
 
-<h3>**Análisis crítico para plantear posibles mejoras**</h3>
+<h3>Análisis crítico para plantear posibles mejoras</h3>
 </br>
 
 <p>A pesar de intentar darle la funcionalidad más completa posible a nuestra
@@ -151,7 +151,7 @@ y de los empleados
 ● Aumentar el feedback de los estados de las peticiones vía Internet
 
 </br>
-<h3>**Viabilidad**</h3>
+<h3>Viabilidad</h3>
 </br>
 
 <p>En cuanto a la prospección del proyecto en el mundo real, es una idea surgida
@@ -165,7 +165,7 @@ compatibilidad entre la aplicación y los datos ya existentes de la autoridad po
 consideramos que el proyecto cuenta con una alta viabilidad.</p>
 </br>
 
-<h3>**Bibliografía**</h3>
+<h3>Bibliografía</h3>
 </br>
 
 <https://creativecommons.org>
