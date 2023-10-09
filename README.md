@@ -9,14 +9,17 @@ Desarrollo de Aplicaciones Multiplataforma
 Rubén Canas Moraleda
 
 Juan Manuel González Morcillo</h2>
+</br>
 
 
 
 <a name="br3"></a> 
 
 <h3>**Definición del proyecto**</h3>
+</br>
 
 <h4>**Ámbito**</h4>
+</br>
 
 <p>La Autoridad Portuaria necesita una solución efectiva para gestionar las
 
@@ -39,9 +42,10 @@ gestión global de la organización. En resumen, la aplicación propuesta es
 imprescindible para optimizar la gestión de los recursos humanos en la Autoridad
 
 Portuaria y garantizar el buen funcionamiento de la organización en su conjunto.</p>
-
+</br>
 
 <h4>**Alcance del proyecto**</h4>
+</br>
 
 <p>Teniendo en cuenta la envergadura del proyecto y el plazo disponible, hemos
 
@@ -62,16 +66,14 @@ aunque prevemos que el plazo sea demasiado ajustado para llevar a cabo.</p>
 aplicaciones Android, iOS y Web. Con respecto al Back End pretendemos usar
 
 MariaDB para la gestión de la Base de Datos y Laravel para crear la API.</p>
+</br>
 
-
-
-
-<a name="br8"></a> 
 
 <h3>**Especificación funcional del sistema**</h3>
-
+</br>
 
 <h4>**Manual Técnico**</h4>
+</br>
 
 <p>La instalación de la aplicación es tan sencilla como abrir el archivo apk de
 
@@ -86,14 +88,17 @@ aplicación disponíamos del framework Flutter con versión 3.11 basado en dart 
 cuanto a la compatibilidad con dispositivos móviles, la aplicación está pensada para
 
 ejecutarse en dispositivos con una versión mínima 19 para Android y 11 para iOS</p>
+</br>
 
 <h3>**Licencia de uso y desarrollo**</h3>
+</br>
 
 <p>Hemos optado por usar una licencia Creative Commons, en concreto la licencia
 
 CC BY-NC-ND 4.0, que permite compartir esta aplicación bajo las condiciones
 
 siguientes:</p>
+</br>
 
 <p>Attribution — Debe reconocer adecuadamente la autoría, proporcionar un enlace
 
@@ -102,11 +107,8 @@ a la licencia e indicar si se han realizado cambios. Puede hacerlo de cualquier 
 razonable, pero no de una manera que sugiera que tiene el apoyo del licenciador o lo
 
 recibe por el uso que hace.</p>
+</br>
 
-
-
-
-<a name="br9"></a> 
 
 <p>NonCommercial — No puede utilizar el material para una finalidad comercial.
 
@@ -118,9 +120,10 @@ No hay restricciones adicionales — No puede aplicar términos legales o
 
 medidas tecnológicas que legalmente restrinjan realizar aquello que la licencia permite.</p>
 
-
+</br>
 
 <h3>**Análisis crítico para plantear posibles mejoras**</h3>
+</br>
 
 <p>A pesar de intentar darle la funcionalidad más completa posible a nuestra
 
@@ -129,6 +132,7 @@ aplicación, debido a las limitaciones de tiempo presentes hemos tenido que excl
 ciertos componentes o funcionalidades. A continuación se plantea una lista con
 
 posibles mejores a este proyecto:</p>
+</br>
 
 ● Arreglar el splash screen, cuya funcionalidad se encuentra implementada
 
@@ -146,8 +150,9 @@ y de los empleados
 
 ● Aumentar el feedback de los estados de las peticiones vía Internet
 
-
+</br>
 <h3>**Viabilidad**</h3>
+</br>
 
 <p>En cuanto a la prospección del proyecto en el mundo real, es una idea surgida
 
@@ -158,8 +163,10 @@ portuario y unas ligeras adaptaciones para adecuar los modelos y asegurar la
 compatibilidad entre la aplicación y los datos ya existentes de la autoridad portuaria
 
 consideramos que el proyecto cuenta con una alta viabilidad.</p>
+</br>
 
 <h3>**Bibliografía**</h3>
+</br>
 
 <https://creativecommons.org>
 
