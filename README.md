@@ -14,11 +14,11 @@ Juan Manuel González Morcillo</h2>
 
 <a name="br3"></a> 
 
-**Definición del proyecto**
+<h3>**Definición del proyecto**</h3>
 
-**Ámbito**
+<h4>**Ámbito**</h4>
 
-La Autoridad Portuaria necesita una solución efectiva para gestionar las
+<p>La Autoridad Portuaria necesita una solución efectiva para gestionar las
 
 ausencias, presencia, documentación y notificaciones de sus empleados. Actualmente,
 
@@ -38,11 +38,12 @@ gestión global de la organización. En resumen, la aplicación propuesta es
 
 imprescindible para optimizar la gestión de los recursos humanos en la Autoridad
 
-Portuaria y garantizar el buen funcionamiento de la organización en su conjunto.
+Portuaria y garantizar el buen funcionamiento de la organización en su conjunto.</p>
 
-**Alcance del proyecto**
 
-Teniendo en cuenta la envergadura del proyecto y el plazo disponible, hemos
+<h4>**Alcance del proyecto**</h4>
+
+<p>Teniendo en cuenta la envergadura del proyecto y el plazo disponible, hemos
 
 considerado que las funcionalidades base del proyecto sean de gestión de solicitud de
 
@@ -52,27 +53,27 @@ enfocaremos en la gestión de documentación. Por último, quedaría la gestión
 
 notificaciones que sería la última integración del proyecto si es posible en el plazo,
 
-aunque prevemos que el plazo sea demasiado ajustado para llevar a cabo.
+aunque prevemos que el plazo sea demasiado ajustado para llevar a cabo.</p>
 
-**Tecnología de la aplicación**
+<h4>**Tecnología de la aplicación**</h4>
 
-Para la parte del cliente vamos a usar el framework de flutter, diseñado para
+<p>Para la parte del cliente vamos a usar el framework de flutter, diseñado para
 
 aplicaciones Android, iOS y Web. Con respecto al Back End pretendemos usar
 
-MariaDB para la gestión de la Base de Datos y Laravel para crear la API.
+MariaDB para la gestión de la Base de Datos y Laravel para crear la API.</p>
 
 
 
 
 <a name="br8"></a> 
 
-**Especificación funcional del sistema**
+<h3>**Especificación funcional del sistema**</h3>
 
 
-**Manual Técnico**
+<h4>**Manual Técnico**</h4>
 
-La instalación de la aplicación es tan sencilla como abrir el archivo apk de
+<p>La instalación de la aplicación es tan sencilla como abrir el archivo apk de
 
 instalación. En cuanto a la versión de MySQL, hemos usado la 8.0.21. Para realizar la
 
@@ -84,30 +85,30 @@ aplicación disponíamos del framework Flutter con versión 3.11 basado en dart 
 
 cuanto a la compatibilidad con dispositivos móviles, la aplicación está pensada para
 
-ejecutarse en dispositivos con una versión mínima 19 para Android y 11 para iOS
+ejecutarse en dispositivos con una versión mínima 19 para Android y 11 para iOS</p>
 
-**Licencia de uso y desarrollo**
+<h3>**Licencia de uso y desarrollo**</h3>
 
-Hemos optado por usar una licencia Creative Commons, en concreto la licencia
+<p>Hemos optado por usar una licencia Creative Commons, en concreto la licencia
 
-CC BY-NC-ND 4.0, que permite la compartir esta aplicación bajo las condiciones
+CC BY-NC-ND 4.0, que permite compartir esta aplicación bajo las condiciones
 
-siguientes:
+siguientes:</p>
 
-Attribution — Debe reconocer adecuadamente la autoría, proporcionar un enlace
+<p>Attribution — Debe reconocer adecuadamente la autoría, proporcionar un enlace
 
 a la licencia e indicar si se han realizado cambios. Puede hacerlo de cualquier manera
 
 razonable, pero no de una manera que sugiera que tiene el apoyo del licenciador o lo
 
-recibe por el uso que hace.
+recibe por el uso que hace.</p>
 
 
 
 
 <a name="br9"></a> 
 
-NonCommercial — No puede utilizar el material para una finalidad comercial.
+<p>NonCommercial — No puede utilizar el material para una finalidad comercial.
 
 NoDerivatives — Si mezcla, transforma o crea a partir del material, no puede
 
@@ -115,20 +116,19 @@ difundir el material modificado.
 
 No hay restricciones adicionales — No puede aplicar términos legales o
 
-medidas tecnológicas que legalmente restrinjan realizar aquello que la licencia permite.
-
-**Corolario**
+medidas tecnológicas que legalmente restrinjan realizar aquello que la licencia permite.</p>
 
 
-**Análisis crítico para plantear posibles mejoras**
 
-A pesar de intentar darle la funcionalidad más completa posible a nuestra
+<h3>**Análisis crítico para plantear posibles mejoras**</h3>
+
+<p>A pesar de intentar darle la funcionalidad más completa posible a nuestra
 
 aplicación, debido a las limitaciones de tiempo presentes hemos tenido que excluir
 
 ciertos componentes o funcionalidades. A continuación se plantea una lista con
 
-posibles mejores a este proyecto:
+posibles mejores a este proyecto:</p>
 
 ● Arreglar el splash screen, cuya funcionalidad se encuentra implementada
 
@@ -147,24 +147,19 @@ y de los empleados
 ● Aumentar el feedback de los estados de las peticiones vía Internet
 
 
-**Viabilidad**
+<h3>**Viabilidad**</h3>
 
-En cuanto a la prospección del proyecto en el mundo real, es una idea surgida
+<p>En cuanto a la prospección del proyecto en el mundo real, es una idea surgida
 
 de una necesidad presente, por lo que con la conecta conexión con el sistema
 
-portuario y unas ligeras adaptaciones para adecuar los modelos y asegurar la
-
-
-
-
-<a name="br10"></a> 
+portuario y unas ligeras adaptaciones para adecuar los modelos y asegurar la 
 
 compatibilidad entre la aplicación y los datos ya existentes de la autoridad portuaria
 
-consideramos que el proyecto cuenta con una alta viabilidad.
+consideramos que el proyecto cuenta con una alta viabilidad.</p>
 
-**Bibliografía**
+<h3>**Bibliografía**</h3>
 
 <https://creativecommons.org>
 
