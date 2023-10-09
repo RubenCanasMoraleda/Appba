@@ -2,9 +2,7 @@
 
 <h2>2º CFGS
 
-Desarrollo de Aplicaciones Multiplataforma
-
-2022/2023
+Desarrollo de Aplicaciones Multiplataforma 2022/2023
 
 Rubén Canas Moraleda
 
