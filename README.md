@@ -59,7 +59,7 @@ notificaciones que sería la última integración del proyecto si es posible en 
 
 aunque prevemos que el plazo sea demasiado ajustado para llevar a cabo.</p>
 
-<h4>**Tecnología de la aplicación**</h4>
+<h4>Tecnología de la aplicación</h4>
 
 <p>Para la parte del cliente vamos a usar el framework de flutter, diseñado para
 
